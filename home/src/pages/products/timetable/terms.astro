@@ -1,0 +1,351 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+
+const lastUpdated = '2025年12月1日';
+---
+
+<PageLayout
+  title="利用規約 - Timetable"
+  description="Timetableの利用規約です。サービスをご利用いただく前に必ずお読みください。"
+>
+  <!-- Header Section -->
+  <section class="bg-gray-50 py-16 sm:py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">
+          利用規約
+        </h1>
+        <p class="text-gray-600">
+          最終更新日: {lastUpdated}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terms Content -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none">
+
+        <div class="bg-blue-50 p-6 rounded-lg mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            重要なお知らせ
+          </h2>
+          <p class="text-gray-700">
+            本アプリは全て個人開発によって運営されています。完全無料でご利用いただけますが、対応の遅れなどによってユーザーの皆様にはご不便をおかけすることがございます。何卒ご理解のほどよろしくお願いします。
+          </p>
+        </div>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            第1条 適用
+          </h2>
+          <p class="text-gray-700 mb-4">
+            本利用規約（以下「本規約」）は、Timetable（以下「本サービス」）の利用に関する条件を定めるものです。
+          </p>
+          <p class="text-gray-700">
+            本サービスをご利用いただく際は、本規約に同意いただいたものとみなします。
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            第2条 サービス内容
+          </h2>
+          <p class="text-gray-700 mb-4">
+            本サービスは、ブラウザ上で動作する時間割表作成・管理ツールを提供するサービスです。
+          </p>
+          <p class="text-gray-700 mb-4">
+            主な機能：
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+            <li>時間割表の作成・編集</li>
+            <li>作成した時間割の画像保存</li>
+            <li>ブラウザのローカルストレージへのデータ保存</li>
+            <li>Googleアカウントでログインしてクラウドにデータ保存（オプション）</li>
+          </ul>
+          <p class="text-gray-700">
+            本サービスは完全無料で、ログイン不要でご利用いただけます。データを保存したい場合は、Googleアカウントでログインすることも可能です。
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            第3条 利用者の責任
+          </h2>
+          <p class="text-gray-700 mb-4">
+            利用者は、本サービスを適切に使用する責任があります。
+          </p>
+          <p class="text-gray-700 mb-4">
+            以下の行為を禁止します：
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+            <li>本サービスの改ざん・不正アクセス</li>
+            <li>他者の権利を侵害する内容の作成・共有</li>
+            <li>公序良俗に反する利用</li>
+            <li>本サービスの運営を妨害する行為</li>
+          </ul>
+          <p class="text-gray-700">
+            利用者が本サービスを利用して行った行為により発生した損害について、当方は一切の責任を負いません。
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            第4条 データの管理
+          </h2>
+          <p class="text-gray-700 mb-4">
+            本サービスで作成された時間割データは、利用方法に応じて以下のように保存されます：
+          </p>
+
+          <h4 class="text-lg font-bold text-gray-900 mb-2">
+            ログインせずに利用する場合
+          </h4>
+          <p class="text-gray-700 mb-4">
+            データは利用者のブラウザのローカルストレージに保存されます。ブラウザのデータ削除により、時間割データが失われる可能性があります。
+          </p>
+
+          <h4 class="text-lg font-bold text-gray-900 mb-2">
+            Googleアカウントでログインして利用する場合
+          </h4>
+          <p class="text-gray-700 mb-4">
+            データはクラウドサーバーに安全に保存されます。ただし、システム障害等により、データが失われる可能性があります。
+          </p>
+
+          <p class="text-gray-700 mb-4">
+            利用者は以下について理解し、同意するものとします：
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+            <li>データのバックアップは利用者自身の責任で行うこと</li>
+            <li>当方はデータの保全・復旧について一切の責任を負わないこと</li>
+            <li>重要なデータは画像として保存することを推奨</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            第5条 免責事項
+          </h2>
+          <p class="text-gray-700 mb-4">
+            当方は、本サービスの利用により利用者に生じた損害について、一切の責任を負いません。
+          </p>
+          <p class="text-gray-700 mb-4">
+            以下の場合を含みますが、これらに限定されません：
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+            <li>本サービスの中断、停止、終了、利用不能</li>
+            <li>データの消失、破損</li>
+            <li>ブラウザの互換性問題</li>
+            <li>利用者の端末環境による不具合</li>
+            <li>第三者による不正アクセス</li>
+          </ul>
+          <p class="text-gray-700">
+            本サービスは現状有姿で提供され、動作の保証、セキュリティの保証、継続性の保証は一切いたしません。
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            第6条 知的財産権
+          </h2>
+          <p class="text-gray-700 mb-4">
+            本サービスに関する知的財産権は、すべて当方または正当な権利者に帰属します。
+          </p>
+          <p class="text-gray-700 mb-4">
+            利用者が作成した時間割の内容については、利用者に帰属します。利用者は、作成した時間割を自由に使用・配布することができます。
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            第7条 規約の変更
+          </h2>
+          <p class="text-gray-700 mb-4">
+            当方は、事前の通知なく本規約を変更することがあります。
+          </p>
+          <p class="text-gray-700">
+            変更後の規約は、本ウェブサイト上での掲載をもって効力を発するものとします。
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            第8条 サービスの変更・終了
+          </h2>
+          <p class="text-gray-700 mb-4">
+            当方は、事前の通知なく本サービスの内容を変更し、または本サービスの提供を終了することがあります。
+          </p>
+          <p class="text-gray-700">
+            サービスの変更・終了により利用者に生じた損害について、当方は一切の責任を負いません。
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            第9条 準拠法・管轄裁判所
+          </h2>
+          <p class="text-gray-700 mb-4">
+            本規約は、日本法に準拠し、日本法に従って解釈されるものとします。
+          </p>
+          <p class="text-gray-700">
+            本サービスに関して紛争が生じた場合は、東京地方裁判所を専属的合意管轄とします。
+          </p>
+        </section>
+
+        <div class="bg-gray-50 p-6 rounded-lg mt-12">
+          <p class="text-sm text-gray-600 text-center">
+            ご質問やお問い合わせがございましたら、<a href="/contact" class="text-blue-600 hover:underline">お問い合わせページ</a>よりご連絡ください。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .bg-gray-50 {
+    background-color: #f9fafb;
+  }
+
+  .bg-blue-50 {
+    background-color: #eff6ff;
+  }
+
+  .text-gray-600 {
+    color: #4b5563;
+  }
+
+  .text-gray-700 {
+    color: #374151;
+  }
+
+  .text-gray-900 {
+    color: #111827;
+  }
+
+  .text-blue-600 {
+    color: #2563eb;
+  }
+
+  .text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .prose {
+    color: #374151;
+    max-width: 65ch;
+  }
+
+  .prose h2 {
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+
+  .prose h3 {
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+  }
+
+  .prose p {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+  }
+
+  .prose ul {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+  }
+
+  .prose li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .prose strong {
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .prose a:hover {
+    text-decoration: underline;
+  }
+
+  .max-w-4xl {
+    max-width: 56rem;
+  }
+
+  .max-w-none {
+    max-width: none;
+  }
+
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .p-6 {
+    padding: 1.5rem;
+  }
+
+  .mb-4 {
+    margin-bottom: 1rem;
+  }
+
+  .mb-8 {
+    margin-bottom: 2rem;
+  }
+
+  .mt-12 {
+    margin-top: 3rem;
+  }
+
+  .rounded-lg {
+    border-radius: 0.5rem;
+  }
+
+  .list-disc {
+    list-style-type: disc;
+  }
+
+  .list-inside {
+    list-style-position: inside;
+  }
+
+  .space-y-2 > * + * {
+    margin-top: 0.5rem;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .sm\\:px-6 {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .sm\\:py-24 {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lg\\:px-8 {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+</style>

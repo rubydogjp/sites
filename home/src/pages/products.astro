@@ -2,9 +2,9 @@
 import PageLayout from '../layouts/PageLayout.astro';
 
 const sections = [
+  { id: 'timetable', title: 'Timetable' },
   { id: 'youtube', title: 'Youtube' },
   { id: 'flutter-note', title: 'Flutter Note' },
-  { id: 'timetable', title: 'Timetable' },
   { id: 'archived', title: '停止中のプロジェクト' }
 ];
 
@@ -50,6 +50,34 @@ const archivedProjects = [
         <p class="page-description">ここではルビーDog個人による活動をまとめています</p>
       </header>
 
+      <!-- Timetable Section -->
+      <section id="timetable" class="project-section">
+        <div class="section-header">
+          <h2>Timetable <span class="subtitle">タイムテーブル</span></h2>
+        </div>
+        <div class="section-content">
+          <p>社会人も学生みたいに時間割表が欲しい！<br>生活リズムを整えるために使うシンプルな時間割表アプリです。</p>
+          <ul class="feature-list">
+            <li>ログイン不要ですぐに使える（データ保存にはログイン可能）</li>
+            <li>生活リズムを整えて習慣化をサポート</li>
+            <li>作成した時間割は画像として保存可能</li>
+            <li>旅行やイベントの日程共有にも活用できる</li>
+          </ul>
+          <div class="media-container">
+            <img src="/products/timetable/pr-main-image.png" alt="Timetable" />
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">Flutter</span>
+          </div>
+          <a href="https://timetable.rubydog.jp" target="_blank" rel="noopener noreferrer" class="link-button">
+            アプリを開く
+          </a>
+          <a href="/products/timetable" class="link-button" style="margin-left: 1rem;">
+            詳しく見る
+          </a>
+        </div>
+      </section>
+
       <!-- Youtube Section -->
       <section id="youtube" class="project-section">
         <div class="section-header">
@@ -84,22 +112,6 @@ const archivedProjects = [
           </div>
           <a href="https://flutter-note.rubydog.jp/" target="_blank" rel="noopener noreferrer" class="link-button">
             Flutter入門動画リスト はこちら
-          </a>
-        </div>
-      </section>
-
-      <!-- Timetable Section -->
-      <section id="timetable" class="project-section">
-        <div class="section-header">
-          <h2>Timetable <span class="subtitle">タイムテーブル</span></h2>
-        </div>
-        <div class="section-content">
-          <p>シンプルで使いやすい時間割管理アプリです。</p>
-          <div class="tech-tags">
-            <span class="tech-tag">Flutter</span>
-          </div>
-          <a href="/products/timetable" class="link-button">
-            Timetableについて詳しく
           </a>
         </div>
       </section>
