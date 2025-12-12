@@ -1,8 +1,8 @@
-name: Deploy Home Site
+name: Deploy Apex Site
 
 on:
   push:
-    branches: [home]
+    branches: [apex]
   workflow_dispatch:
 
 permissions:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./home
+        working-directory: ./apex
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,7 +34,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./home/dist
+          path: ./apex/dist
 
   deploy:
     needs: build
