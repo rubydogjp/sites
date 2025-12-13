@@ -72,6 +72,9 @@ const structuredData = {
               アプリを開く
             </a>
           </div>
+          <div class="warning-bubble">
+            <p>X から来た人は最初の読み込みが終わらないケースがあります。<br />右上のメニューから再読み込みするか、別のブラウザで開くをしてみてください。</p>
+          </div>
         </div>
         <div class="hero-media">
           <video
@@ -182,8 +185,11 @@ const structuredData = {
           登録不要で使える、完全無料のアプリ。データを保存したい場合はログインも可能です。
         </p>
         <a href={appUrl} target="_blank" rel="noopener noreferrer" class="cta-button large">
-          Timetableを開く
+          アプリを開く
         </a>
+        <div class="warning-bubble">
+          <p>X から来た人は最初の読み込みが終わらないケースがあります。<br />右上のメニューから再読み込みするか、別のブラウザで開くをしてみてください。</p>
+        </div>
       </div>
     </section>
 
@@ -442,8 +448,92 @@ const structuredData = {
     color: #EA4036;
   }
 
+  /* 注意書きの吹き出し */
+  .warning-bubble {
+    background: #fff3cd; /* より目立つ黄色 */
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    position: relative;
+    border: 1px solid #ffc107; /* 境界線を濃くする */
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* 影を少し濃くする */
+    margin-top: 0.875rem; /* 14px: CTAセクションやモバイル用のデフォルト */
+  }
+
+  /* デスクトップ時のヒーローセクションの吹き出し位置調整 */
+  @media (min-width: 969px) {
+    .hero-text > .warning-bubble {
+      /* hero-textのgap(1.5rem)を打ち消すためのネガティブマージン */
+      margin-top: calc(0.875rem - 1.5rem);
+    }
+  }
+
+  .warning-bubble p {
+    margin: 0;
+    color: #664d03; /* 文字のコントラストを上げる */
+    font-size: 0.95rem;
+    font-weight: 500; /* 少し太くして読みやすく */
+    line-height: 1.7;
+  }
+
+  /* 吹き出しの矢印 */
+  .warning-bubble::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    top: -12px;
+    left: 40px;
+    border-width: 0 12px 12px 12px;
+    border-color: transparent transparent #ffc107 transparent;
+  }
+  .warning-bubble::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    top: -10px;
+    left: 42px;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #fff3cd transparent;
+  }
+
+  .cta-section .warning-bubble {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-section .warning-bubble::before,
+  .cta-section .warning-bubble::after {
+    left: 50%;
+  }
+  .cta-section .warning-bubble::before {
+    transform: translateX(-12px);
+  }
+  .cta-section .warning-bubble::after {
+    transform: translateX(-10px);
+  }
+
   /* レスポンシブデザイン */
   @media (max-width: 968px) {
+    .hero-text .warning-bubble {
+      margin-left: auto;
+      margin-right: auto;
+      /* hero-text の gap がモバイルでも効いているのでネガティブマージンが必要 */
+      margin-top: calc(0.875rem - 1.5rem);
+    }
+    .hero-text .warning-bubble::before,
+    .hero-text .warning-bubble::after {
+      left: 50%;
+    }
+    .hero-text .warning-bubble::before {
+      transform: translateX(-12px);
+    }
+    .hero-text .warning-bubble::after {
+      transform: translateX(-10px);
+    }
     .hero-content {
       grid-template-columns: 1fr;
       text-align: center;
