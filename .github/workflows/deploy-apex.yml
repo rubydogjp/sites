@@ -20,6 +20,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # --- Apex site ---
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -33,25 +34,60 @@ jobs:
         working-directory: ./apex
         run: npm run build
 
-      - name: Clone flutter_note source
-        run: git clone --depth 1 https://github.com/rbdog/flutter_note.git notes/flutter_note
-
+      # --- Flutter setup (shared by notes & hunny viewer) ---
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      - name: Install Flutter dependencies
+      # --- Notes (flutter_note) for /notes ---
+      - name: Clone flutter_note source
+        run: git clone --depth 1 https://github.com/rbdog/flutter_note.git notes/flutter_note
+
+      - name: Install Flutter Note dependencies
         working-directory: ./notes/flutter_note
         run: flutter pub get
 
-      - name: Build Flutter web for /notes
+      - name: Build Flutter Note for /notes
         working-directory: ./notes/flutter_note
         run: flutter build web --base-href=/notes/
 
-      - name: Copy Flutter build into apex dist
+      - name: Copy Flutter Note into apex dist
         run: cp -r notes/flutter_note/build/web apex/dist/notes
 
+      # --- Hunny for /hunny ---
+      - name: Checkout hunny source
+        uses: actions/checkout@v4
+        with:
+          ref: hunny
+          path: _hunny_src
+          sparse-checkout: hunny/
+
+      - name: Install Docusaurus dependencies
+        working-directory: ./_hunny_src/hunny/home_page
+        run: npm ci
+
+      - name: Build Docusaurus for /hunny
+        working-directory: ./_hunny_src/hunny/home_page
+        env:
+          SITE_URL: https://rubydog.jp
+          BASE_URL: /hunny/
+        run: npm run build
+
+      - name: Install Hunny viewer dependencies
+        working-directory: ./_hunny_src/hunny/viewer_app
+        run: flutter pub get
+
+      - name: Build Hunny viewer for /hunny/viewer
+        working-directory: ./_hunny_src/hunny/viewer_app
+        run: flutter build web --base-href=/hunny/viewer/
+
+      - name: Copy Hunny into apex dist
+        run: |
+          cp -r _hunny_src/hunny/home_page/build apex/dist/hunny
+          cp -r _hunny_src/hunny/viewer_app/build/web apex/dist/hunny/viewer
+
+      # --- Deploy ---
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:

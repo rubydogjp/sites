@@ -11,8 +11,8 @@ const config = {
   tagline: "はじめての共同開発、失敗し放題",
   favicon: "general/favicon.png",
 
-  url: "https://hunny.rubydog.jp",
-  baseUrl: "/",
+  url: process.env.SITE_URL || "https://hunny.rubydog.jp",
+  baseUrl: process.env.BASE_URL || "/",
 
   organizationName: "rubydogjp",
   projectName: "hunny",
