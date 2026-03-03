@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./notes/flutter_note
-        run: flutter pub upgrade google_fonts
+        run: flutter pub get
 
       - name: Build Flutter web
         working-directory: ./notes/flutter_note
