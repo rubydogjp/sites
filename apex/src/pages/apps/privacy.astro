@@ -1,12 +1,12 @@
 ---
-import PageLayout from '../../../layouts/PageLayout.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
 
-const lastUpdated = '2025年12月1日';
+const lastUpdated = '2026年3月3日';
 ---
 
 <PageLayout
-  title="プライバシーポリシー - Timetable"
-  description="Timetableのプライバシーポリシーです。個人情報の取り扱いについて詳しく説明しています。"
+  title="プライバシーポリシー"
+  description="Rubydog JP が提供するアプリのプライバシーポリシーです。個人情報の取り扱いについて詳しく説明しています。"
 >
   <!-- Header Section -->
   <section class="bg-gray-50 py-16 sm:py-24">
@@ -32,7 +32,7 @@ const lastUpdated = '2025年12月1日';
             プライバシーへの取り組み
           </h2>
           <p class="text-gray-700">
-            Timetableでは、皆様のプライバシーを最重要視しています。本アプリはログイン不要で使え、その場合すべてのデータはお使いのブラウザ内にのみ保存されます。データを保存したい場合はGoogleアカウントでログインできますが、その場合でもトラッキングや広告配信は一切行いません。
+            Rubydog JP（以下「当方」）が提供するアプリ（以下「本サービス」）では、皆様のプライバシーを最重要視しています。本サービスはログイン不要で使え、その場合すべてのデータはお使いのブラウザ内にのみ保存されます。データを保存したい場合はGoogleアカウントでログインできますが、その場合でも広告配信は一切行いません。
           </p>
         </div>
 
@@ -74,7 +74,7 @@ const lastUpdated = '2025年12月1日';
           </p>
           <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
             <li>Googleアカウントに紐づくメールアドレス</li>
-            <li>作成した時間割データ</li>
+            <li>アプリ内で作成したデータ</li>
             <li>サービス利用状況（エラーログ等、システム改善目的）</li>
           </ul>
 
@@ -84,9 +84,7 @@ const lastUpdated = '2025年12月1日';
           <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
             <li>名前、電話番号などのメールアドレス以外の個人情報</li>
             <li>年齢、住所、性別などの属性情報</li>
-            <li>IPアドレス、デバイス情報</li>
             <li>位置情報</li>
-            <li>Cookie による追跡データ</li>
           </ul>
 
           <p class="text-gray-700 mb-4">
@@ -102,18 +100,20 @@ const lastUpdated = '2025年12月1日';
             第3条 情報の利用目的
           </h2>
           <p class="text-gray-700 mb-4">
-            本サービスでは、サーバーにデータを送信しないため、以下の用途で情報を利用することはありません：
+            収集した情報は、以下の目的にのみ利用します：
           </p>
           <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>ユーザー識別</li>
+            <li>本サービスの機能提供および改善</li>
+            <li>ユーザーサポートへの対応</li>
+          </ul>
+          <p class="text-gray-700">
+            以下の用途で情報を利用することはありません：
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
             <li>マーケティング</li>
             <li>広告配信</li>
             <li>第三者への提供・販売</li>
-            <li>統計分析</li>
           </ul>
-          <p class="text-gray-700">
-            すべてのデータはお使いのブラウザ内でのみ使用され、アプリの機能提供以外の目的では一切使用されません。
-          </p>
         </section>
 
         <section class="mb-8">
@@ -124,7 +124,7 @@ const lastUpdated = '2025年12月1日';
             徹底した情報管理
           </h3>
           <p class="text-gray-700 mb-4">
-            時間割データは、利用方法に応じて以下のように保存・管理されます：
+            データは、利用方法に応じて以下のように保存・管理されます：
           </p>
 
           <h4 class="text-lg font-bold text-gray-900 mb-2">
@@ -151,7 +151,7 @@ const lastUpdated = '2025年12月1日';
             <strong>注意事項：</strong>
           </p>
           <p class="text-gray-700">
-            ログインせずに利用する場合、ブラウザのキャッシュやデータを削除すると、保存された時間割データも削除されます。大切なデータは画像として保存するか、ログインしてクラウドに保存することをお勧めします。
+            ログインせずに利用する場合、ブラウザのキャッシュやデータを削除すると、保存されたデータも削除されます。大切なデータはログインしてクラウドに保存することをお勧めします。
           </p>
         </section>
 
@@ -160,33 +160,39 @@ const lastUpdated = '2025年12月1日';
             第5条 第三者提供
           </h2>
           <p class="text-gray-700 mb-4">
-            本サービスでは、個人情報を一切収集していないため、第三者に提供することはありません。
+            当方は、利用者の同意なく個人情報を第三者に提供することはありません。
           </p>
           <p class="text-gray-700">
-            また、第三者の分析ツールや広告ネットワークとの連携も一切行っておりません。
+            ただし、法令に基づく場合など正当な理由がある場合はこの限りではありません。
           </p>
         </section>
 
         <section class="mb-8">
           <h2 class="text-2xl font-bold text-gray-900 mb-4">
-            第6条 トラッキング・分析ツール
+            第6条 アクセス解析ツール
           </h2>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            一切のトラッキングを行いません
-          </h3>
           <p class="text-gray-700 mb-4">
-            本サービスでは以下を行いません：
+            本サービスでは、サービスの改善を目的として Google Analytics を使用しています。Google Analytics は Cookie を使用してアクセス情報を収集しますが、個人を特定する情報は含まれません。
+          </p>
+          <p class="text-gray-700 mb-4">
+            収集されるデータの例：
           </p>
           <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>Google Analytics等のアクセス解析ツールの使用</li>
+            <li>ページの閲覧状況</li>
+            <li>利用しているブラウザやデバイスの種類</li>
+            <li>参照元の情報</li>
+          </ul>
+          <p class="text-gray-700 mb-4">
+            Google Analytics の利用規約については <a href="https://marketingplatform.google.com/about/analytics/terms/jp/" target="_blank" rel="noopener noreferrer" class="text-blue-600">Google アナリティクス利用規約</a> をご確認ください。
+          </p>
+          <p class="text-gray-700 mb-4">
+            以下については一切行いません：
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
             <li>広告トラッキング</li>
-            <li>第三者の分析ツールによる個人の特定</li>
-            <li>Cookie による行動追跡</li>
+            <li>個人を特定するための追跡</li>
             <li>フィンガープリンティング</li>
           </ul>
-          <p class="text-gray-700">
-            完全にプライバシーを尊重した設計となっています。
-          </p>
         </section>
 
         <section class="mb-8">
@@ -199,7 +205,7 @@ const lastUpdated = '2025年12月1日';
           <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
             <li>自身のデータへのアクセス権</li>
             <li>データの修正・削除権</li>
-            <li>データのエクスポート権（画像保存機能）</li>
+            <li>データのエクスポート権</li>
             <li>サービス利用停止権</li>
           </ul>
 
@@ -214,7 +220,7 @@ const lastUpdated = '2025年12月1日';
             ログインして利用する場合
           </h4>
           <p class="text-gray-700">
-            アカウント削除やデータ削除のご要望は、お問い合わせページよりご連絡ください。速やかに対応いたします。
+            アカウント削除やデータ削除のご要望は、<a href="/contact" class="text-blue-600">お問い合わせページ</a>よりご連絡ください。速やかに対応いたします。
           </p>
         </section>
 
@@ -375,19 +381,19 @@ const lastUpdated = '2025年12月1日';
   }
 
   @media (min-width: 640px) {
-    .sm\\:px-6 {
+    .sm\:px-6 {
       padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
 
-    .sm\\:py-24 {
+    .sm\:py-24 {
       padding-top: 6rem;
       padding-bottom: 6rem;
     }
   }
 
   @media (min-width: 1024px) {
-    .lg\\:px-8 {
+    .lg\:px-8 {
       padding-left: 2rem;
       padding-right: 2rem;
     }

@@ -1,0 +1,214 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+
+const apps = [
+  {
+    name: 'Timetable',
+    description: '生活リズムを整えるシンプルな時間割表アプリ',
+    url: 'https://timetable.rubydog.jp',
+    detail: '/products/timetable'
+  }
+];
+---
+
+<PageLayout title="アプリ一覧" description="Rubydog JP が提供するアプリの一覧です">
+  <section class="header-section">
+    <div class="header-inner">
+      <h1>アプリ一覧</h1>
+      <p class="header-description">Rubydog JP が提供するアプリの一覧です</p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-inner">
+      <div class="apps-grid">
+        {apps.map(app => (
+          <div class="app-card">
+            <h2 class="app-name">{app.name}</h2>
+            <p class="app-description">{app.description}</p>
+            <div class="app-actions">
+              <a href={app.url} target="_blank" rel="noopener noreferrer" class="app-button primary">
+                アプリを開く
+              </a>
+              <a href={app.detail} class="app-button secondary">
+                詳しく見る
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="policy-links">
+        <h3>ご利用にあたって</h3>
+        <p>
+          各アプリをご利用いただく際は、以下の規約・ポリシーが適用されます。
+        </p>
+        <ul>
+          <li><a href="/apps/privacy">プライバシーポリシー</a></li>
+          <li><a href="/apps/terms">利用規約</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .header-section {
+    background-color: #f9fafb;
+    padding: 4rem 1rem;
+  }
+
+  .header-inner {
+    max-width: 56rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .header-inner h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.5rem;
+  }
+
+  .header-description {
+    color: #4b5563;
+    font-size: 1.125rem;
+  }
+
+  .content-section {
+    padding: 4rem 1rem;
+  }
+
+  .content-inner {
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .app-card {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s;
+  }
+
+  .app-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .app-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.75rem;
+  }
+
+  .app-description {
+    color: #374151;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+  }
+
+  .app-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .app-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .app-button.primary {
+    background: #EA4036;
+    color: #fff;
+  }
+
+  .app-button.primary:hover {
+    background: #d63630;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 64, 54, 0.3);
+  }
+
+  .app-button.secondary {
+    background: #e9ecef;
+    color: #333;
+  }
+
+  .app-button.secondary:hover {
+    background: #dee2e6;
+    transform: translateY(-2px);
+  }
+
+  .policy-links {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 2rem;
+    border-left: 4px solid #EA4036;
+  }
+
+  .policy-links h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 0.75rem;
+  }
+
+  .policy-links p {
+    color: #374151;
+    line-height: 1.7;
+    margin: 0 0 1rem;
+  }
+
+  .policy-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .policy-links a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .policy-links a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .header-section {
+      padding: 3rem 1rem;
+    }
+
+    .header-inner h1 {
+      font-size: 2rem;
+    }
+
+    .content-section {
+      padding: 3rem 1rem;
+    }
+
+    .policy-links ul {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+</style>
