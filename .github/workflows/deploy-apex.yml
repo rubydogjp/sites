@@ -17,10 +17,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout apex
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: apex
 
       # --- Apex site ---
       - name: Setup Node
@@ -58,55 +56,41 @@ jobs:
         run: cp -r notes/flutter_note/build/web apex/dist/notes
 
       # --- Hunny for /hunny ---
-      - name: Checkout hunny source
-        uses: actions/checkout@v4
-        with:
-          ref: hunny
-          path: _hunny_src
-          sparse-checkout: hunny/
-
       - name: Install Docusaurus dependencies
-        working-directory: ./_hunny_src/hunny/home_page
+        working-directory: ./hunny/home_page
         run: npm ci
 
       - name: Build Docusaurus for /hunny
-        working-directory: ./_hunny_src/hunny/home_page
+        working-directory: ./hunny/home_page
         env:
           SITE_URL: https://rubydog.jp
           BASE_URL: /hunny/
         run: npm run build
 
       - name: Install Hunny viewer dependencies
-        working-directory: ./_hunny_src/hunny/viewer_app
+        working-directory: ./hunny/viewer_app
         run: flutter pub get
 
       - name: Build Hunny viewer for /hunny/viewer
-        working-directory: ./_hunny_src/hunny/viewer_app
+        working-directory: ./hunny/viewer_app
         run: flutter build web --base-href=/hunny/viewer/
 
       - name: Copy Hunny into apex dist
         run: |
-          cp -r _hunny_src/hunny/home_page/build apex/dist/hunny
-          cp -r _hunny_src/hunny/viewer_app/build/web apex/dist/hunny/viewer
+          cp -r hunny/home_page/build apex/dist/hunny
+          cp -r hunny/viewer_app/build/web apex/dist/hunny/viewer
 
       # --- Packages for /packages ---
-      - name: Checkout packages source
-        uses: actions/checkout@v4
-        with:
-          ref: packages
-          path: _packages_src
-          sparse-checkout: packages/
-
       - name: Install Packages dependencies
-        working-directory: ./_packages_src/packages
+        working-directory: ./packages
         run: flutter pub get
 
       - name: Build Packages for /packages
-        working-directory: ./_packages_src/packages
+        working-directory: ./packages
         run: flutter build web --base-href=/packages/
 
       - name: Copy Packages into apex dist
-        run: cp -r _packages_src/packages/build/web apex/dist/packages
+        run: cp -r packages/build/web apex/dist/packages
 
       # --- Deploy ---
       - name: Authenticate to Google Cloud

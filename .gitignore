@@ -12,3 +12,7 @@ hunny/dist/
 # Notes build artifacts
 notes/flutter_note/
 _build/
+
+# Packages build artifacts
+packages/build/
+packages/.dart_tool/
