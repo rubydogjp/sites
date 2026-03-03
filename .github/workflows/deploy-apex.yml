@@ -46,7 +46,7 @@ jobs:
 
       - name: Install Flutter Note dependencies
         working-directory: ./notes/flutter_note
-        run: flutter pub upgrade
+        run: flutter pub upgrade google_fonts
 
       - name: Build Flutter Note for /notes
         working-directory: ./notes/flutter_note
