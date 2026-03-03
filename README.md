@@ -2,25 +2,48 @@
 
 Firebase Hosting マルチサイトで複数サイトを管理するリポジトリ。
 
+## 開発とデプロイ
+
+**`main` ブランチで開発**し、デプロイ時に対応するブランチへ push する。
+
+```
+main (開発) ──push──→ apex     → rubydog.jp 全体をデプロイ
+                   → hunny    → hunny.rubydog.jp をデプロイ
+                   → notes    → flutter-note.rubydog.jp をデプロイ
+                   → packages → rubydog.jp 全体をデプロイ
+```
+
+各ブランチは同じファイルを持つ。ブランチはデプロイのトリガーとして分けているだけ。
+
 ## サイト一覧
 
-| URL | 内容 | ソース | ブランチ |
-|---|---|---|---|
-| `rubydog.jp` | トップページ | `apex/` | `apex` |
-| `rubydog.jp/notes` | Flutter 教材アプリ | GitHub `rbdog/flutter_note` | `apex` |
-| `rubydog.jp/hunny` | 共同開発教材 | `hunny/` (`hunny` ブランチ) | `apex` |
-| `rubydog.jp/packages` | Flutter パッケージデモ | `packages/` (`packages` ブランチ) | `apex`, `packages` |
-| `hunny.rubydog.jp` | 共同開発教材 (独立) | `hunny/` | `hunny` |
-| `flutter-note.rubydog.jp` | Flutter 教材アプリ (独立) | GitHub `rbdog/flutter_note` | `notes` |
+| URL | 内容 | ソース |
+|---|---|---|
+| `rubydog.jp` | トップページ | `apex/` |
+| `rubydog.jp/notes` | Flutter 教材アプリ | GitHub [`rbdog/flutter_note`](https://github.com/rbdog/flutter_note) (CI で clone) |
+| `rubydog.jp/hunny` | 共同開発教材 | `hunny/` |
+| `rubydog.jp/packages` | Flutter パッケージデモ | `packages/` |
+| `hunny.rubydog.jp` | 共同開発教材 (独立ドメイン) | `hunny/` |
+| `flutter-note.rubydog.jp` | Flutter 教材アプリ (独立ドメイン) | GitHub [`rbdog/flutter_note`](https://github.com/rbdog/flutter_note) (CI で clone) |
 
-## ブランチとデプロイ
+## デプロイトリガー
 
-| ブランチ | push 時の動作 |
-|---|---|
-| `apex` | `rubydog.jp` 全体をデプロイ (`/`, `/notes`, `/hunny`, `/packages`) |
-| `hunny` | `hunny.rubydog.jp` をデプロイ |
-| `notes` | `flutter-note.rubydog.jp` をデプロイ |
-| `packages` | `rubydog.jp` 全体をデプロイ (`/packages` の更新) |
+| ブランチ | CI ワークフロー | デプロイ先 |
+|---|---|---|
+| `apex` | `deploy-apex.yml` | `rubydog.jp` (`/`, `/notes`, `/hunny`, `/packages`) |
+| `hunny` | `deploy-hunny.yml` | `hunny.rubydog.jp` |
+| `notes` | `deploy-notes.yml` | `flutter-note.rubydog.jp` |
+| `packages` | `deploy-apex.yml` | `rubydog.jp` (`/`, `/notes`, `/hunny`, `/packages`) |
+
+## ディレクトリ構成
+
+```
+sites/
+  apex/             Apex トップページ (Node.js)
+  hunny/            共同開発教材 (Docusaurus + Flutter viewer)
+  notes/            説明のみ (ソースは CI で外部 clone)
+  packages/         Flutter パッケージデモ (virtual_phone を GitHub git 依存)
+```
 
 ## Firebase Hosting ターゲット
 
@@ -36,18 +59,9 @@ Firebase Hosting マルチサイトで複数サイトを管理するリポジト
 
 ```
 apex/dist/
-  index.html          ... apex サイト (Node ビルド)
-  notes/              ... flutter_note (GitHub clone → Flutter web ビルド)
-  hunny/              ... Docusaurus (hunny ブランチ checkout)
-    viewer/           ... Flutter viewer
-  packages/           ... Flutter パッケージデモ (packages ブランチ checkout)
+  index.html        ... apex サイト (Node ビルド)
+  notes/            ... flutter_note (GitHub clone → Flutter web ビルド)
+  hunny/            ... Docusaurus + Flutter viewer
+    viewer/
+  packages/         ... Flutter パッケージデモ
 ```
-
-## ソース参照方式
-
-| サイト | 方式 |
-|---|---|
-| apex | リポジトリ内 `apex/` |
-| hunny | リポジトリ内 `hunny/` (hunny ブランチから checkout) |
-| notes | 外部リポジトリ `rbdog/flutter_note` を CI で clone |
-| packages | リポジトリ内 `packages/` (packages ブランチから checkout) |
