@@ -1,8 +1,8 @@
-name: Deploy Sites
+name: Deploy Hunny
 
 on:
   push:
-    branches: [apex]
+    branches: [hunny]
   workflow_dispatch:
 
 permissions:
@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "hosting"
+  group: "hosting-hunny"
   cancel-in-progress: false
 
 jobs:
@@ -20,47 +20,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # --- Apex ---
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Apex dependencies
-        working-directory: ./apex
-        run: npm ci
-
-      - name: Build Apex site
-        working-directory: ./apex
-        run: npm run build
-
-      # --- Hunny Docusaurus ---
-      - name: Install Hunny Docusaurus dependencies
+      - name: Install Docusaurus dependencies
         working-directory: ./hunny/home_page
         run: npm ci
 
-      - name: Build Hunny Docusaurus site
+      - name: Build Docusaurus site
         working-directory: ./hunny/home_page
         run: npm run build
 
-      # --- Hunny Flutter Viewer ---
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      - name: Build Hunny Flutter viewer
+      - name: Build Flutter viewer
         working-directory: ./hunny/viewer_app
         run: flutter build web --base-href=/viewer/
 
-      # --- Assemble hunny/dist ---
-      - name: Assemble Hunny dist
+      - name: Assemble dist
         run: |
           mkdir -p hunny/dist
           cp -r hunny/home_page/build/* hunny/dist/
           cp -r hunny/viewer_app/build/web hunny/dist/viewer
 
-      # --- Deploy ---
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
@@ -68,4 +55,4 @@ jobs:
           service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
 
       - name: Deploy to Firebase Hosting
-        run: npx firebase-tools deploy --only hosting --project=rubydog-sites --non-interactive
+        run: npx firebase-tools deploy --only hosting:hunny --project=rubydog-sites --non-interactive
