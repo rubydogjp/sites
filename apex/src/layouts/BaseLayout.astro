@@ -17,7 +17,7 @@ const { title, description = 'ホームページへようこそ！' } = Astro.pr
     <meta name="description" content={description} />
     <meta property="og:image" content="/img/ogp.png" />
     <meta name="twitter:card" content="summary" />
-    <title>{title} - Rubydog</title>
+    <title>{title === 'Rubydog' ? title : `${title} - Rubydog`}</title>
 
     <!-- 追加のヘッドコンテンツ -->
     <slot name="head" />
