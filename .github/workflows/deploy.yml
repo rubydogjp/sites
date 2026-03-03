@@ -7,19 +7,15 @@ on:
 
 permissions:
   contents: read
-  pages: write
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: "hosting"
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./apex
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,23 +26,18 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
+        working-directory: ./apex
         run: npm ci
 
       - name: Build site
+        working-directory: ./apex
         run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
         with:
-          path: ./apex/dist
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy to Firebase Hosting
+        run: npx firebase-tools deploy --only hosting --project=rubydog-sites
