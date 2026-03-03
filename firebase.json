@@ -1,30 +1,10 @@
 {
-  "hosting": [
-    {
-      "target": "apex",
-      "public": "apex/dist",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        { "source": "**", "destination": "/index.html" }
-      ]
-    },
-    {
-      "target": "hunny",
-      "public": "hunny/dist",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [{ "source": "/viewer/**", "destination": "/viewer/index.html" }]
-    },
-    {
-      "target": "flutter-note",
-      "public": "_build/flutter-note",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [{ "source": "**", "destination": "/index.html" }]
-    },
-    {
-      "target": "packages",
-      "public": "packages/build/web",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [{ "source": "**", "destination": "/index.html" }]
-    }
-  ]
+  "hosting": {
+    "target": "apex",
+    "public": "apex/dist",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      { "source": "**", "destination": "/index.html" }
+    ]
+  }
 }

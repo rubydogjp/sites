@@ -1,18 +1,6 @@
 .DS_Store
 .firebase/
 
-# Hunny build artifacts
-hunny/home_page/node_modules/
-hunny/home_page/build/
-hunny/home_page/.docusaurus/
-hunny/viewer_app/build/
-hunny/viewer_app/.dart_tool/
-hunny/dist/
-
-# Notes build artifacts
-notes/flutter_note/
-_build/
-
-# Packages build artifacts
-packages/build/
-packages/.dart_tool/
+# Apex build artifacts
+apex/dist/
+apex/node_modules/
