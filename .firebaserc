@@ -13,6 +13,9 @@
         ],
         "flutter-note": [
           "rubydogjp-flutter-note"
+        ],
+        "packages": [
+          "rubydogjp-packages"
         ]
       }
     }

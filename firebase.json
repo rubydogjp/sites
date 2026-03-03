@@ -5,9 +5,6 @@
       "public": "apex/dist",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
-        { "source": "/packages/**", "destination": "/packages/index.html" },
-        { "source": "/hunny/viewer/**", "destination": "/hunny/viewer/index.html" },
-        { "source": "/notes/**", "destination": "/notes/index.html" },
         { "source": "**", "destination": "/index.html" }
       ]
     },
@@ -20,6 +17,12 @@
     {
       "target": "flutter-note",
       "public": "_build/flutter-note",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [{ "source": "**", "destination": "/index.html" }]
+    },
+    {
+      "target": "packages",
+      "public": "packages/build/web",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [{ "source": "**", "destination": "/index.html" }]
     }

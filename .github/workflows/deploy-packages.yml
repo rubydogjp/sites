@@ -1,8 +1,8 @@
-name: Deploy Apex
+name: Deploy Packages
 
 on:
   push:
-    branches: [apex]
+    branches: [packages]
   workflow_dispatch:
 
 permissions:
@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "hosting-apex"
+  group: "hosting-packages"
   cancel-in-progress: false
 
 jobs:
@@ -20,18 +20,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          node-version: '20'
+          channel: stable
 
       - name: Install dependencies
-        working-directory: ./apex
-        run: npm ci
+        working-directory: ./packages
+        run: flutter pub get
 
-      - name: Build site
-        working-directory: ./apex
-        run: npm run build
+      - name: Build Flutter web
+        working-directory: ./packages
+        run: flutter build web --base-href=/
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
@@ -40,4 +40,4 @@ jobs:
           service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
 
       - name: Deploy to Firebase Hosting
-        run: npx firebase-tools deploy --only hosting:apex --project=rubydog-sites --non-interactive
+        run: npx firebase-tools deploy --only hosting:packages --project=rubydog-sites --non-interactive
