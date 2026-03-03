@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "rubydog-sites"
-  }
+  },
+  "targets": {
+    "rubydog-sites": {
+      "hosting": {
+        "apex": [
+          "rubydog-sites"
+        ],
+        "hunny": [
+          "rubydogjp-hunny"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

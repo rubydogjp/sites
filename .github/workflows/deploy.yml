@@ -1,4 +1,4 @@
-name: Deploy Apex Site
+name: Deploy Sites
 
 on:
   push:
@@ -20,19 +20,47 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # --- Apex ---
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: Install Apex dependencies
         working-directory: ./apex
         run: npm ci
 
-      - name: Build site
+      - name: Build Apex site
         working-directory: ./apex
         run: npm run build
 
+      # --- Hunny Docusaurus ---
+      - name: Install Hunny Docusaurus dependencies
+        working-directory: ./hunny/home_page
+        run: npm ci
+
+      - name: Build Hunny Docusaurus site
+        working-directory: ./hunny/home_page
+        run: npm run build
+
+      # --- Hunny Flutter Viewer ---
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Build Hunny Flutter viewer
+        working-directory: ./hunny/viewer_app
+        run: flutter build web --base-href=/viewer/
+
+      # --- Assemble hunny/dist ---
+      - name: Assemble Hunny dist
+        run: |
+          mkdir -p hunny/dist
+          cp -r hunny/home_page/build/* hunny/dist/
+          cp -r hunny/viewer_app/build/web hunny/dist/viewer
+
+      # --- Deploy ---
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
