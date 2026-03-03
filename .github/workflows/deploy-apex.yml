@@ -2,7 +2,7 @@ name: Deploy Apex
 
 on:
   push:
-    branches: [apex]
+    branches: [apex, packages]
   workflow_dispatch:
 
 permissions:
@@ -17,8 +17,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout apex
         uses: actions/checkout@v4
+        with:
+          ref: apex
 
       # --- Apex site ---
       - name: Setup Node
@@ -34,7 +36,7 @@ jobs:
         working-directory: ./apex
         run: npm run build
 
-      # --- Flutter setup (shared by notes & hunny viewer) ---
+      # --- Flutter setup (shared by notes, hunny viewer & packages) ---
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -86,6 +88,25 @@ jobs:
         run: |
           cp -r _hunny_src/hunny/home_page/build apex/dist/hunny
           cp -r _hunny_src/hunny/viewer_app/build/web apex/dist/hunny/viewer
+
+      # --- Packages for /packages ---
+      - name: Checkout packages source
+        uses: actions/checkout@v4
+        with:
+          ref: packages
+          path: _packages_src
+          sparse-checkout: packages/
+
+      - name: Install Packages dependencies
+        working-directory: ./_packages_src/packages
+        run: flutter pub get
+
+      - name: Build Packages for /packages
+        working-directory: ./_packages_src/packages
+        run: flutter build web --base-href=/packages/
+
+      - name: Copy Packages into apex dist
+        run: cp -r _packages_src/packages/build/web apex/dist/packages
 
       # --- Deploy ---
       - name: Authenticate to Google Cloud
