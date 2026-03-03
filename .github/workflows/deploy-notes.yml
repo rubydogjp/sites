@@ -1,8 +1,8 @@
-name: Deploy Apex
+name: Deploy Notes
 
 on:
   push:
-    branches: [apex]
+    branches: [notes]
   workflow_dispatch:
 
 permissions:
@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "hosting-apex"
+  group: "hosting-notes"
   cancel-in-progress: false
 
 jobs:
@@ -20,19 +20,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        working-directory: ./apex
-        run: npm ci
-
-      - name: Build site
-        working-directory: ./apex
-        run: npm run build
-
       - name: Clone flutter_note source
         run: git clone --depth 1 https://github.com/rbdog/flutter_note.git notes/flutter_note
 
@@ -41,16 +28,18 @@ jobs:
         with:
           channel: stable
 
-      - name: Install Flutter dependencies
+      - name: Install dependencies
         working-directory: ./notes/flutter_note
         run: flutter pub get
 
-      - name: Build Flutter web for /notes
+      - name: Build Flutter web
         working-directory: ./notes/flutter_note
-        run: flutter build web --base-href=/notes/
+        run: flutter build web --base-href=/
 
-      - name: Copy Flutter build into apex dist
-        run: cp -r notes/flutter_note/build/web apex/dist/notes
+      - name: Stage build
+        run: |
+          mkdir -p _build/flutter-note
+          cp -r notes/flutter_note/build/web/* _build/flutter-note/
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
@@ -59,4 +48,4 @@ jobs:
           service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
 
       - name: Deploy to Firebase Hosting
-        run: npx firebase-tools deploy --only hosting:apex --project=rubydog-sites --non-interactive
+        run: npx firebase-tools deploy --only hosting:flutter-note --project=rubydog-sites --non-interactive

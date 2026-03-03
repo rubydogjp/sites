@@ -8,3 +8,7 @@ hunny/home_page/.docusaurus/
 hunny/viewer_app/build/
 hunny/viewer_app/.dart_tool/
 hunny/dist/
+
+# Notes build artifacts
+notes/flutter_note/
+_build/
