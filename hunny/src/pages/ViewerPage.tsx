@@ -62,7 +62,6 @@ function splitLines(text: string, r: number, fs: number): string[] {
   }
 
   const cBot = charsAtOffset(LINE_H, r, fs);
-  const total = cTop + c0 + cBot;
   const l1 = text.substring(0, cTop);
   const l2 = text.substring(cTop, cTop + c0);
   const rest = text.substring(cTop + c0);
