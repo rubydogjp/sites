@@ -37,6 +37,11 @@ export default function TutorialPage() {
   const [faqHighlight, setFaqHighlight] = useState<string | undefined>();
   const [suspendOpen, setSuspendOpen] = useState(false);
 
+  // Scroll to top on slug change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentSlug]);
+
   useEffect(() => {
     if (currentSlug === "q-suspend-restart") {
       setSuspendOpen(true);

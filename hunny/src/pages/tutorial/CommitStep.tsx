@@ -1,24 +1,9 @@
-import { ImageFrame, CodeBlock, Callout, Section, CollapsibleSection, PageNav } from "../../components/docs";
+import { ImageFrame, CodeBlock, Callout, Section, CollapsibleSection, PageNav, StepHero } from "../../components/docs";
 
 export default function CommitStep() {
   return (
     <>
-      {/* Hero */}
-      <div className="flex items-center gap-4 mb-3">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-amber-300/30">
-          6
-        </div>
-        <div>
-          <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 tracking-wide">STEP 6</p>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-            コミット
-          </h1>
-        </div>
-      </div>
-
-      <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-        編集したファイルを保存して、変更を記録します。
-      </p>
+      <StepHero stepNum={6} title="コミット" subtitle="編集したファイルを保存して、変更を記録します。" />
 
       <ImageFrame src="/tutorial/eye-commit.gif" alt="コミットの流れ" />
 
@@ -59,13 +44,13 @@ $ git commit -m "feat: new cell rbdog #2"`}</CodeBlock>
             <p className="font-semibold">解決手順:</p>
             <ol className="list-decimal list-inside space-y-1 ml-1">
               <li>もう一度 <code className="text-xs bg-red-100 dark:bg-red-900/20 px-1 rounded">cells.json</code> を開く</li>
-              <li>相手の変更が残るように修正する (譲り合い)</li>
+              <li>相手の変更と自分の変更が<strong>両方残る</strong>ように修正する</li>
               <li>ファイルを保存する</li>
             </ol>
             <CodeBlock>{`$ git add data/cells.json
 $ git rebase --continue`}</CodeBlock>
-            <p className="text-red-700/70 dark:text-red-300/70">
-              自分の変更は消えるので、<strong>手順5. 本作業</strong> に戻ってやり直してください。
+            <p className="text-gray-600 dark:text-gray-400">
+              うまく解決できれば両方の変更が反映されます。もし自分の変更がうまく残らなかった場合は、<strong>手順5. 本作業</strong> に戻ってやり直してください。
             </p>
           </div>
         </div>

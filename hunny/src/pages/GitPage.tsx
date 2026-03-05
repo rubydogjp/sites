@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect } from "react";
 import { UnderConstruction } from "../components/docs";
 import GitTopicPage from "./git/GitTopicPage";
 
@@ -64,6 +65,8 @@ function GitIndex() {
 export default function GitPage() {
   const { slug } = useParams();
   const currentSlug = slug || "index";
+
+  useEffect(() => { window.scrollTo(0, 0); }, [currentSlug]);
 
   return (
     <article className="max-w-4xl mx-auto px-4 md:px-6 py-8 md:py-12">

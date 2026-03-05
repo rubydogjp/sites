@@ -146,7 +146,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         <div className="border-t border-amber-200/40 dark:border-gray-800 text-center py-4 text-xs text-amber-600/40 dark:text-amber-500/30">
-          &copy; 2023 Rubydog.
+          &copy; 2023 Rubydog JP.
         </div>
       </footer>
     </div>

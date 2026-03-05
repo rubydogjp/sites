@@ -1,20 +1,9 @@
-import { ImageFrame, OsTabs, Section, DataTable, LinkButton, PageNav } from "../../components/docs";
+import { ImageFrame, CodeBlock, OsTabs, Section, DataTable, LinkButton, PageNav, StepHero } from "../../components/docs";
 
 export default function WorkStep() {
   return (
     <>
-      {/* Hero */}
-      <div className="flex items-center gap-4 mb-3">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-amber-300/30">
-          5
-        </div>
-        <div>
-          <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 tracking-wide">STEP 5</p>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-            本作業
-          </h1>
-        </div>
-      </div>
+      <StepHero stepNum={5} title="本作業" subtitle="ハチの巣に好きな文字を入れてみましょう。" />
 
       <div className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed space-y-2">
         <p>
@@ -44,15 +33,15 @@ export default function WorkStep() {
 
         <OsTabs
           mac={
-            <div className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+            <div className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
               <p className="font-medium">ターミナルからフォルダを開く:</p>
-              <code className="bg-[#1e1e2e] text-[#cdd6f4] px-3 py-1.5 rounded-lg text-xs inline-block font-mono">open .</code>
+              <CodeBlock>{"$ open ."}</CodeBlock>
             </div>
           }
           windows={
-            <div className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+            <div className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
               <p className="font-medium">Powershell からフォルダを開く:</p>
-              <code className="bg-[#1e1e2e] text-[#cdd6f4] px-3 py-1.5 rounded-lg text-xs inline-block font-mono">start .</code>
+              <CodeBlock>{"$ start ."}</CodeBlock>
             </div>
           }
         />

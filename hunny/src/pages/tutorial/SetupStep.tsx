@@ -1,24 +1,9 @@
-import { ImageFrame, CodeBlock, OsTabs, Section, CollapsibleSection, LinkButton, PageNav } from "../../components/docs";
+import { ImageFrame, CodeBlock, OsTabs, InlineCode, Section, CollapsibleSection, LinkButton, PageNav, StepHero } from "../../components/docs";
 
 export default function SetupStep() {
   return (
     <>
-      {/* Hero */}
-      <div className="flex items-center gap-4 mb-3">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-amber-300/30">
-          1
-        </div>
-        <div>
-          <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 tracking-wide">STEP 1</p>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-            準備
-          </h1>
-        </div>
-      </div>
-
-      <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-        パソコンに必要な道具を揃えていきます。
-      </p>
+      <StepHero stepNum={1} title="準備" subtitle="パソコンに必要な道具を揃えていきます。" />
 
       {/* What you need */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
@@ -92,13 +77,13 @@ export default function SetupStep() {
 
         <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 text-sm space-y-2">
           <p className="text-gray-600 dark:text-gray-400">
-            💡 <code className="bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-amber-300 px-1.5 py-0.5 rounded text-xs">$</code> は「コマンドの先頭」を表す記号です。入力する必要はありません。
+            💡 <InlineCode>$</InlineCode> は「コマンドの先頭」を表す記号です。入力する必要はありません。
           </p>
           <p className="text-gray-700 dark:text-gray-300">
-            <code className="bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-amber-300 px-1.5 py-0.5 rounded text-xs">2.39.2</code> のようにバージョンが表示されれば OK
+            <InlineCode>2.39.2</InlineCode> のようにバージョンが表示されれば OK
           </p>
           <p className="text-red-600 dark:text-red-400">
-            <code className="bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-amber-300 px-1.5 py-0.5 rounded text-xs">1.7.10</code> 以下の場合は新しい Git をインストールしてください
+            <InlineCode>1.7.10</InlineCode> 以下の場合は新しい Git をインストールしてください
           </p>
         </div>
       </Section>
@@ -125,7 +110,7 @@ $ git config --global core.autocrlf false`}</CodeBlock>
         <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
           まだ使ったことがない方は以下から <strong>登録(サインアップ)</strong> をお願いします。
         </p>
-        <LinkButton href="https://github.co.jp/">GitHub にサインアップ</LinkButton>
+        <LinkButton href="https://github.com/signup">GitHub にサインアップ</LinkButton>
       </Section>
 
       {/* User ID */}
@@ -137,7 +122,7 @@ $ git config --global core.autocrlf false`}</CodeBlock>
           <div className="text-sm">
             <p className="font-semibold text-gray-900 dark:text-gray-100 mb-1">この ユーザー ID をメモしておいてください</p>
             <p className="text-gray-600 dark:text-gray-400">
-              例: <code className="bg-amber-100 dark:bg-gray-800 text-amber-900 dark:text-amber-300 px-1.5 py-0.5 rounded text-xs">rbdog</code>
+              例: <InlineCode>rbdog</InlineCode>
             </p>
           </div>
         </div>
@@ -148,6 +133,15 @@ $ git config --global core.autocrlf false`}</CodeBlock>
         <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
           アクセストークンはこれからの作業で使う<strong>秘密のパスワード</strong>のようなものです。
         </p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/10 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-300 mb-4 space-y-2">
+          <p className="font-semibold text-gray-900 dark:text-gray-100">作成時の設定</p>
+          <ul className="list-disc list-inside space-y-1 ml-1">
+            <li>種類: <InlineCode>Tokens (classic)</InlineCode> を選択</li>
+            <li>有効期限 (Expiration): <InlineCode>30 days</InlineCode> など</li>
+            <li>権限 (Scopes): <InlineCode>repo</InlineCode> にチェック</li>
+          </ul>
+        </div>
 
         <ImageFrame src="/tutorial/access-token.gif" alt="アクセストークンの作成方法" />
         <ImageFrame src="/tutorial/access-token-digest.png" alt="アクセストークンの設定画面" />

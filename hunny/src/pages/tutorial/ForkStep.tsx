@@ -1,24 +1,9 @@
-import { ImageFrame, CodeBlock, Section, CollapsibleSection, LinkButton, PageNav } from "../../components/docs";
+import { ImageFrame, CodeBlock, InlineCode, Section, CollapsibleSection, LinkButton, PageNav, StepHero } from "../../components/docs";
 
 export default function ForkStep() {
   return (
     <>
-      {/* Hero */}
-      <div className="flex items-center gap-4 mb-3">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-amber-300/30">
-          2
-        </div>
-        <div>
-          <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 tracking-wide">STEP 2</p>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-            フォークとクローン
-          </h1>
-        </div>
-      </div>
-
-      <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-        プロジェクトのデータをあなたの手元に準備します。
-      </p>
+      <StepHero stepNum={2} title="フォークとクローン" subtitle="プロジェクトのデータをあなたの手元に準備します。" />
 
       <ImageFrame src="/tutorial/eye-fork.gif" alt="フォークの流れ" />
 
@@ -33,7 +18,7 @@ export default function ForkStep() {
 
         <div className="bg-amber-50 dark:bg-amber-900/10 rounded-xl p-4 text-sm mb-4">
           <p className="text-gray-700 dark:text-gray-300">
-            ⚠️ <code className="bg-amber-100 dark:bg-gray-800 text-amber-900 dark:text-amber-300 px-1.5 py-0.5 rounded text-xs">Owner</code> が<strong>自分のアカウント</strong>になっていることを確認してください。
+            ⚠️ <InlineCode>Owner</InlineCode> が<strong>自分のアカウント</strong>になっていることを確認してください。
           </p>
         </div>
 
@@ -58,16 +43,12 @@ export default function ForkStep() {
       {/* upstream */}
       <Section title="upstream — 本体との接続を設定" icon="🔗">
         <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-          ハニープロジェクト本体の URL を <code className="bg-amber-100 dark:bg-gray-800 text-amber-900 dark:text-amber-300 px-1.5 py-0.5 rounded text-xs">upstream</code> として Git に登録しておきます。
+          ハニープロジェクト本体の URL を <InlineCode>upstream</InlineCode> として Git に登録しておきます。
         </p>
 
         <CodeBlock>{`$ cd hunny
 $ git remote add upstream https://github.com/rubydogjp/hunny.git`}</CodeBlock>
 
-        <CollapsibleSection title="入力の例を見る">
-          <CodeBlock>{`$ cd hunny
-$ git remote add upstream https://github.com/rubydogjp/hunny.git`}</CodeBlock>
-        </CollapsibleSection>
       </Section>
 
       {/* Done */}

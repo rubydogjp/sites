@@ -7,6 +7,8 @@ export { default as LinkButton } from "./LinkButton";
 export { default as CollapsibleSection } from "./CollapsibleSection";
 export { default as StepProgress } from "./StepProgress";
 export { default as PageNav } from "./PageNav";
+export { default as InlineCode } from "./InlineCode";
 export { default as Section } from "./Section";
+export { default as StepHero } from "./StepHero";
 export { default as UnderConstruction } from "./UnderConstruction";
 export type { StepMeta } from "./StepProgress";
