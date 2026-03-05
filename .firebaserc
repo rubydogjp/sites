@@ -7,6 +7,9 @@
       "hosting": {
         "apex": [
           "rubydog-sites"
+        ],
+        "hunny": [
+          "rubydogjp-hunny"
         ]
       }
     }
