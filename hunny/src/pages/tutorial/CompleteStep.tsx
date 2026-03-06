@@ -9,7 +9,7 @@ export default function CompleteStep() {
         <ImageFrame src="/tutorial/eye-complete.gif" alt="完了おめでとう" />
       </div>
 
-      <div className="my-10 rounded-2xl bg-gradient-to-br from-amber-50 via-amber-100/30 to-cream dark:from-amber-900/20 dark:via-gray-900 dark:to-gray-950 border border-amber-200 dark:border-amber-800/30 p-8 text-center">
+      <div className="my-10 rounded-2xl bg-gradient-to-br from-amber-50 via-amber-100/30 to-hunny-50 dark:from-amber-900/20 dark:via-gray-900 dark:to-gray-950 border border-amber-200 dark:border-amber-800/30 p-8 text-center">
         <span className="text-5xl mb-4 block">🎉</span>
         <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-3">
           おめでとうございます！

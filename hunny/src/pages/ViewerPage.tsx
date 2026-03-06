@@ -177,7 +177,7 @@ export default function ViewerPage() {
   const svgHeight = totalRows * HEX_H + HEX_H / 2;
 
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] bg-gradient-to-b from-amber-100 via-amber-50 to-cream dark:from-amber-950 dark:via-gray-950 dark:to-gray-950 relative overflow-hidden">
+    <div className="min-h-[calc(100vh-3.5rem)] bg-gradient-to-b from-amber-100 via-amber-50 to-hunny-50 dark:from-amber-950 dark:via-gray-950 dark:to-gray-950 relative overflow-hidden">
       <div
         className="absolute inset-0 opacity-[0.04] dark:opacity-[0.03]"
         style={{
@@ -188,7 +188,7 @@ export default function ViewerPage() {
       <div className="relative z-10 flex flex-col items-center">
         <div className="w-full flex items-center justify-between px-6 lg:px-10 pt-6 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-honey" />
+            <div className="w-2 h-2 rounded-full bg-hunny-500" />
             <span className="text-amber-700/60 dark:text-amber-400/60 text-sm font-medium tracking-wide">
               HONEYCOMB
             </span>
@@ -207,7 +207,7 @@ export default function ViewerPage() {
 
         {loading && (
           <div className="flex items-center justify-center py-32">
-            <div className="w-10 h-10 border-4 border-amber-200 dark:border-amber-800/40 border-t-honey rounded-full animate-spin" />
+            <div className="w-10 h-10 border-4 border-amber-200 dark:border-amber-800/40 border-t-hunny-500 rounded-full animate-spin" />
           </div>
         )}
 
@@ -216,7 +216,7 @@ export default function ViewerPage() {
             <p>エラーが発生しました</p>
             <button
               onClick={fetchCells}
-              className="px-4 py-2 rounded-xl bg-honey text-amber-950 font-semibold text-sm hover:bg-honey-dark transition-colors"
+              className="px-4 py-2 rounded-xl bg-hunny-500 text-amber-950 font-semibold text-sm hover:bg-hunny-600 transition-colors"
             >
               再試行
             </button>

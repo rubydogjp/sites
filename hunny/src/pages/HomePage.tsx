@@ -21,7 +21,7 @@ export default function HomePage() {
   return (
     <div className="overflow-hidden">
       {/* ─── Hero ─── */}
-      <section className="relative bg-gradient-to-b from-amber-50 via-cream to-cream dark:from-gray-900 dark:via-gray-950 dark:to-gray-950 pt-16 pb-24 md:pt-24 md:pb-32">
+      <section className="relative bg-gradient-to-b from-amber-50 via-hunny-50 to-hunny-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-950 pt-16 pb-24 md:pt-24 md:pb-32">
         {/* Decorative hexagons */}
         <Hex className="absolute top-8 left-[8%] w-16 text-amber-200/40 dark:text-amber-800/20 rotate-12" />
         <Hex className="absolute top-24 right-[10%] w-24 text-amber-300/30 dark:text-amber-700/15 -rotate-6" />
@@ -42,7 +42,7 @@ export default function HomePage() {
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-brand dark:text-amber-300 mb-4">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-hunny-700 dark:text-amber-300 mb-4">
             ハニー
           </h1>
           <p className="text-lg md:text-xl text-amber-800/70 dark:text-amber-200/60 max-w-lg mx-auto mb-10 leading-relaxed">
@@ -52,7 +52,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/tutorial/intro"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-honey hover:bg-honey-dark text-brand-dark font-bold rounded-2xl text-base shadow-lg shadow-amber-400/30 hover:shadow-amber-500/40 hover:-translate-y-0.5 transition-all"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-hunny-500 hover:bg-hunny-600 text-hunny-800 font-bold rounded-2xl text-base shadow-lg shadow-amber-400/30 hover:shadow-amber-500/40 hover:-translate-y-0.5 transition-all"
             >
               チュートリアルを開始
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -130,7 +130,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── How it works (Steps) ─── */}
-      <section className="py-16 md:py-24 px-4 bg-gradient-to-b from-cream to-amber-50/50 dark:from-gray-950 dark:to-gray-900/50">
+      <section className="py-16 md:py-24 px-4 bg-gradient-to-b from-hunny-50 to-amber-50/50 dark:from-gray-950 dark:to-gray-900/50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
             <span className="inline-block px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-xs font-semibold tracking-wide mb-4">
@@ -195,7 +195,7 @@ export default function HomePage() {
             参加者が増えるたびにセルが埋まっていきます。あなたのセルはどこに？
           </p>
           {/* Placeholder for honeycomb preview image */}
-          <div className="relative rounded-2xl overflow-hidden bg-brand-dark aspect-video max-w-2xl mx-auto shadow-2xl shadow-amber-900/20">
+          <div className="relative rounded-2xl overflow-hidden bg-hunny-800 aspect-video max-w-2xl mx-auto shadow-2xl shadow-amber-900/20">
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
                 <div className="flex justify-center gap-1 mb-3 opacity-40">
@@ -221,7 +221,7 @@ export default function HomePage() {
           </div>
           <Link
             to="/honeycomb"
-            className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-brand dark:bg-amber-800 text-amber-100 font-semibold rounded-2xl hover:bg-brand-light dark:hover:bg-amber-700 transition-colors"
+            className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-hunny-700 dark:bg-amber-800 text-amber-100 font-semibold rounded-2xl hover:bg-hunny-600 dark:hover:bg-amber-700 transition-colors"
           >
             ハチの巣をみる
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -243,7 +243,7 @@ export default function HomePage() {
           </p>
           <Link
             to="/tutorial/intro"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-honey hover:bg-honey-dark text-brand-dark font-bold rounded-2xl text-lg shadow-lg shadow-amber-400/30 hover:shadow-amber-500/40 hover:-translate-y-0.5 transition-all"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-hunny-500 hover:bg-hunny-600 text-hunny-800 font-bold rounded-2xl text-lg shadow-lg shadow-amber-400/30 hover:shadow-amber-500/40 hover:-translate-y-0.5 transition-all"
           >
             チュートリアルを開始
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

@@ -3,17 +3,20 @@
 @theme {
   --font-sans: "Inter", "Noto Sans JP", sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  --color-brand: #78350f;
-  --color-brand-light: #92400e;
-  --color-brand-dark: #451a03;
-  --color-honey: #f59e0b;
-  --color-honey-light: #fbbf24;
-  --color-honey-pale: #fef3c7;
-  --color-honey-dark: #d97706;
-  --color-cream: #fffbeb;
-  --color-cream-dark: #fef3c7;
-  --color-link: #b45309;
-  --color-link-hover: #92400e;
+  /* hunny scale: light → dark */
+  --color-hunny-50:  #fefce8;
+  --color-hunny-100: #fef9c3;
+  --color-hunny-200: #fef08a;
+  --color-hunny-300: #fde047;
+  --color-hunny-400: #facc15;
+  --color-hunny-500: #eab308;
+  --color-hunny-600: #ca8a04;
+  --color-hunny-700: #a16207;
+  --color-hunny-800: #854d0e;
+
+  /* aliases */
+  --color-link:       var(--color-hunny-700);
+  --color-link-hover: var(--color-hunny-800);
 }
 
 html {

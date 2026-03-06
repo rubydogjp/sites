@@ -19,7 +19,7 @@ export default function IntroStep() {
       <ImageFrame src="/tutorial/welcome.gif" alt="ようこそ" />
 
       {/* About this project */}
-      <div className="my-10 rounded-2xl bg-gradient-to-br from-amber-50 to-cream dark:from-gray-900 dark:to-gray-900/80 border border-amber-100 dark:border-gray-800 p-6 md:p-8">
+      <div className="my-10 rounded-2xl bg-gradient-to-br from-amber-50 to-hunny-50 dark:from-gray-900 dark:to-gray-900/80 border border-amber-100 dark:border-gray-800 p-6 md:p-8">
         <p className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed font-medium mb-6">
           ハニー は <strong className="text-amber-700 dark:text-amber-300">OSS開発</strong> への参加を支援するために作られた日本のプロジェクトです。
         </p>

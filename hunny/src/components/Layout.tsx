@@ -13,9 +13,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-cream dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen flex flex-col bg-hunny-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
       {/* Header — full bleed, no max-width constraint */}
-      <header className="sticky top-0 z-50 border-b border-amber-200/60 dark:border-gray-800 bg-cream/80 dark:bg-gray-950/80 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b border-amber-200/60 dark:border-gray-800 bg-hunny-50/80 dark:bg-gray-950/80 backdrop-blur-md">
         <div className="flex items-center h-14 px-6 lg:px-10 gap-2">
           <Link to="/" className="flex-shrink-0">
             <img className="h-8 w-auto" src="/general/hunny-oss-logo.png" alt="Hunny" />
@@ -70,7 +70,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         {/* Mobile nav */}
         {menuOpen && (
-          <nav className="md:hidden border-t border-amber-200/60 dark:border-gray-800 bg-cream dark:bg-gray-950 px-4 py-3 space-y-1">
+          <nav className="md:hidden border-t border-amber-200/60 dark:border-gray-800 bg-hunny-50 dark:bg-gray-950 px-4 py-3 space-y-1">
             {navItems.map((item) => {
               const active = location.pathname.startsWith(item.match);
               return (
@@ -103,8 +103,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Main */}
       <main className="flex-1">{children}</main>
 
-      {/* Footer — honey-themed warm gradient */}
-      <footer className="bg-gradient-to-b from-amber-100 via-amber-50 to-cream dark:from-gray-900 dark:via-gray-950 dark:to-gray-950 border-t border-amber-200/60 dark:border-gray-800 mt-auto">
+      {/* Footer */}
+      <footer className="bg-gradient-to-b from-amber-100 via-amber-50 to-hunny-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-950 border-t border-amber-200/60 dark:border-gray-800 mt-auto">
         <div className="max-w-5xl mx-auto px-6 lg:px-10 py-12">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8">
             {/* Brand column */}

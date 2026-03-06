@@ -8,7 +8,7 @@ interface Props {
 
 export default function LinkButton({ href, children }: Props) {
   const cls =
-    "inline-flex items-center gap-2 px-5 py-2.5 bg-honey hover:bg-honey-dark text-brand-dark font-semibold rounded-xl text-sm shadow-md shadow-amber-300/20 hover:shadow-amber-400/30 hover:-translate-y-0.5 transition-all my-3";
+    "inline-flex items-center gap-2 px-5 py-2.5 bg-hunny-500 hover:bg-hunny-600 text-hunny-800 font-semibold rounded-xl text-sm shadow-md shadow-amber-300/20 hover:shadow-amber-400/30 hover:-translate-y-0.5 transition-all my-3";
 
   const isExternal = href.startsWith("http");
 
