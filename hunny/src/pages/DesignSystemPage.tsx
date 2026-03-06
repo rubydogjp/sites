@@ -1,3 +1,12 @@
+import { Link } from "react-router-dom";
+
+function hexPoints(cx: number, cy: number, r: number): string {
+  return Array.from({ length: 6 }, (_, i) => {
+    const a = (Math.PI / 3) * i - Math.PI / 2;
+    return `${cx + r * Math.cos(a)},${cy + r * Math.sin(a)}`;
+  }).join(" ");
+}
+
 const scale = [
   { token: "hunny-50",  hex: "#fefce8", role: "ページ背景" },
   { token: "hunny-100", hex: "#fef9c3", role: "カード背景・薄いアクセント" },
@@ -145,6 +154,29 @@ export default function DesignSystemPage() {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* Link to blueprint */}
+      <section>
+        <h2 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+          Related
+        </h2>
+        <Link
+          to="/dev/icon"
+          className="flex items-center gap-3 rounded-xl border border-gray-200 dark:border-gray-800 p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+        >
+          <svg width={32} height={32} viewBox="0 0 32 32">
+            <polygon points={hexPoints(16, 16, 14)} fill="#fef9c3" stroke="#eab308" strokeWidth="2" strokeLinejoin="round" />
+            <polygon points={hexPoints(16, 16, 10)} fill="none" stroke="#eab308" strokeWidth="0.5" strokeLinejoin="round" opacity="0.4" />
+          </svg>
+          <div>
+            <p className="text-sm font-bold text-gray-900 dark:text-gray-100">Icon Blueprint</p>
+            <p className="text-xs text-gray-400">Wax Cell + Git Branch — specs, dimensions, PPT macro</p>
+          </div>
+          <svg className="w-4 h-4 ml-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
       </section>
     </div>
   );

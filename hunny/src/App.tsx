@@ -6,6 +6,7 @@ import GitPage from "./pages/GitPage";
 import DevelopPage from "./pages/DevelopPage";
 import ViewerPage from "./pages/ViewerPage";
 import DesignSystemPage from "./pages/DesignSystemPage";
+import BlueprintPage from "./pages/BlueprintPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/develop/:slug" element={<DevelopPage />} />
           <Route path="/honeycomb" element={<ViewerPage />} />
           <Route path="/dev/design" element={<DesignSystemPage />} />
+          <Route path="/dev/icon" element={<BlueprintPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
