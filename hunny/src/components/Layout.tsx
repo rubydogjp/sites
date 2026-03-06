@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import FaqSection from "../pages/tutorial/FaqSection";
 
 const navItems = [
   { to: "/tutorial/intro", label: "チュートリアル", match: "/tutorial" },
@@ -11,14 +12,18 @@ const navItems = [
 export default function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [faqOpen, setFaqOpen] = useState(false);
+
+  const isTutorial = location.pathname.startsWith("/tutorial");
 
   return (
     <div className="min-h-screen flex flex-col bg-hunny-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
       {/* Header — full bleed, no max-width constraint */}
       <header className="sticky top-0 z-50 border-b border-amber-200/60 dark:border-gray-800 bg-hunny-50/80 dark:bg-gray-950/80 backdrop-blur-md">
         <div className="flex items-center h-14 px-6 lg:px-10 gap-2">
-          <Link to="/" className="flex-shrink-0">
-            <img className="h-8 w-auto" src="/general/hunny-oss-logo.png" alt="Hunny" />
+          <Link to="/" className="flex-shrink-0 flex items-center gap-2">
+            <img className="h-7 w-7" src="/general/hunny-icon.svg" alt="" />
+            <span className="text-lg font-extrabold tracking-tight text-amber-900 dark:text-amber-200">Hunny</span>
           </Link>
 
           {/* Desktop nav */}
@@ -41,7 +46,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             })}
           </nav>
 
-          <div className="hidden md:flex items-center ml-auto">
+          <div className="hidden md:flex items-center gap-3 ml-auto">
+            {isTutorial && (
+              <button
+                onClick={() => setFaqOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-amber-50 dark:hover:bg-gray-800 hover:text-amber-700 dark:hover:text-amber-300 transition-colors cursor-pointer"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M12 18h.01" />
+                </svg>
+                Q&A
+              </button>
+            )}
             <a
               href="https://x.com/rubydogjp"
               target="_blank"
@@ -88,6 +104,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </Link>
               );
             })}
+            {isTutorial && (
+              <button
+                onClick={() => {
+                  setFaqOpen(true);
+                  setMenuOpen(false);
+                }}
+                className="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-amber-50 dark:hover:bg-gray-800 cursor-pointer"
+              >
+                Q&A
+              </button>
+            )}
             <a
               href="https://x.com/rubydogjp"
               target="_blank"
@@ -103,14 +130,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Main */}
       <main className="flex-1">{children}</main>
 
-      {/* Footer */}
-      <footer className="bg-gradient-to-b from-amber-100 via-amber-50 to-hunny-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-950 border-t border-amber-200/60 dark:border-gray-800 mt-auto">
+      {/* Footer — dark background */}
+      <footer className="bg-gray-900 dark:bg-gray-950 border-t border-gray-800 dark:border-gray-800 mt-auto">
         <div className="max-w-5xl mx-auto px-6 lg:px-10 py-12">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8">
             {/* Brand column */}
             <div>
-              <img className="h-10 w-auto mb-3" src="/general/hunny-oss-logo.png" alt="Hunny" />
-              <p className="text-sm text-amber-700/50 dark:text-amber-400/50 leading-relaxed">
+              <div className="flex items-center gap-2.5 mb-3">
+                <img className="h-9 w-9" src="/general/hunny-icon.svg" alt="" />
+                <span className="text-xl font-extrabold tracking-tight text-amber-200">Hunny</span>
+              </div>
+              <p className="text-sm text-gray-400 leading-relaxed">
                 はじめての共同開発、失敗し放題。<br />
                 ハチの巣をみんなで作ろう。
               </p>
@@ -118,26 +148,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Shortcuts */}
             <div>
-              <h4 className="text-amber-900 dark:text-amber-300 text-sm font-semibold mb-3">ショートカット</h4>
+              <h4 className="text-gray-200 text-sm font-semibold mb-3">ショートカット</h4>
               <ul className="space-y-2">
-                <li><Link to="/" className="text-sm text-amber-700/70 dark:text-amber-400/70 hover:text-amber-900 dark:hover:text-amber-200 transition-colors">ホーム画面</Link></li>
-                <li><Link to="/tutorial/intro" className="text-sm text-amber-700/70 dark:text-amber-400/70 hover:text-amber-900 dark:hover:text-amber-200 transition-colors">チュートリアル</Link></li>
-                <li><Link to="/tutorial/q-suspend-restart" className="text-sm text-amber-700/70 dark:text-amber-400/70 hover:text-amber-900 dark:hover:text-amber-200 transition-colors">再開/中断</Link></li>
+                <li><Link to="/" className="text-sm text-gray-400 hover:text-amber-300 transition-colors">ホーム画面</Link></li>
+                <li><Link to="/tutorial/intro" className="text-sm text-gray-400 hover:text-amber-300 transition-colors">チュートリアル</Link></li>
+                <li><Link to="/tutorial/setup" className="text-sm text-gray-400 hover:text-amber-300 transition-colors">手順1. 準備</Link></li>
               </ul>
             </div>
 
             {/* Links */}
             <div>
-              <h4 className="text-amber-900 dark:text-amber-300 text-sm font-semibold mb-3">関連リンク</h4>
+              <h4 className="text-gray-200 text-sm font-semibold mb-3">関連リンク</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="https://x.com/rubydogjp" target="_blank" rel="noopener noreferrer" className="text-sm text-amber-700/70 dark:text-amber-400/70 hover:text-amber-900 dark:hover:text-amber-200 transition-colors">
+                  <a href="https://x.com/rubydogjp" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-amber-300 transition-colors">
                     X (@rubydogjp)
                   </a>
                 </li>
-                <li><Link to="/honeycomb" className="text-sm text-amber-700/70 dark:text-amber-400/70 hover:text-amber-900 dark:hover:text-amber-200 transition-colors">ハチの巣</Link></li>
+                <li><Link to="/honeycomb" className="text-sm text-gray-400 hover:text-amber-300 transition-colors">ハチの巣</Link></li>
                 <li>
-                  <a href="https://github.com/rubydogjp/hunny" target="_blank" rel="noopener noreferrer" className="text-sm text-amber-700/70 dark:text-amber-400/70 hover:text-amber-900 dark:hover:text-amber-200 transition-colors">
+                  <a href="https://github.com/rubydogjp/hunny" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-amber-300 transition-colors">
                     GitHub
                   </a>
                 </li>
@@ -145,10 +175,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </div>
-        <div className="border-t border-amber-200/40 dark:border-gray-800 text-center py-4 text-xs text-amber-600/40 dark:text-amber-500/30">
+        <div className="border-t border-gray-800 text-center py-4 text-xs text-gray-500">
           &copy; 2023 Rubydog JP.
         </div>
       </footer>
+
+      {/* Q&A Drawer */}
+      <FaqSection open={faqOpen} onClose={() => setFaqOpen(false)} />
     </div>
   );
 }

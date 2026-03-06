@@ -4,6 +4,10 @@ interface Props {
   caption?: string;
 }
 
+/**
+ * Simple image frame for concept diagrams and non-screenshot images.
+ * For UI screenshots and GIFs, use ScreenshotFrame instead.
+ */
 export default function ImageFrame({ src, alt, caption }: Props) {
   const isGif = src.endsWith(".gif");
   return (

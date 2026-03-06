@@ -7,6 +7,7 @@ import DevelopPage from "./pages/DevelopPage";
 import ViewerPage from "./pages/ViewerPage";
 import DesignSystemPage from "./pages/DesignSystemPage";
 import BlueprintPage from "./pages/BlueprintPage";
+import TmpPage from "./pages/TmpPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/honeycomb" element={<ViewerPage />} />
           <Route path="/dev/design" element={<DesignSystemPage />} />
           <Route path="/dev/icon" element={<BlueprintPage />} />
+          <Route path="/tmp" element={<TmpPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

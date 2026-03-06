@@ -1,12 +1,12 @@
-import { ImageFrame, LinkButton, PageNav } from "../../components/docs";
+import { MediaFrame } from "../../components/docs";
 import { Link } from "react-router-dom";
 
 export default function CompleteStep() {
   return (
     <>
       {/* Celebration hero */}
-      <div className="text-center mb-8">
-        <ImageFrame src="/tutorial/eye-complete.gif" alt="完了おめでとう" />
+      <div className="text-center mb-8 max-w-md mx-auto">
+        <MediaFrame src="/tutorial/eye-complete.gif" alt="完了おめでとう" />
       </div>
 
       <div className="my-10 rounded-2xl bg-gradient-to-br from-amber-50 via-amber-100/30 to-hunny-50 dark:from-amber-900/20 dark:via-gray-900 dark:to-gray-950 border border-amber-200 dark:border-amber-800/30 p-8 text-center">
@@ -23,13 +23,21 @@ export default function CompleteStep() {
       </div>
 
       {/* Check honeycomb */}
-      <div className="my-8 rounded-2xl border border-amber-100 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-6 text-center">
+      <div className="my-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-6 text-center">
         <p className="text-gray-700 dark:text-gray-300 mb-4">
           以下のサイトを確認してみてください。<br />
           あなたのデータが入っていますね！
         </p>
-        <LinkButton href="/honeycomb">ハチの巣をみる</LinkButton>
-        <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+        <Link
+          to="/honeycomb"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-action-500 hover:bg-action-600 text-white font-bold text-sm shadow-md transition-colors"
+        >
+          ハチの巣をみる
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </Link>
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-3">
           (反映まで数時間かかることがあります)
         </p>
       </div>
@@ -74,11 +82,17 @@ export default function CompleteStep() {
         </div>
       </div>
 
-      <PageNav
-        basePath="/tutorial"
-        prev={{ slug: "pull-req", title: "手順7. プルリクエスト" }}
-        next={{ slug: "oss-recommend", title: "おまけ. OSSの紹介" }}
-      />
+      <div className="mt-8 flex justify-center">
+        <Link
+          to="/tutorial/oss-recommend"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-action-500 hover:bg-action-600 text-white font-bold text-sm shadow-md transition-colors"
+        >
+          おまけ. OSSの紹介
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
     </>
   );
 }

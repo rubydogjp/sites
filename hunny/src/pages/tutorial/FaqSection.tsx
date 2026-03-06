@@ -33,24 +33,20 @@ const faqs = [
     title: "チュートリアルの中断/再開",
     content: (
       <>
-        <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">中断方法</h4>
-        <p className="mb-4">特に何も気にせず中断することができます。</p>
+        <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">中断するとき</h4>
+        <p className="mb-4">特に何も気にせず、そのままブラウザを閉じて大丈夫です。作業の進捗が失われることはありません。</p>
 
-        <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">再開方法</h4>
-        <p className="font-medium text-gray-800 dark:text-gray-200 mb-1">手順 1~3</p>
-        <p className="mb-3">特に何も気にせず再開することができます。</p>
+        <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">再開するとき</h4>
+        <p className="font-medium text-gray-800 dark:text-gray-200 mb-1">手順 1~3 の途中だった場合</p>
+        <p className="mb-3">そのまま前回の続きのページを開くだけで OK です。</p>
 
-        <p className="font-medium text-gray-800 dark:text-gray-200 mb-1">手順 4~7</p>
+        <p className="font-medium text-gray-800 dark:text-gray-200 mb-1">手順 4~7 の途中だった場合</p>
         <p className="mb-3">
-          ターミナルやパワーシェルのアプリを閉じたときは再開するときに以下を入力しなおしてください。
+          ターミナル/Powershell を閉じていた場合は、再度開いて以下を入力してください。
         </p>
         <CodeBlock>{"$ cd hunny"}</CodeBlock>
-        <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 mt-3">
-          <li>Mac の場合 <code className="bg-amber-100 dark:bg-gray-800 text-amber-900 dark:text-amber-300 px-1 py-0.5 rounded text-xs">xxx/hunny $</code></li>
-          <li>Windows <code className="bg-amber-100 dark:bg-gray-800 text-amber-900 dark:text-amber-300 px-1 py-0.5 rounded text-xs">¥xxx/hunny&gt;</code></li>
-        </ul>
         <p className="mt-2">
-          のように <code className="bg-amber-100 dark:bg-gray-800 text-amber-900 dark:text-amber-300 px-1 py-0.5 rounded text-xs">/hunny</code> と表示されていれば OK です。
+          プロンプトに <code className="bg-amber-100 dark:bg-gray-800 text-amber-900 dark:text-amber-300 px-1 py-0.5 rounded text-xs">/hunny</code> と表示されれば準備 OK です。
         </p>
       </>
     ),

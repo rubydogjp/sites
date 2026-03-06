@@ -1,87 +1,109 @@
-import { ImageFrame, InlineCode, Section, LinkButton, PageNav, StepHero } from "../../components/docs";
+import { InlineCode, MediaFrame, ImageFrame, SlideViewer, ActionSim } from "../../components/docs";
+import type { SubSlide } from "../../components/docs";
+
+const slides: SubSlide[] = [
+  // Intro
+  {
+    title: "イシューを始めよう",
+    icon: "▶️",
+    slide: <ImageFrame src="/tutorial/eye-issue.gif" alt="" />,
+    narration: <p>これから作業内容を issue として登録します。</p>,
+  },
+  // 3.1 Create issue
+  {
+    title: "issue を発行する",
+    icon: "📋",
+    slide: <MediaFrame src="/tutorial/issue.gif" alt="issue作成画面" />,
+    narration: (
+      <p>
+        今回は練習ですので、以下の内容で issue を作ります。
+      </p>
+    ),
+    action: (
+      <ActionSim
+        type="browser"
+        title="GitHub Issues"
+        command="https://github.com/rubydogjp/hunny/issues"
+        output="issue が正常に作成されました！"
+        note={
+          <>
+            タイトル: <InlineCode>[FR] &lt;ユーザーID&gt; が参加</InlineCode><br />
+            説明: <InlineCode>アプリ内に新しく &lt;ユーザーID&gt; のデータを追加します</InlineCode>
+          </>
+        }
+      />
+    ),
+  },
+  // 3.2 Issue number
+  {
+    title: "issue 番号をメモ",
+    icon: "📌",
+    slide: <MediaFrame src="/tutorial/issue-number.png" alt="issue番号" />,
+    narration: (
+      <p>発行された issue の画面に番号が表示されます。</p>
+    ),
+    action: (
+      <ActionSim
+        type="browser"
+        title="GitHub Issues"
+        command="https://github.com/rubydogjp/hunny/issues/2"
+        output="issue #2 のページが表示されました"
+        note={<>この番号をメモしてください。例: <InlineCode>2</InlineCode></>}
+      />
+    ),
+  },
+  // 3.3 Assign
+  {
+    title: "assign を待つ",
+    icon: "⏳",
+    slide: (
+      <div className="space-y-3 text-sm text-gray-300">
+        <p>
+          issue に誰が対応するか決めることを <strong>assign(アサイン)</strong> と言います。
+        </p>
+        <p>
+          当プロジェクトでは issue を作ったあなた自身がアサインされます。0~2 日ほどお待ちください。
+        </p>
+      </div>
+    ),
+    narration: (
+      <>
+        <p className="font-bold text-emerald-700 dark:text-emerald-300">
+          今回は練習ですのでアサインを待たずに次へ進んで構いません！
+        </p>
+        <p>アサインされると GitHub の中に通知が届きます。</p>
+      </>
+    ),
+    action: (
+      <ActionSim
+        type="browser"
+        title="GitHub Notifications"
+        command="https://github.com/notifications"
+        output="通知ページが表示されました。assign の通知を確認しよう"
+      />
+    ),
+  },
+  // Outro
+  {
+    title: "やってみよう",
+    icon: "🎯",
+    slide: (
+      <div className="flex flex-col items-center justify-center h-full text-center">
+        <span className="text-4xl mb-3">🎯</span>
+        <p className="text-gray-300 font-bold">では、やってみよう！</p>
+        <p className="text-gray-500 text-xs mt-2">
+          上のスライドを参考に、ひとつずつ進めてください。
+        </p>
+      </div>
+    ),
+    narration: <p>下のアクションをひとつずつ実行してみましょう。</p>,
+  },
+];
 
 export default function IssueStep() {
   return (
-    <>
-      <StepHero stepNum={3} title="イシュー" subtitle="プロジェクトに「何をしたいか」を宣言します。" />
-
-      <ImageFrame src="/tutorial/eye-issue.gif" alt="イシューの流れ" />
-
-      {/* Create issue */}
-      <Section title="issue を発行する" icon="📋">
-        <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-          今回は練習ですので、以下の内容で issue を作ります。
-        </p>
-
-        <div className="rounded-xl bg-gray-50 dark:bg-gray-800/50 p-4 space-y-3 mb-4">
-          <div className="flex gap-3 items-start text-sm">
-            <span className="text-xs font-semibold text-gray-400 dark:text-gray-500 w-16 flex-shrink-0 pt-0.5">タイトル</span>
-            <InlineCode>
-              [FR] &lt;ユーザーID&gt; が参加
-            </InlineCode>
-          </div>
-          <div className="flex gap-3 items-start text-sm">
-            <span className="text-xs font-semibold text-gray-400 dark:text-gray-500 w-16 flex-shrink-0 pt-0.5">説明</span>
-            <InlineCode>
-              アプリ内に新しく &lt;ユーザーID&gt; のデータを追加します
-            </InlineCode>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-dashed border-gray-300 dark:border-gray-600 bg-gray-50/50 dark:bg-gray-800/20 p-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
-          <p className="font-medium text-gray-600 dark:text-gray-300 mb-1">例</p>
-          <p>タイトル: <InlineCode>[FR] rbdog が参加</InlineCode></p>
-          <p>説明: <InlineCode>アプリ内に新しく rbdog のデータを追加します</InlineCode></p>
-        </div>
-
-        <ImageFrame src="/tutorial/issue.gif" alt="issue作成画面" />
-        <LinkButton href="https://github.com/rubydogjp/hunny/issues">こちらのページから issue を発行</LinkButton>
-      </Section>
-
-      {/* Issue number */}
-      <Section title="issue 番号をメモ" icon="📌">
-        <ImageFrame src="/tutorial/issue-number.png" alt="issue番号" />
-
-        <div className="bg-amber-50 dark:bg-amber-900/10 rounded-xl p-4 flex items-start gap-3">
-          <span className="text-xl">📌</span>
-          <div className="text-sm">
-            <p className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
-              発行された issue 番号を覚えておきましょう
-            </p>
-            <p className="text-gray-600 dark:text-gray-400">
-              例: <InlineCode>2</InlineCode>
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      {/* Assign */}
-      <Section title="assign を待つ" icon="⏳">
-        <div className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
-          <p>
-            issue に誰が対応するか決めることを <strong>assign(アサイン)</strong> と言います。
-          </p>
-          <p>
-            当プロジェクトでは issue を作ったあなた自身がアサインされます。0~2 日ほどお待ちください。
-          </p>
-        </div>
-
-        <div className="mt-4 bg-emerald-50 dark:bg-emerald-900/10 rounded-xl p-4 text-sm border border-emerald-200 dark:border-emerald-800/30">
-          <p className="font-bold text-emerald-800 dark:text-emerald-300">
-            💡 今回は練習ですのでアサインを待たずに次へ進んで構いません！
-          </p>
-        </div>
-
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-3">
-          アサインされると GitHub の中に通知が届きます。
-        </p>
-      </Section>
-
-      <PageNav
-        basePath="/tutorial"
-        prev={{ slug: "fork", title: "手順2. フォークとクローン" }}
-        next={{ slug: "branch", title: "手順4. ブランチ" }}
-      />
-    </>
+    <SlideViewer
+      slides={slides}
+    />
   );
 }

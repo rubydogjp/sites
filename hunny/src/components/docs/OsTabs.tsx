@@ -1,6 +1,5 @@
 import { useState, useEffect, type ReactNode } from "react";
-
-type OS = "mac" | "windows";
+import { useOsContext, type OS } from "./OsContext";
 
 interface Props {
   mac: ReactNode;
@@ -10,6 +9,18 @@ interface Props {
 const STORAGE_KEY = "hunny-os-pref";
 
 export default function OsTabs({ mac, windows }: Props) {
+  const contextOs = useOsContext();
+
+  // Inside SlideViewer: just render selected content, no UI
+  if (contextOs !== null) {
+    return <>{contextOs === "mac" ? mac : windows}</>;
+  }
+
+  // Standalone: render with tab UI
+  return <StandaloneOsTabs mac={mac} windows={windows} />;
+}
+
+function StandaloneOsTabs({ mac, windows }: Props) {
   const [os, setOs] = useState<OS>(() => {
     try {
       return (localStorage.getItem(STORAGE_KEY) as OS) || "mac";

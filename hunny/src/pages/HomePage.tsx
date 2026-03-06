@@ -23,23 +23,27 @@ export default function HomePage() {
       {/* ─── Hero ─── */}
       <section className="relative bg-gradient-to-b from-amber-50 via-hunny-50 to-hunny-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-950 pt-16 pb-24 md:pt-24 md:pb-32">
         {/* Decorative hexagons */}
-        <Hex className="absolute top-8 left-[8%] w-16 text-amber-200/40 dark:text-amber-800/20 rotate-12" />
-        <Hex className="absolute top-24 right-[10%] w-24 text-amber-300/30 dark:text-amber-700/15 -rotate-6" />
-        <Hex className="absolute bottom-12 left-[15%] w-12 text-amber-200/30 dark:text-amber-800/15 rotate-45" />
-        <Hex className="absolute bottom-20 right-[20%] w-20 text-amber-100/50 dark:text-amber-900/20 rotate-12" />
-        <Hex className="absolute top-40 left-[45%] w-10 text-amber-200/20 dark:text-amber-800/10 -rotate-12" />
+        <Hex className="absolute top-6 left-[5%] w-20 text-amber-200/40 dark:text-amber-800/20 rotate-12" />
+        <Hex className="absolute top-16 right-[7%] w-28 text-amber-300/25 dark:text-amber-700/15 -rotate-6" />
+        <Hex className="absolute top-36 left-[12%] w-14 text-amber-300/35 dark:text-amber-800/20 rotate-30" />
+        <Hex className="absolute bottom-10 left-[18%] w-12 text-amber-200/30 dark:text-amber-800/15 rotate-45" />
+        <Hex className="absolute bottom-24 right-[15%] w-24 text-amber-100/50 dark:text-amber-900/20 rotate-12" />
+        <Hex className="absolute top-48 left-[42%] w-10 text-amber-200/20 dark:text-amber-800/10 -rotate-12" />
+        <Hex className="absolute top-10 left-[30%] w-8 text-amber-300/20 dark:text-amber-700/10 rotate-6" />
+        <Hex className="absolute bottom-32 left-[6%] w-18 text-amber-200/25 dark:text-amber-800/12 -rotate-12" />
+        <Hex className="absolute top-28 right-[22%] w-10 text-amber-200/30 dark:text-amber-700/15 rotate-20" />
+        <Hex className="absolute bottom-14 right-[35%] w-16 text-amber-300/20 dark:text-amber-800/12 -rotate-6" />
+        <Hex className="absolute bottom-36 right-[5%] w-10 text-amber-200/20 dark:text-amber-700/10 rotate-30" />
+        <Hex className="absolute top-52 right-[38%] w-6 text-amber-300/25 dark:text-amber-800/15 rotate-45" />
 
         <div className="relative max-w-4xl mx-auto text-center px-4">
-          {/* Mascot placeholder */}
-          <div className="mx-auto mb-8 w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 dark:from-amber-600 dark:to-amber-800 flex items-center justify-center shadow-xl shadow-amber-300/30 dark:shadow-amber-900/30">
-            <span className="text-6xl md:text-7xl select-none" role="img" aria-label="bee">
-              {/* Placeholder: replace with mascot image */}
-              <img
-                src="/general/hunny-oss-logo.png"
-                alt="Hunny mascot"
-                className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-md"
-              />
-            </span>
+          {/* Icon */}
+          <div className="mx-auto mb-8">
+            <img
+              src="/general/hunny-icon.svg"
+              alt="Hunny"
+              className="w-28 h-28 md:w-36 md:h-36 mx-auto drop-shadow-lg"
+            />
           </div>
 
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-hunny-700 dark:text-amber-300 mb-4">
@@ -125,6 +129,35 @@ export default function HomePage() {
                 <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{card.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── OSS Contributor ─── */}
+      <section className="py-16 md:py-24 px-4 bg-gradient-to-b from-white to-hunny-50/50 dark:from-gray-900 dark:to-gray-950">
+        <div className="max-w-3xl mx-auto">
+          <div className="rounded-2xl bg-gradient-to-br from-amber-50 to-hunny-50 dark:from-gray-900 dark:to-gray-900/80 border border-amber-100 dark:border-gray-800 p-6 md:p-8">
+            <p className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed font-medium mb-6">
+              ハニー は <strong className="text-amber-700 dark:text-amber-300">OSS開発</strong> への参加を支援するために作られた日本のプロジェクトです。
+            </p>
+
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+              <span className="text-2xl">🎯</span>
+              OSSコントリビューターを目指そう！
+            </h3>
+
+            <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p>
+                <strong>OSS (オープン ソース ソフトウェア)</strong> とは、基本的に無料で誰でも自由に使えるソフトウェアのことです。
+              </p>
+              <p>
+                世界中の開発者たちが協力し合いながら多くのプロジェクトが進んでおり、
+                OSSコントリビューター <strong className="text-amber-700 dark:text-amber-300">(貢献者)</strong> は開発者にとって目指すべき目標のひとつです。
+              </p>
+              <p className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                チュートリアルの後は、是非あなたの <strong className="text-amber-600 dark:text-amber-400">推しOSS</strong> へ参加してみませんか？
+              </p>
+            </div>
           </div>
         </div>
       </section>

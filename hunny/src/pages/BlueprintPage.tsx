@@ -32,9 +32,35 @@ function computeBranch(cx: number, cy: number, innerR: number, outerR: number) {
   return { A, BR, BL, ext, R };
 }
 
+// Generate icon SVG string (for download)
+function generateIconSvg(): string {
+  const br = computeBranch(16, 16, 10, 14);
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">`,
+    `  <polygon points="${hexPoints(16, 16, 14)}" fill="#fef9c3" stroke="#eab308" stroke-width="2" stroke-linejoin="round"/>`,
+    `  <polygon points="${hexPoints(16, 16, 10)}" fill="none" stroke="#eab308" stroke-width="0.5" stroke-linejoin="round" opacity="0.4"/>`,
+    `  <line x1="${br.BR.x}" y1="${br.BR.y}" x2="${br.ext.x}" y2="${br.ext.y}" stroke="#eab308" stroke-width="1.2" stroke-linecap="round"/>`,
+    `  <line x1="${br.BL.x}" y1="${br.BL.y}" x2="${br.A.x}" y2="${br.A.y}" stroke="#eab308" stroke-width="1.2" stroke-linecap="round"/>`,
+    `  <circle cx="${br.A.x}" cy="${br.A.y}" r="2.5" fill="#eab308"/>`,
+    `  <circle cx="${br.BR.x}" cy="${br.BR.y}" r="2.5" fill="#eab308"/>`,
+    `  <circle cx="${br.BL.x}" cy="${br.BL.y}" r="2.5" fill="#eab308"/>`,
+    `</svg>`,
+  ].join("\n");
+}
+
+function downloadSvg() {
+  const svg = generateIconSvg();
+  const blob = new Blob([svg], { type: "image/svg+xml" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "hunny-icon.svg";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 const VBA_CODE = `Sub HunnyIcon()
     Dim sld As Slide
-    Dim shpOuter As Shape, shpInner As Shape
 
     ' ── Parameters ──
     Dim cx As Single: cx = 300   ' Center X (pt)
@@ -50,40 +76,49 @@ const VBA_CODE = `Sub HunnyIcon()
     Dim clrFill As Long: clrFill = RGB(254, 249, 195)  ' hunny-100 #fef9c3
     Dim clrLine As Long: clrLine = RGB(234, 179, 8)     ' hunny-500 #eab308
 
+    Dim pi As Single: pi = 3.14159265
+
     Set sld = ActiveWindow.View.Slide
 
-    ' ── Layer 1: Outer hex (fill + stroke, rounded corners) ──
-    ' msoShapeHexagon is flat-top by default.
-    ' Create as flat-top regular hex, then Rotation 90 → pointy-top.
-    Dim outerW As Single: outerW = 2 * r           ' flat-top vertex-to-vertex
-    Dim outerH As Single: outerH = r * Sqr(3)      ' flat-top edge-to-edge
+    ' ── Layer 1: Outer hex (pointy-top, freeform polygon) ──
+    ' BuildFreeform draws exact vertices — no Rotation needed.
+    Dim fb As FreeformBuilder
+    Dim a As Single
+    Dim i As Integer
 
-    Set shpOuter = sld.Shapes.AddShape( _
-        msoShapeHexagon, _
-        cx - outerW / 2, cy - outerH / 2, _
-        outerW, outerH)
-    shpOuter.Rotation = 90   ' flat-top → pointy-top
+    a = -pi / 2
+    Set fb = sld.Shapes.BuildFreeform(msoEditingCorner, _
+        cx + r * Cos(a), cy + r * Sin(a))
+    For i = 1 To 5
+        a = pi / 3 * i - pi / 2
+        fb.AddNodes msoSegmentLine, msoEditingCorner, _
+            cx + r * Cos(a), cy + r * Sin(a)
+    Next i
+
+    Dim shpOuter As Shape
+    Set shpOuter = fb.ConvertToShape
     With shpOuter
         .Fill.ForeColor.RGB = clrFill
         .Line.ForeColor.RGB = clrLine
         .Line.Weight = outerStroke
-        .Line.Style = msoLineSingle
     End With
 
     ' ── Layer 2: Inner hex (stroke only, 40% opacity) ──
-    Dim innerW As Single: innerW = 2 * innerR
-    Dim innerH As Single: innerH = innerR * Sqr(3)
+    a = -pi / 2
+    Set fb = sld.Shapes.BuildFreeform(msoEditingCorner, _
+        cx + innerR * Cos(a), cy + innerR * Sin(a))
+    For i = 1 To 5
+        a = pi / 3 * i - pi / 2
+        fb.AddNodes msoSegmentLine, msoEditingCorner, _
+            cx + innerR * Cos(a), cy + innerR * Sin(a)
+    Next i
 
-    Set shpInner = sld.Shapes.AddShape( _
-        msoShapeHexagon, _
-        cx - innerW / 2, cy - innerH / 2, _
-        innerW, innerH)
-    shpInner.Rotation = 90   ' flat-top → pointy-top
+    Dim shpInner As Shape
+    Set shpInner = fb.ConvertToShape
     With shpInner
         .Fill.Visible = msoFalse
         .Line.ForeColor.RGB = clrLine
         .Line.Weight = innerStroke
-        .Line.Style = msoLineSingle
         .Line.Transparency = 0.6  ' 40% opacity = 60% transparency
     End With
 
@@ -161,14 +196,26 @@ export default function BlueprintPage() {
     <div style={{ backgroundColor: BG }} className="min-h-screen">
       <div className="max-w-4xl mx-auto px-6 py-12 space-y-10">
         {/* Header */}
-        <div>
-          <p className="font-mono text-xs mb-1" style={{ color: FAINT }}>/dev/icon</p>
-          <h1 className="text-2xl font-extrabold font-mono tracking-tight" style={{ color: WHITE }}>
-            HUNNY ICON BLUEPRINT
-          </h1>
-          <p className="font-mono text-xs mt-1" style={{ color: DIM }}>
-            Wax Cell + Git Branch &mdash; pointy-top hexagon, dual layer, golden ratio branch
-          </p>
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="font-mono text-xs mb-1" style={{ color: FAINT }}>/dev/icon</p>
+            <h1 className="text-2xl font-extrabold font-mono tracking-tight" style={{ color: WHITE }}>
+              HUNNY ICON BLUEPRINT
+            </h1>
+            <p className="font-mono text-xs mt-1" style={{ color: DIM }}>
+              Wax Cell + Git Branch &mdash; pointy-top hexagon, dual layer, golden ratio branch
+            </p>
+          </div>
+          <button
+            onClick={downloadSvg}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-xs font-semibold transition-colors hover:opacity-80"
+            style={{ backgroundColor: "#1a2d4a", color: "#7dd3fc", border: "1px solid #334155" }}
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            SVG
+          </button>
         </div>
 
         {/* Blueprint drawing */}
@@ -434,7 +481,7 @@ export default function BlueprintPage() {
           <div className="mt-3 rounded-xl p-3 border font-mono text-xs space-y-1" style={{ backgroundColor: "#0f1d32", borderColor: GRID }}>
             <p style={{ color: "#86efac" }}>NOTES</p>
             <p style={{ color: WHITE }}>
-              Hex: AddShape(msoShapeHexagon) + Rotation 90° (flat-top → pointy-top, auto round join)
+              Hex: BuildFreeform — pointy-top vertices directly, no Rotation needed
             </p>
             <p style={{ color: WHITE }}>
               Branch: AddLine + AddShape(msoShapeOval) for nodes

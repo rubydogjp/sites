@@ -1,27 +1,15 @@
 # Rubydog Sites
 
-rubydog.jp トップページを管理するリポジトリ。
+Rubydog JP に関する各種 Web サイトを管理するリポジトリ
 
-## デプロイ
+## 開発
 
-`main` ブランチで開発し、`apex` ブランチへ push するとデプロイされる。
+git で `main` ブランチで開発し、`apex`, `hunny` など対応するブランチへ push すると GitHub Actions によって対応するフォルダがデプロイされる.
 
-```
-main (開発) ──push──→ apex → rubydog.jp をデプロイ
-```
 
-## サブサイト
-
-各サブサイトは独立したリポジトリで管理・デプロイされる。
-
-| URL | リポジトリ |
+| ブランチ | 公開サイトURL |
 |---|---|
-| `hunny.rubydog.jp` | [rubydogjp/hunny](https://github.com/rubydogjp/hunny) |
-| `flutter-note.rubydog.jp` | [rbdog/flutter_note](https://github.com/rbdog/flutter_note) |
-| `rubydogjp-packages.web.app` | [rubydogjp/packages](https://github.com/rubydogjp/packages) |
-
-## Firebase Hosting
-
-| ターゲット | サイト ID | ドメイン |
-|---|---|---|
-| `apex` | `rubydog-sites` | `rubydog.jp` |
+| apex | [rubydog.jp](https://rubydog.jp) |
+| hunny | [hunny.rubydog.jp](https://hunny.rubydog.jp) |
+| notes | [flutter-note.rubydog.jp](https://flutter-note.rubydog.jp) |
+| packages | [packages.rubydog.jp](https://packages.rubydog.jp) |

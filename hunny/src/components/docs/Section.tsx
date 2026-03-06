@@ -6,7 +6,10 @@ interface Props {
   children: ReactNode;
 }
 
-/** A visually distinct card section for tutorial content */
+/**
+ * @deprecated Use TaskCard for tutorial steps instead.
+ * Kept for non-tutorial pages (Git, Develop) that may still use it.
+ */
 export default function Section({ title, icon, children }: Props) {
   return (
     <div className="my-8 rounded-2xl border border-amber-100 dark:border-gray-800 bg-white dark:bg-gray-900/50 shadow-sm overflow-hidden">
