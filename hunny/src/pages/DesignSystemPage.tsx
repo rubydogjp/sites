@@ -1,0 +1,151 @@
+const scale = [
+  { token: "hunny-50",  hex: "#fefce8", role: "ページ背景" },
+  { token: "hunny-100", hex: "#fef9c3", role: "カード背景・薄いアクセント" },
+  { token: "hunny-200", hex: "#fef08a", role: "ハイライト・選択状態" },
+  { token: "hunny-300", hex: "#fde047", role: "バッジ・ラベル背景" },
+  { token: "hunny-400", hex: "#facc15", role: "ボタン (light)・アクティブ" },
+  { token: "hunny-500", hex: "#eab308", role: "メインカラー" },
+  { token: "hunny-600", hex: "#ca8a04", role: "ボタン hover・濃いアクセント" },
+  { token: "hunny-700", hex: "#a16207", role: "リンク・見出しテキスト" },
+  { token: "hunny-800", hex: "#854d0e", role: "リンク hover・最も濃いテキスト" },
+];
+
+const aliases = [
+  { token: "link", resolved: "hunny-700", hex: "#a16207" },
+  { token: "link-hover", resolved: "hunny-800", hex: "#854d0e" },
+];
+
+const fonts = [
+  { token: "--font-sans", value: '"Inter", "Noto Sans JP", sans-serif' },
+  { token: "--font-mono", value: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace' },
+];
+
+export default function DesignSystemPage() {
+  return (
+    <div className="max-w-4xl mx-auto px-6 py-12 space-y-12">
+      <div>
+        <p className="text-xs font-mono text-gray-400 dark:text-gray-500 mb-1">/dev/design</p>
+        <h1 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">
+          Design System
+        </h1>
+      </div>
+
+      {/* Color scale */}
+      <section>
+        <h2 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+          Hunny Scale
+        </h2>
+        <div className="flex rounded-2xl overflow-hidden h-14 mb-4">
+          {scale.map((c) => (
+            <div key={c.token} className="flex-1 group relative" style={{ backgroundColor: c.hex }}>
+              <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-[10px] font-mono font-bold px-1 py-0.5 rounded bg-black/50 text-white pointer-events-none">
+                {c.token.replace("hunny-", "")}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          {scale.map((c) => (
+            <div key={c.token} className="flex items-center gap-3 rounded-xl border border-gray-200 dark:border-gray-800 p-3">
+              <div className="w-10 h-10 rounded-lg border border-gray-200 dark:border-gray-700 flex-shrink-0" style={{ backgroundColor: c.hex }} />
+              <div className="min-w-0">
+                <p className="text-xs font-mono font-bold text-gray-900 dark:text-gray-100">{c.token}</p>
+                <p className="text-[10px] font-mono text-gray-400 dark:text-gray-500">{c.hex}</p>
+                <p className="text-[10px] text-gray-400 dark:text-gray-500 truncate">{c.role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Aliases */}
+      <section>
+        <h2 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+          Aliases
+        </h2>
+        <div className="space-y-2">
+          {aliases.map((a) => (
+            <div key={a.token} className="flex items-center gap-3 rounded-xl border border-gray-200 dark:border-gray-800 p-3">
+              <div className="w-8 h-8 rounded-lg border border-gray-200 dark:border-gray-700 flex-shrink-0" style={{ backgroundColor: a.hex }} />
+              <span className="text-xs font-mono font-bold text-gray-900 dark:text-gray-100">{a.token}</span>
+              <span className="text-[10px] text-gray-400">→</span>
+              <span className="text-xs font-mono text-gray-500 dark:text-gray-400">{a.resolved}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Fonts */}
+      <section>
+        <h2 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+          Fonts
+        </h2>
+        <div className="space-y-2">
+          {fonts.map((f) => (
+            <div key={f.token} className="rounded-xl border border-gray-200 dark:border-gray-800 p-3">
+              <p className="text-xs font-mono font-bold text-gray-900 dark:text-gray-100 mb-1">{f.token}</p>
+              <p className="text-xs font-mono text-gray-500 dark:text-gray-400">{f.value}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Preview */}
+      <section>
+        <h2 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+          Preview
+        </h2>
+        <div className="rounded-2xl border border-gray-200 dark:border-gray-800 p-6 space-y-6">
+          <div className="flex flex-wrap gap-3">
+            {["500", "400", "600", "700", "800"].map((n) => {
+              const c = scale.find((s) => s.token === `hunny-${n}`)!;
+              const light = Number(n) <= 400;
+              return (
+                <button
+                  key={n}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold shadow-sm ${light ? "" : "text-white"}`}
+                  style={{ backgroundColor: c.hex, color: light ? "#854d0e" : undefined }}
+                >
+                  hunny-{n}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="space-y-1">
+            {["700", "800", "500"].map((n) => {
+              const c = scale.find((s) => s.token === `hunny-${n}`)!;
+              return (
+                <p key={n} className="text-xl font-extrabold" style={{ color: c.hex }}>
+                  見出しテキスト (hunny-{n})
+                </p>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            {["200", "300", "600"].map((n) => {
+              const c = scale.find((s) => s.token === `hunny-${n}`)!;
+              const light = Number(n) <= 300;
+              return (
+                <span
+                  key={n}
+                  className="text-[10px] font-semibold px-3 py-1 rounded-full"
+                  style={{ backgroundColor: c.hex, color: light ? "#854d0e" : "#fff" }}
+                >
+                  hunny-{n}
+                </span>
+              );
+            })}
+          </div>
+
+          <div className="rounded-xl border p-4" style={{ borderColor: "#fef08a", backgroundColor: "#fefce8" }}>
+            <p className="text-sm" style={{ color: "#854d0e" }}>
+              hunny-50 背景 + hunny-200 ボーダー
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

@@ -5,6 +5,7 @@ import TutorialPage from "./pages/TutorialPage";
 import GitPage from "./pages/GitPage";
 import DevelopPage from "./pages/DevelopPage";
 import ViewerPage from "./pages/ViewerPage";
+import DesignSystemPage from "./pages/DesignSystemPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/develop" element={<Navigate to="/develop/index" replace />} />
           <Route path="/develop/:slug" element={<DevelopPage />} />
           <Route path="/honeycomb" element={<ViewerPage />} />
+          <Route path="/dev/design" element={<DesignSystemPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
