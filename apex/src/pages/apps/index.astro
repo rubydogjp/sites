@@ -3,46 +3,89 @@ import PageLayout from '../../layouts/PageLayout.astro';
 
 const apps = [
   {
-    name: 'Timetable',
-    description: '生活リズムを整えるシンプルな時間割表アプリ',
-    url: 'https://timetable.rubydog.jp',
-    detail: '/products/timetable'
+    name: 'Week',
+    subtitle: '時間割',
+    description: '社会人も学生みたいに時間割表が欲しい！生活リズムを整えるために使うシンプルな時間割表アプリです。',
+    icon: '/products/apps/week-icon.png',
+    image: '/products/week/pr-main-image.png',
+    url: 'https://week.rubydog.jp',
+    detail: '/products/week',
+    features: [
+      'ログイン不要ですぐに使える',
+      '生活リズムを整えて習慣化をサポート',
+      '作成した時間割は画像として保存可能',
+      '旅行やイベントの日程共有にも活用できる'
+    ],
+    status: 'released'
+  },
+  {
+    name: 'Timecard',
+    subtitle: 'タイムカード',
+    description: '新しいアプリです。近日ニュースとしてアナウンス予定。',
+    icon: '/products/apps/timecard-icon.png',
+    status: 'coming'
+  },
+  {
+    name: 'Map',
+    subtitle: 'マップ',
+    description: '準備中',
+    icon: '/products/apps/map-icon.png',
+    status: 'planned'
+  },
+  {
+    name: 'Event',
+    subtitle: 'イベント',
+    description: '準備中',
+    icon: '/products/apps/event-icon.png',
+    status: 'planned'
   }
 ];
 ---
 
-<PageLayout title="アプリ一覧" description="Rubydog JP が提供するアプリの一覧です">
+<PageLayout title="アプリ" description="Rubydog JP が提供するアプリの一覧です">
   <section class="header-section">
     <div class="header-inner">
-      <h1>アプリ一覧</h1>
-      <p class="header-description">Rubydog JP が提供するアプリの一覧です</p>
+      <div class="header-icon-frame"><img src="/products/apps/apps-icon.png" alt="アプリ" /></div>
+      <h1>アプリ</h1>
+      <p class="header-description">Rubydog JP が開発したWebアプリ</p>
     </div>
   </section>
 
   <section class="content-section">
     <div class="content-inner">
-      <div class="apps-grid">
-        {apps.map(app => (
-          <div class="app-card">
-            <h2 class="app-name">{app.name}</h2>
-            <p class="app-description">{app.description}</p>
-            <div class="app-actions">
-              <a href={app.url} target="_blank" rel="noopener noreferrer" class="app-button primary">
-                アプリを開く
-              </a>
-              <a href={app.detail} class="app-button secondary">
-                詳しく見る
-              </a>
+      {apps.map(app => (
+        <div class:list={['app-card', { 'app-coming': app.status !== 'released' }]}>
+          <div class="app-header">
+            <div class="app-icon-frame"><img src={app.icon} alt={app.name} /></div>
+            <div>
+              <h2 class="app-name">{app.name} <span class="app-subtitle">{app.subtitle}</span></h2>
+              {app.status === 'coming' && <span class="status-badge coming">Coming Soon</span>}
+              {app.status === 'planned' && <span class="status-badge planned">準備中</span>}
             </div>
           </div>
-        ))}
-      </div>
+          <p class="app-description">{app.description}</p>
+          {app.features && (
+            <ul class="app-features">
+              {app.features.map(f => <li>{f}</li>)}
+            </ul>
+          )}
+          {app.image && (
+            <div class="app-image">
+              <img src={app.image} alt={app.name} />
+            </div>
+          )}
+          {app.status === 'released' && (
+            <div class="app-actions">
+              {app.url && <a href={app.url} target="_blank" rel="noopener noreferrer" class="app-button primary">アプリを開く</a>}
+              {app.detail && <a href={app.detail} class="app-button secondary">詳しく見る</a>}
+            </div>
+          )}
+        </div>
+      ))}
 
       <div class="policy-links">
         <h3>ご利用にあたって</h3>
-        <p>
-          各アプリをご利用いただく際は、以下の規約・ポリシーが適用されます。
-        </p>
+        <p>各アプリをご利用いただく際は、以下の規約・ポリシーが適用されます。</p>
         <ul>
           <li><a href="/apps/privacy">プライバシーポリシー</a></li>
           <li><a href="/apps/terms">利用規約</a></li>
@@ -54,14 +97,29 @@ const apps = [
 
 <style>
   .header-section {
-    background-color: #f9fafb;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     padding: 4rem 1rem;
+    text-align: center;
   }
 
-  .header-inner {
-    max-width: 56rem;
-    margin: 0 auto;
-    text-align: center;
+  .header-inner { max-width: 56rem; margin: 0 auto; }
+
+  .header-icon-frame {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .header-icon-frame img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
   }
 
   .header-inner h1 {
@@ -71,58 +129,97 @@ const apps = [
     margin: 0 0 0.5rem;
   }
 
-  .header-description {
-    color: #4b5563;
-    font-size: 1.125rem;
-  }
+  .header-description { color: #4b5563; font-size: 1.125rem; }
 
-  .content-section {
-    padding: 4rem 1rem;
-  }
-
-  .content-inner {
-    max-width: 56rem;
-    margin: 0 auto;
-  }
-
-  .apps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-  }
+  .content-section { padding: 3rem 1rem; }
+  .content-inner { max-width: 56rem; margin: 0 auto; }
 
   .app-card {
-    background: #fff;
+    background: white;
     border: 1px solid #e9ecef;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 0.3s;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
 
-  .app-card:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  .app-coming { opacity: 0.7; }
+
+  .app-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .app-icon-frame {
+    width: 56px;
+    height: 56px;
+    background: #f1f3f5;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .app-icon-frame img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
   }
 
   .app-name {
     font-size: 1.5rem;
     font-weight: 700;
     color: #111827;
-    margin: 0 0 0.75rem;
+    margin: 0;
   }
+
+  .app-subtitle {
+    font-size: 0.8rem;
+    color: #999;
+    font-weight: 400;
+    margin-left: 0.5rem;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+
+  .status-badge.coming { background: #fff3cd; color: #856404; }
+  .status-badge.planned { background: #e9ecef; color: #666; }
 
   .app-description {
     color: #374151;
     line-height: 1.7;
+    margin: 0 0 1rem;
+  }
+
+  .app-features {
+    padding-left: 1.5rem;
+    color: #374151;
     margin: 0 0 1.5rem;
   }
 
-  .app-actions {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+  .app-features li { margin-bottom: 0.5rem; line-height: 1.6; }
+
+  .app-image {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
   }
+
+  .app-image img { width: 100%; height: auto; display: block; }
+
+  .app-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
   .app-button {
     display: inline-block;
@@ -134,26 +231,11 @@ const apps = [
     transition: all 0.2s;
   }
 
-  .app-button.primary {
-    background: #EA4036;
-    color: #fff;
-  }
+  .app-button.primary { background: #EA4036; color: #fff; }
+  .app-button.primary:hover { background: #d63630; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(234,64,54,0.3); }
 
-  .app-button.primary:hover {
-    background: #d63630;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(234, 64, 54, 0.3);
-  }
-
-  .app-button.secondary {
-    background: #e9ecef;
-    color: #333;
-  }
-
-  .app-button.secondary:hover {
-    background: #dee2e6;
-    transform: translateY(-2px);
-  }
+  .app-button.secondary { background: #e9ecef; color: #333; }
+  .app-button.secondary:hover { background: #dee2e6; transform: translateY(-2px); }
 
   .policy-links {
     background: #f9fafb;
@@ -162,53 +244,17 @@ const apps = [
     border-left: 4px solid #EA4036;
   }
 
-  .policy-links h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #111827;
-    margin: 0 0 0.75rem;
-  }
-
-  .policy-links p {
-    color: #374151;
-    line-height: 1.7;
-    margin: 0 0 1rem;
-  }
-
-  .policy-links ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .policy-links a {
-    color: #2563eb;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .policy-links a:hover {
-    text-decoration: underline;
-  }
+  .policy-links h3 { font-size: 1.25rem; font-weight: 600; color: #111827; margin: 0 0 0.75rem; }
+  .policy-links p { color: #374151; line-height: 1.7; margin: 0 0 1rem; }
+  .policy-links ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1.5rem; }
+  .policy-links a { color: #2563eb; text-decoration: none; font-weight: 500; }
+  .policy-links a:hover { text-decoration: underline; }
 
   @media (max-width: 768px) {
-    .header-section {
-      padding: 3rem 1rem;
-    }
-
-    .header-inner h1 {
-      font-size: 2rem;
-    }
-
-    .content-section {
-      padding: 3rem 1rem;
-    }
-
-    .policy-links ul {
-      flex-direction: column;
-      gap: 0.75rem;
-    }
+    .header-section { padding: 3rem 1rem; }
+    .header-inner h1 { font-size: 2rem; }
+    .app-card { padding: 1.5rem; }
+    .app-header { flex-direction: column; align-items: flex-start; }
+    .policy-links ul { flex-direction: column; gap: 0.75rem; }
   }
 </style>

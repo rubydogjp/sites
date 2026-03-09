@@ -2,69 +2,120 @@
 import PageLayout from '../layouts/PageLayout.astro';
 ---
 
-<PageLayout title="Packages" description="Flutter パッケージのデモサイト">
-  <div class="redirect-container">
-    <div class="redirect-card">
-      <div class="redirect-icon">&#x1F4E6;</div>
-      <h1 class="redirect-title">Packages</h1>
-      <p class="redirect-description">
-        Rubydog JP が公開している Flutter パッケージのデモサイトです。<br />
-        パッケージの動作をブラウザ上で確認できます。
-      </p>
-      <a href="https://rubydogjp-packages.web.app" class="redirect-button">
-        デモサイトへ移動
-      </a>
+<PageLayout title="ライブラリ" description="Rubydog JP が提供する開発者向けライブラリ">
+  <section class="header-section">
+    <div class="header-inner">
+      <div class="header-icon-frame"><img src="/img/icon.png" alt="ライブラリ" /></div>
+      <h1>ライブラリ</h1>
+      <p class="header-description">開発者向けのパッケージやライブラリ</p>
     </div>
-  </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-inner">
+      <div class="placeholder-box">
+        <p class="placeholder-text">準備中</p>
+        <p class="placeholder-description">今後ライブラリやパッケージを公開予定です。</p>
+      </div>
+
+      <div class="existing-link">
+        <p>過去に公開した Flutter パッケージのデモサイトはこちら:</p>
+        <a href="https://rubydogjp-packages.web.app" target="_blank" rel="noopener noreferrer" class="link-button">
+          デモサイトへ移動
+        </a>
+      </div>
+    </div>
+  </section>
 </PageLayout>
 
 <style>
-  .redirect-container {
-    min-height: 60vh;
-    display: flex;
+  .header-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 4rem 1rem;
+    text-align: center;
+  }
+
+  .header-inner { max-width: 56rem; margin: 0 auto; }
+
+  .header-icon-frame {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 20px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 4rem 1rem;
-  }
-
-  .redirect-card {
-    text-align: center;
-    max-width: 480px;
-  }
-
-  .redirect-icon {
-    font-size: 4rem;
     margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
 
-  .redirect-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0 0 1rem;
+  .header-icon-frame img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
   }
 
-  .redirect-description {
-    font-size: 1.125rem;
-    line-height: 1.8;
-    color: #555;
+  .header-inner h1 { font-size: 2.5rem; font-weight: 700; color: #111827; margin: 0 0 0.5rem; }
+  .header-description { color: #4b5563; font-size: 1.125rem; }
+
+  .content-section { padding: 3rem 1rem; }
+  .content-inner { max-width: 56rem; margin: 0 auto; }
+
+  .placeholder-box {
+    background: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    text-align: center;
     margin-bottom: 2rem;
   }
 
-  .redirect-button {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    background: #EA4036;
-    color: white;
-    border-radius: 50px;
+  .placeholder-text {
+    font-size: 1.5rem;
     font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: all 0.3s;
+    color: #999;
+    margin: 0 0 0.5rem;
   }
 
-  .redirect-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(234, 64, 54, 0.3);
+  .placeholder-description {
+    color: #999;
+    margin: 0;
+  }
+
+  .existing-link {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .existing-link p {
+    color: #666;
+    margin: 0 0 1rem;
+  }
+
+  .link-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    background: #EA4036;
+    color: #fff;
+    transition: all 0.2s;
+  }
+
+  .link-button:hover {
+    background: #d63630;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234,64,54,0.3);
+  }
+
+  @media (max-width: 768px) {
+    .header-section { padding: 3rem 1rem; }
+    .header-inner h1 { font-size: 2rem; }
+    .placeholder-box { padding: 3rem 1.5rem; }
   }
 </style>

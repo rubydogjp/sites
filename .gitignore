@@ -4,3 +4,4 @@
 # Apex build artifacts
 apex/dist/
 apex/node_modules/
+apex/.astro/

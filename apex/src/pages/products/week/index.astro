@@ -1,0 +1,625 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+
+// SEO設定
+const pageTitle = 'Week - 個人向けの時間割表';
+const pageDescription = '社会人も学生みたいに時間割表が欲しい！生活リズムを整えるために使うシンプルな時間割表アプリです。ログイン不要ですぐに使えて、作成した時間割は画像として保存できます。';
+const appUrl = 'https://week.rubydog.jp';
+const ogImageUrl = 'https://rubydog.jp/products/week/pr-main-image.png';
+
+// 構造化データ (JSON-LD)
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Week',
+  applicationCategory: 'LifestyleApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'JPY'
+  },
+  description: pageDescription,
+  url: appUrl,
+  screenshot: ogImageUrl,
+  author: {
+    '@type': 'Person',
+    name: 'ルビーDog'
+  }
+};
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+  <!-- 追加のSEOメタタグ -->
+  <Fragment slot="head">
+    <!-- OGPタグ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content="https://rubydog.jp/products/week" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="Rubydog JP" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- キーワード -->
+    <meta name="keywords" content="時間割表,タイムテーブル,生活リズム,習慣化,スケジュール管理,無料アプリ,ログイン不要" />
+
+    <!-- 構造化データ -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </Fragment>
+
+  <div class="week-page">
+    <!-- ヒーローセクション -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">
+            <img src="/products/week/app-icon.png" alt="Week アイコン" class="app-icon" />
+            Week
+          </h1>
+          <p class="hero-subtitle">個人向けの時間割表</p>
+          <p class="hero-description">
+            社会人も学生みたいに時間割表が欲しい！<br />
+            生活リズムを整えるために使うシンプルな時間割表アプリです。
+          </p>
+          <div class="warning-bubble">
+            <p>【Xから来てくれた人へ】<br/>アプリがうまく読み込めない場合は、右上のメニューから<strong>再読み込み</strong>するか、<strong>別のブラウザで開いて</strong>ください。</p>
+          </div>
+          <div class="hero-actions">
+            <a href={appUrl} target="_blank" rel="noopener noreferrer" class="cta-button primary">
+              アプリを開く
+            </a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            poster="/products/week/pr-main-image.png"
+            aria-label="Weekアプリのデモ動画"
+          >
+            <source src="/products/week/pr-main-video.mp4" type="video/mp4" />
+            お使いのブラウザは動画タグをサポートしていません。
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- 機能セクション -->
+    <section class="features">
+      <h2 class="section-title">主な機能</h2>
+
+      <!-- 機能1: 気軽に!簡単に！ -->
+      <article class="feature-item">
+        <div class="feature-content">
+          <h3 class="feature-title">気軽に!簡単に！</h3>
+          <p class="feature-description">
+            ログイン不要ですぐに使えます。データを保存したい場合は、Googleアカウントでログインすることも可能です。
+            思い立ったその瞬間から、あなたの時間割作成を始められます。
+          </p>
+        </div>
+        <div class="feature-image">
+          <img
+            src="/products/week/pr-sub1.png"
+            alt="ログイン不要ですぐに使えるWeekの画面"
+            loading="lazy"
+            width="1920"
+            height="1080"
+          />
+        </div>
+      </article>
+
+      <!-- 機能2: 生活リズムを整える! -->
+      <article class="feature-item reverse">
+        <div class="feature-content">
+          <h3 class="feature-title">生活リズムを整える!</h3>
+          <p class="feature-description">
+            特に睡眠時間の習慣化は重要です。その他習慣化したいスケジュールだけ入力しておくのもおすすめです。
+            規則正しい生活で、より良い毎日を送りましょう。
+          </p>
+        </div>
+        <div class="feature-image">
+          <img
+            src="/products/week/pr-sub2.png"
+            alt="生活リズムを整えるための時間割設定画面"
+            loading="lazy"
+            width="1920"
+            height="1080"
+          />
+        </div>
+      </article>
+
+      <!-- 機能3: 便利に! -->
+      <article class="feature-item">
+        <div class="feature-content">
+          <h3 class="feature-title">便利に!</h3>
+          <p class="feature-description">
+            作成した時間割は画像として保存できます。目的を問わず利用可能です。
+            スマホの壁紙にしたり、SNSでシェアしたり、自由に活用できます。
+          </p>
+        </div>
+        <div class="feature-image">
+          <img
+            src="/products/week/pr-sub3.png"
+            alt="時間割を画像として保存する機能"
+            loading="lazy"
+            width="1920"
+            height="1080"
+          />
+        </div>
+      </article>
+
+      <!-- 機能4: 自由に! -->
+      <article class="feature-item reverse">
+        <div class="feature-content">
+          <h3 class="feature-title">自由に!</h3>
+          <p class="feature-description">
+            旅行やイベントの日程共有にも使えます。好きなように使ってください。
+            アイデア次第で、時間割表の可能性は無限大です。
+          </p>
+        </div>
+        <div class="feature-image">
+          <img
+            src="/products/week/pr-sub4.png"
+            alt="旅行やイベントにも使える柔軟な時間割"
+            loading="lazy"
+            width="1920"
+            height="1080"
+          />
+        </div>
+      </article>
+    </section>
+
+    <!-- CTAセクション -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2 class="cta-title">今すぐ始めましょう</h2>
+        <p class="cta-description">
+          登録不要で使える、完全無料のアプリ。データを保存したい場合はログインも可能です。
+        </p>
+        <div class="warning-bubble">
+            <p>【Xからお越しの方へ】<br/>正常に読み込めない場合は、右上のメニューから<strong>再読み込み</strong>するか、<strong>別のブラウザで開いて</strong>ください。</p>
+        </div>
+        <a href={appUrl} target="_blank" rel="noopener noreferrer" class="cta-button large">
+          アプリを開く
+        </a>
+      </div>
+    </section>
+
+    <!-- リンクセクション -->
+    <section class="links-section">
+      <nav aria-label="関連リンク">
+        <ul class="links-list">
+          <li><a href="/apps/privacy">プライバシーポリシー</a></li>
+          <li><a href="/apps/terms">利用規約</a></li>
+        </ul>
+      </nav>
+    </section>
+  </div>
+</PageLayout>
+
+<style>
+  .week-page {
+    width: 100%;
+  }
+
+  /* ヒーローセクション */
+  .hero {
+    background: linear-gradient(135deg, #EA4036 0%, #c93530 100%);
+    color: white;
+    padding: 4rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .app-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: white;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+    opacity: 0.95;
+    margin: 0;
+  }
+
+  .hero-description {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    opacity: 0.95;
+    margin: 0;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 1rem;
+  }
+
+  .cta-button.primary {
+    background: white;
+    color: #EA4036;
+  }
+
+  .cta-button.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .cta-button.large {
+    padding: 1.25rem 3rem;
+    font-size: 1.25rem;
+    background: white;
+    color: #EA4036;
+  }
+
+  .cta-button.large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(234, 64, 54, 0.3);
+  }
+
+  .hero-media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-media video {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  /* 機能セクション */
+  .features {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 4rem;
+    color: #1a1a1a;
+  }
+
+  .feature-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    align-items: center;
+  }
+
+  .feature-item.reverse {
+    direction: rtl;
+  }
+
+  .feature-item.reverse > * {
+    direction: ltr;
+  }
+
+  .feature-content {
+    padding: 2rem;
+  }
+
+  .feature-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #EA4036;
+  }
+
+  .feature-description {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #333;
+    margin: 0;
+  }
+
+  .feature-image {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .feature-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* CTAセクション */
+  .cta-section {
+    background: linear-gradient(135deg, #EA4036 0%, #c93530 100%);
+    color: white;
+    padding: 4rem 1rem;
+    text-align: center;
+  }
+
+  .cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .cta-description {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+  }
+
+  /* リンクセクション */
+  .links-section {
+    background: #f8f9fa;
+    padding: 2rem 1rem;
+  }
+
+  .links-list {
+    max-width: 1200px;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .links-list a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 0.95rem;
+  }
+
+  .links-list a:hover {
+    color: #EA4036;
+  }
+
+    /* 注意書きの吹き出し */
+    .warning-bubble {
+      background: #fff3cd;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      position: relative;
+      border: 1px solid #ffc107;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 0.875rem;
+    }
+
+    .warning-bubble p strong {
+      font-weight: 700;
+    }
+
+    /* デスクトップ時のヒーローセクションの吹き出し位置調整 */
+    @media (min-width: 969px) {
+      .hero-text > .warning-bubble {
+        margin-bottom: calc(0.875rem - 1.5rem);
+      }
+    }
+
+    .warning-bubble p {
+      margin: 0;
+      color: #664d03;
+      font-size: 0.95rem;
+      font-weight: 500;
+      line-height: 1.7;
+    }
+
+    /* 吹き出しの矢印（下向き） */
+    .warning-bubble::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      bottom: -12px;
+      left: 40px;
+      border-width: 12px 12px 0 12px;
+      border-color: #ffc107 transparent transparent transparent;
+    }
+    .warning-bubble::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      bottom: -10px;
+      left: 42px;
+      border-width: 10px 10px 0 10px;
+      border-color: #fff3cd transparent transparent transparent;
+    }
+
+    .cta-section .warning-bubble {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-section .warning-bubble::before,
+    .cta-section .warning-bubble::after {
+      left: 50%;
+    }
+    .cta-section .warning-bubble::before {
+      transform: translateX(-12px);
+    }
+    .cta-section .warning-bubble::after {
+      transform: translateX(-10px);
+    }
+
+    /* レスポンシブデザイン */
+    @media (max-width: 968px) {
+      .hero-text .warning-bubble {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: calc(0.875rem - 1.5rem);
+      }
+      .hero-text .warning-bubble::before,
+      .hero-text .warning-bubble::after {
+        left: 50%;
+      }
+      .hero-text .warning-bubble::before {
+        transform: translateX(-12px);
+      }
+      .hero-text .warning-bubble::after {
+        transform: translateX(-10px);
+      }
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    .hero-text {
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      flex-direction: column;
+    }
+
+    .hero-media {
+      order: -1;
+    }
+
+    .feature-item,
+    .feature-item.reverse {
+      grid-template-columns: 1fr;
+      direction: ltr;
+    }
+
+    .feature-content {
+      padding: 1rem;
+    }
+
+    .feature-title {
+      font-size: 1.75rem;
+    }
+
+    .section-title,
+    .cta-title {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 3rem 1rem;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .app-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+    }
+
+    .features,
+    .cta-section {
+      padding: 3rem 1rem;
+    }
+
+    .feature-item {
+      margin-bottom: 3rem;
+    }
+
+    .feature-title {
+      font-size: 1.5rem;
+    }
+
+    .feature-description {
+      font-size: 1rem;
+    }
+
+    .cta-button {
+      width: 100%;
+    }
+
+    .links-list {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+</style>

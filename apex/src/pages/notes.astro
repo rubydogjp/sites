@@ -1,70 +1,191 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+
+const notes = [
+  {
+    name: 'Git Note',
+    subtitle: 'Git講座',
+    description: 'Git・GitHubの使い方を実践しながら学べるWeb講座です。ハチミツと蜂の巣をテーマにした温かみのあるデザインで、初心者でも楽しく学べます。',
+    icon: '/products/notes/gitnote/gitnote-icon.svg',
+    iconType: 'icon' as const,
+    url: 'https://gitnote.rubydog.jp',
+    features: [
+      'ブラウザだけで手軽に始められる',
+      'ステップバイステップのチュートリアル',
+      'フォーク・クローン・プルリクエストまで実践',
+      'Git・GitHubの基礎を体験で学ぶ'
+    ]
+  },
+  {
+    name: 'Flutter Note',
+    subtitle: 'Flutter講座',
+    description: 'Flutter入門動画や実践リソースをまとめたプロジェクトです。動画で学び、パッケージやテンプレートを活用できます。',
+    icon: '/products/notes/flutternote/flutternote-profile.png',
+    iconType: 'profile' as const,
+    url: 'https://flutternote.rubydog.jp',
+    features: [
+      '入門動画の編集・投稿',
+      'パッケージのリリース・メンテナンス',
+      'アプリのテンプレート配布',
+      '技術記事の投稿'
+    ]
+  }
+];
 ---
 
-<PageLayout title="Flutter Note" description="Flutter 教材アプリ">
-  <div class="redirect-container">
-    <div class="redirect-card">
-      <div class="redirect-icon">&#x1F4DD;</div>
-      <h1 class="redirect-title">Flutter Note</h1>
-      <p class="redirect-description">
-        Flutter の基礎から実践まで学べる教材アプリです。<br />
-        ブラウザ上でサンプルコードを確認しながら学習できます。
-      </p>
-      <a href="https://flutternote.rubydog.jp" class="redirect-button">
-        flutternote.rubydog.jp へ移動
-      </a>
+<PageLayout title="講座" description="Rubydog JP が提供するプログラミング講座">
+  <section class="header-section">
+    <div class="header-inner">
+      <img src="/products/notes/notes-profile.png" alt="講座" class="header-icon" />
+      <h1>講座</h1>
+      <p class="header-description">プログラミングを実践しながら学べるWeb講座</p>
     </div>
-  </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-inner">
+      {notes.map(note => (
+        <div class="note-card">
+          <div class="note-header">
+            {note.iconType === 'icon' ? (
+              <div class="note-icon-frame"><img src={note.icon} alt={note.name} /></div>
+            ) : (
+              <img src={note.icon} alt={note.name} class="note-profile" />
+            )}
+            <div>
+              <h2 class="note-name">{note.name} <span class="note-subtitle">{note.subtitle}</span></h2>
+            </div>
+          </div>
+          <p class="note-description">{note.description}</p>
+          <ul class="note-features">
+            {note.features.map(f => <li>{f}</li>)}
+          </ul>
+          <div class="note-actions">
+            <a href={note.url} target="_blank" rel="noopener noreferrer" class="note-button">講座を開く</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
 </PageLayout>
 
 <style>
-  .redirect-container {
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .header-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     padding: 4rem 1rem;
-  }
-
-  .redirect-card {
     text-align: center;
-    max-width: 480px;
   }
 
-  .redirect-icon {
-    font-size: 4rem;
+  .header-inner { max-width: 56rem; margin: 0 auto; }
+
+  .header-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 16px;
     margin-bottom: 1rem;
   }
 
-  .redirect-title {
-    font-size: 2.5rem;
+  .header-inner h1 { font-size: 2.5rem; font-weight: 700; color: #111827; margin: 0 0 0.5rem; }
+  .header-description { color: #4b5563; font-size: 1.125rem; }
+
+  .content-section { padding: 3rem 1rem; }
+  .content-inner { max-width: 56rem; margin: 0 auto; }
+
+  .note-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .note-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .note-icon-frame {
+    width: 64px;
+    height: 64px;
+    background: #f1f3f5;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .note-icon-frame img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  .note-profile {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 16px;
+    flex-shrink: 0;
+  }
+
+  .note-name {
+    font-size: 1.5rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #111827;
+    margin: 0;
+  }
+
+  .note-subtitle {
+    font-size: 0.8rem;
+    color: #999;
+    font-weight: 400;
+    margin-left: 0.5rem;
+  }
+
+  .note-description {
+    color: #374151;
+    line-height: 1.7;
     margin: 0 0 1rem;
   }
 
-  .redirect-description {
-    font-size: 1.125rem;
-    line-height: 1.8;
-    color: #555;
-    margin-bottom: 2rem;
+  .note-features {
+    padding-left: 1.5rem;
+    color: #374151;
+    margin: 0 0 1.5rem;
   }
 
-  .redirect-button {
+  .note-features li { margin-bottom: 0.5rem; line-height: 1.6; }
+
+  .note-actions { display: flex; gap: 0.75rem; }
+
+  .note-button {
     display: inline-block;
-    padding: 1rem 2.5rem;
-    background: #EA4036;
-    color: white;
-    border-radius: 50px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-decoration: none;
-    transition: all 0.3s;
+    background: #EA4036;
+    color: #fff;
+    transition: all 0.2s;
   }
 
-  .redirect-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(234, 64, 54, 0.3);
+  .note-button:hover {
+    background: #d63630;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234,64,54,0.3);
+  }
+
+  @media (max-width: 768px) {
+    .header-section { padding: 3rem 1rem; }
+    .header-inner h1 { font-size: 2rem; }
+    .note-card { padding: 1.5rem; }
+    .note-header { flex-direction: column; align-items: flex-start; }
   }
 </style>

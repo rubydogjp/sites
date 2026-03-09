@@ -1,8 +1,8 @@
 ---
-const navItems = [
-  { label: '製品', href: '/products' },
-  { label: 'ニュース', href: '/news' },
-  { label: 'お問い合わせ', href: '/contact' }
+const productGroups = [
+  { label: 'アプリ', href: '/apps' },
+  { label: '講座', href: '/notes' },
+  { label: 'ライブラリ', href: '/packages' }
 ];
 
 const currentPath = Astro.url.pathname;
@@ -24,7 +24,7 @@ const currentPath = Astro.url.pathname;
 
     <!-- Navigation Menu -->
     <ul class="navbar-menu" id="navbar-menu">
-      {navItems.map(item => (
+      {productGroups.map(item => (
         <li>
           <a
             href={item.href}
@@ -39,7 +39,6 @@ const currentPath = Astro.url.pathname;
 </nav>
 
 <script>
-  // Hamburger menu toggle
   const hamburger = document.getElementById('hamburger');
   const navbarMenu = document.getElementById('navbar-menu');
 
@@ -49,7 +48,6 @@ const currentPath = Astro.url.pathname;
       navbarMenu.classList.toggle('active');
     });
 
-    // Close menu when clicking on a link
     const navLinks = navbarMenu.querySelectorAll('.navbar-link');
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
@@ -58,7 +56,6 @@ const currentPath = Astro.url.pathname;
       });
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (e.target instanceof Node && !hamburger.contains(e.target) && !navbarMenu.contains(e.target)) {
         hamburger.classList.remove('active');
@@ -106,7 +103,6 @@ const currentPath = Astro.url.pathname;
     color: #ffffff;
   }
 
-  /* Hamburger Button */
   .hamburger {
     display: none;
     flex-direction: column;
