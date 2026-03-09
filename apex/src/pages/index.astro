@@ -84,7 +84,7 @@ const socialLinks = [
       <h2 class="section-title">新着ニュース</h2>
       <div class="news-list">
         {recentNews.map(news => (
-          <a href="/news" class="news-card">
+          <a href={`/news/${news.slug}`} class="news-card">
             <time class="news-date" datetime={news.data.date.toISOString()}>
               {news.data.date.toLocaleDateString('ja-JP', {
                 year: 'numeric',

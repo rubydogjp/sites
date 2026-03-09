@@ -74,7 +74,7 @@ const footerLinks: FooterSection[] = [
           <ul class="footer-list">
             {recentNews.map(news => (
               <li>
-                <a href="/news" class="footer-link">
+                <a href={`/news/${news.slug}`} class="footer-link">
                   <span class="footer-news-date">
                     {news.data.date.toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })}
                   </span>
