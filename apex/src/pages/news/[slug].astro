@@ -13,112 +13,71 @@ export const getStaticPaths = (async () => {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-
-function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('ja-JP', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(date);
-}
 ---
 
 <PageLayout title={entry.data.title}>
-  <article class="news-article">
-    <header class="news-header">
+  <article class="article" data-aos="fade-up">
+    <header class="article-header">
+      <a href="/news" class="back-link">← ニュース一覧</a>
       <h1>{entry.data.title}</h1>
-      <time class="news-date" datetime={entry.data.date.toISOString()}>
-        {formatDate(entry.data.date)}
-      </time>
-      {entry.data.tags && (
-        <div class="news-tags">
-          {entry.data.tags.map((tag) => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
-      )}
+      <div class="meta">
+        <time datetime={entry.data.date.toISOString()}>
+          {entry.data.date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        {entry.data.tags && (
+          <div class="tags">
+            {entry.data.tags.map(tag => <span class="tag">{tag}</span>)}
+          </div>
+        )}
+      </div>
+      <div class="header-bar"></div>
     </header>
 
-    <div class="news-content">
+    <div class="article-body">
       <Content />
     </div>
 
-    <footer class="news-footer">
-      <a href="/news" class="back-link">← ニュース一覧に戻る</a>
+    <footer class="article-footer">
+      <a href="/news" class="btn-back" data-magnetic>← ニュース一覧に戻る</a>
     </footer>
   </article>
 </PageLayout>
 
 <style>
-  .news-article {
-    max-width: 900px;
+  .article {
+    max-width: 750px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 7rem 1.5rem 4rem;
   }
 
-  .news-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #e0e0e0;
-  }
+  .article-header { margin-bottom: 2.5rem; }
+  .back-link { font-size: 0.82rem; color: #999; font-weight: 500; transition: color 0.2s; }
+  .back-link:hover { color: var(--red); }
 
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
-    color: #333;
-  }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; margin: 1rem 0 0.75rem; color: #1a1a1a; }
 
-  .news-date {
-    display: block;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.75rem;
-  }
+  .meta { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+  time { font-size: 0.85rem; color: #999; }
+  .tags { display: flex; gap: 0.3rem; }
+  .tag { font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--light-red); color: var(--dark-red); font-weight: 500; }
 
-  .news-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
+  .header-bar { width: 50px; height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--red), var(--yellow)); margin-top: 1.5rem; }
 
-  .tag {
-    background-color: #e7f3ff;
-    color: #2196f3;
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.85rem;
-  }
+  .article-body { line-height: 1.8; color: #444; }
+  .article-body :global(p) { margin-bottom: 1rem; }
+  .article-body :global(img) { max-width: 100%; height: auto; display: block; margin: 1.5rem auto; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+  .article-body :global(a) { color: var(--blue); font-weight: 500; }
+  .article-body :global(a:hover) { text-decoration: underline; }
+  .article-body :global(h2) { font-size: 1.4rem; font-weight: 700; margin: 2rem 0 0.75rem; color: #1a1a1a; }
+  .article-body :global(h3) { font-size: 1.15rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: #333; }
+  .article-body :global(ul), .article-body :global(ol) { margin: 0 0 1rem 1.5rem; }
+  .article-body :global(li) { margin-bottom: 0.4rem; }
 
-  .news-content {
-    line-height: 1.6;
-    margin-bottom: 3rem;
+  .article-footer { padding-top: 2rem; margin-top: 3rem; border-top: 1px solid rgba(0,0,0,0.06); }
+  .btn-back {
+    display: inline-block; padding: 0.6rem 1.5rem; border-radius: 12px;
+    background: #f5f5f5; color: #555; font-weight: 600; font-size: 0.85rem;
+    transition: all 0.2s;
   }
-
-  .news-content :global(img) {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 1.5rem auto;
-    border-radius: 8px;
-  }
-
-  .news-content :global(p) {
-    margin-bottom: 1rem;
-  }
-
-  .news-footer {
-    padding-top: 2rem;
-    border-top: 1px solid #e0e0e0;
-  }
-
-  .back-link {
-    color: var(--ifm-color-primary);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .back-link:hover {
-    color: var(--ifm-color-primary-dark);
-    text-decoration: underline;
-  }
+  .btn-back:hover { background: var(--red); color: white; transform: translateY(-2px); }
 </style>

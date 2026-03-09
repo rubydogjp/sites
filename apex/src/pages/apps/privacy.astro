@@ -1,401 +1,119 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
 
 const lastUpdated = '2026年3月3日';
 ---
 
-<PageLayout
-  title="プライバシーポリシー"
-  description="Rubydog JP が提供するアプリのプライバシーポリシーです。個人情報の取り扱いについて詳しく説明しています。"
->
-  <!-- Header Section -->
-  <section class="bg-gray-50 py-16 sm:py-24">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">
-          プライバシーポリシー
-        </h1>
-        <p class="text-gray-600">
-          最終更新日: {lastUpdated}
-        </p>
-      </div>
+<PageLayout title="プライバシーポリシー" description="Rubydog JP が提供するアプリのプライバシーポリシー">
+  <PageHeader title="プライバシーポリシー" description={`最終更新日: ${lastUpdated}`} accentColor="green" />
+
+  <section class="content" data-aos="fade-up">
+    <div class="highlight-box green">
+      <h2>プライバシーへの取り組み</h2>
+      <p>Rubydog JP（以下「当方」）が提供するアプリ（以下「本サービス」）では、皆様のプライバシーを最重要視しています。本サービスはログイン不要で使え、その場合すべてのデータはお使いのブラウザ内にのみ保存されます。データを保存したい場合はGoogleアカウントでログインできますが、その場合でも広告配信は一切行いません。</p>
     </div>
-  </section>
 
-  <!-- Privacy Policy Content -->
-  <section class="py-16">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="prose prose-lg max-w-none">
+    <section class="section">
+      <h2>第1条 基本方針</h2>
+      <p>当方は、本サービスにおける皆様のプライバシーを尊重し、個人情報の保護に努めます。</p>
+      <p>本プライバシーポリシーは、個人情報の取り扱いについて定めたものです。</p>
+    </section>
 
-        <div class="bg-green-50 p-6 rounded-lg mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">
-            プライバシーへの取り組み
-          </h2>
-          <p class="text-gray-700">
-            Rubydog JP（以下「当方」）が提供するアプリ（以下「本サービス」）では、皆様のプライバシーを最重要視しています。本サービスはログイン不要で使え、その場合すべてのデータはお使いのブラウザ内にのみ保存されます。データを保存したい場合はGoogleアカウントでログインできますが、その場合でも広告配信は一切行いません。
-          </p>
-        </div>
+    <section class="section">
+      <h2>第2条 収集する情報</h2>
+      <h3>必要最小限の情報のみ収集</h3>
+      <p>本サービスは、利用方法によって収集する情報が異なります：</p>
+      <h4>ログインせずに利用する場合</h4>
+      <p>個人情報は一切収集いたしません。すべてのデータはブラウザ内にのみ保存されます。</p>
+      <h4>Googleアカウントでログインして利用する場合</h4>
+      <p>以下の情報のみを収集します：</p>
+      <ul><li>Googleアカウントに紐づくメールアドレス</li><li>アプリ内で作成したデータ</li><li>サービス利用状況（エラーログ等、システム改善目的）</li></ul>
+      <p>以下の情報は一切収集いたしません：</p>
+      <ul><li>名前、電話番号などのメールアドレス以外の個人情報</li><li>年齢、住所、性別などの属性情報</li><li>位置情報</li></ul>
+      <p><strong>データの保存場所：</strong></p>
+      <p>ログインしない場合はブラウザのローカルストレージに、ログインした場合は安全なクラウドサーバーに保存されます。</p>
+    </section>
 
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">
-            第1条 基本方針
-          </h2>
-          <p class="text-gray-700 mb-4">
-            当方は、本サービスにおける皆様のプライバシーを尊重し、個人情報の保護に努めます。
-          </p>
-          <p class="text-gray-700">
-            本プライバシーポリシーは、個人情報の取り扱いについて定めたものです。
-          </p>
-        </section>
+    <section class="section">
+      <h2>第3条 情報の利用目的</h2>
+      <p>収集した情報は、以下の目的にのみ利用します：</p>
+      <ul><li>本サービスの機能提供および改善</li><li>ユーザーサポートへの対応</li></ul>
+      <p>以下の用途で情報を利用することはありません：</p>
+      <ul><li>マーケティング</li><li>広告配信</li><li>第三者への提供・販売</li></ul>
+    </section>
 
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">
-            第2条 収集する情報
-          </h2>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            必要最小限の情報のみ収集
-          </h3>
-          <p class="text-gray-700 mb-4">
-            本サービスは、利用方法によって収集する情報が異なります：
-          </p>
+    <section class="section">
+      <h2>第4条 情報の管理・保護</h2>
+      <h3>徹底した情報管理</h3>
+      <p>データは、利用方法に応じて以下のように保存・管理されます：</p>
+      <h4>ログインせずに利用する場合</h4>
+      <ul><li>データはお使いのデバイス内にのみ存在</li><li>外部サーバーへの送信なし</li><li>ブラウザのセキュリティ機能により保護</li><li>ブラウザのデータ削除機能でいつでも削除可能</li></ul>
+      <h4>ログインして利用する場合</h4>
+      <ul><li>暗号化による安全な保存</li><li>アクセス権限の厳格な管理</li><li>定期的なセキュリティチェック</li><li>不要になったデータの適切な削除</li></ul>
+      <p><strong>注意事項：</strong></p>
+      <p>ログインせずに利用する場合、ブラウザのキャッシュやデータを削除すると、保存されたデータも削除されます。大切なデータはログインしてクラウドに保存することをお勧めします。</p>
+    </section>
 
-          <h4 class="text-lg font-bold text-gray-900 mb-2">
-            ログインせずに利用する場合
-          </h4>
-          <p class="text-gray-700 mb-4">
-            個人情報は一切収集いたしません。すべてのデータはブラウザ内にのみ保存されます。
-          </p>
+    <section class="section">
+      <h2>第5条 第三者提供</h2>
+      <p>当方は、利用者の同意なく個人情報を第三者に提供することはありません。</p>
+      <p>ただし、法令に基づく場合など正当な理由がある場合はこの限りではありません。</p>
+    </section>
 
-          <h4 class="text-lg font-bold text-gray-900 mb-2">
-            Googleアカウントでログインして利用する場合
-          </h4>
-          <p class="text-gray-700 mb-4">
-            以下の情報のみを収集します：
-          </p>
-          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>Googleアカウントに紐づくメールアドレス</li>
-            <li>アプリ内で作成したデータ</li>
-            <li>サービス利用状況（エラーログ等、システム改善目的）</li>
-          </ul>
+    <section class="section">
+      <h2>第6条 アクセス解析ツール</h2>
+      <p>本サービスでは、サービスの改善を目的として Google Analytics を使用しています。Google Analytics は Cookie を使用してアクセス情報を収集しますが、個人を特定する情報は含まれません。</p>
+      <p>収集されるデータの例：</p>
+      <ul><li>ページの閲覧状況</li><li>利用しているブラウザやデバイスの種類</li><li>参照元の情報</li></ul>
+      <p>以下については一切行いません：</p>
+      <ul><li>広告トラッキング</li><li>個人を特定するための追跡</li><li>フィンガープリンティング</li></ul>
+    </section>
 
-          <p class="text-gray-700 mb-4">
-            以下の情報は一切収集いたしません：
-          </p>
-          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>名前、電話番号などのメールアドレス以外の個人情報</li>
-            <li>年齢、住所、性別などの属性情報</li>
-            <li>位置情報</li>
-          </ul>
+    <section class="section">
+      <h2>第7条 データの削除・アクセス権</h2>
+      <p>ユーザーは以下の権利を有します：</p>
+      <ul><li>自身のデータへのアクセス権</li><li>データの修正・削除権</li><li>データのエクスポート権</li><li>サービス利用停止権</li></ul>
+      <h4>ログインせずに利用する場合</h4>
+      <p>データはブラウザ内にのみ存在するため、ブラウザの設定からいつでも削除可能です。運営者側ではデータの閲覧・削除は不可能です。</p>
+      <h4>ログインして利用する場合</h4>
+      <p>アカウント削除やデータ削除のご要望は、<a href="/contact">お問い合わせページ</a>よりご連絡ください。速やかに対応いたします。</p>
+    </section>
 
-          <p class="text-gray-700 mb-4">
-            <strong>データの保存場所：</strong>
-          </p>
-          <p class="text-gray-700">
-            ログインしない場合はブラウザのローカルストレージに、ログインした場合は安全なクラウドサーバーに保存されます。
-          </p>
-        </section>
+    <section class="section">
+      <h2>第8条 プライバシーポリシーの変更</h2>
+      <p>当方は、法令の変更やサービス改善のため、本プライバシーポリシーを変更することがあります。</p>
+      <p>重要な変更については、本ページにて事前にお知らせいたします。</p>
+    </section>
 
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">
-            第3条 情報の利用目的
-          </h2>
-          <p class="text-gray-700 mb-4">
-            収集した情報は、以下の目的にのみ利用します：
-          </p>
-          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>本サービスの機能提供および改善</li>
-            <li>ユーザーサポートへの対応</li>
-          </ul>
-          <p class="text-gray-700">
-            以下の用途で情報を利用することはありません：
-          </p>
-          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>マーケティング</li>
-            <li>広告配信</li>
-            <li>第三者への提供・販売</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">
-            第4条 情報の管理・保護
-          </h2>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            徹底した情報管理
-          </h3>
-          <p class="text-gray-700 mb-4">
-            データは、利用方法に応じて以下のように保存・管理されます：
-          </p>
-
-          <h4 class="text-lg font-bold text-gray-900 mb-2">
-            ログインせずに利用する場合
-          </h4>
-          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>データはお使いのデバイス内にのみ存在</li>
-            <li>外部サーバーへの送信なし</li>
-            <li>ブラウザのセキュリティ機能により保護</li>
-            <li>ブラウザのデータ削除機能でいつでも削除可能</li>
-          </ul>
-
-          <h4 class="text-lg font-bold text-gray-900 mb-2">
-            ログインして利用する場合
-          </h4>
-          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>暗号化による安全な保存</li>
-            <li>アクセス権限の厳格な管理</li>
-            <li>定期的なセキュリティチェック</li>
-            <li>不要になったデータの適切な削除</li>
-          </ul>
-
-          <p class="text-gray-700 mb-4">
-            <strong>注意事項：</strong>
-          </p>
-          <p class="text-gray-700">
-            ログインせずに利用する場合、ブラウザのキャッシュやデータを削除すると、保存されたデータも削除されます。大切なデータはログインしてクラウドに保存することをお勧めします。
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">
-            第5条 第三者提供
-          </h2>
-          <p class="text-gray-700 mb-4">
-            当方は、利用者の同意なく個人情報を第三者に提供することはありません。
-          </p>
-          <p class="text-gray-700">
-            ただし、法令に基づく場合など正当な理由がある場合はこの限りではありません。
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">
-            第6条 アクセス解析ツール
-          </h2>
-          <p class="text-gray-700 mb-4">
-            本サービスでは、サービスの改善を目的として Google Analytics を使用しています。Google Analytics は Cookie を使用してアクセス情報を収集しますが、個人を特定する情報は含まれません。
-          </p>
-          <p class="text-gray-700 mb-4">
-            収集されるデータの例：
-          </p>
-          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>ページの閲覧状況</li>
-            <li>利用しているブラウザやデバイスの種類</li>
-            <li>参照元の情報</li>
-          </ul>
-          <p class="text-gray-700 mb-4">
-            Google Analytics の利用規約については <a href="https://marketingplatform.google.com/about/analytics/terms/jp/" target="_blank" rel="noopener noreferrer" class="text-blue-600">Google アナリティクス利用規約</a> をご確認ください。
-          </p>
-          <p class="text-gray-700 mb-4">
-            以下については一切行いません：
-          </p>
-          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>広告トラッキング</li>
-            <li>個人を特定するための追跡</li>
-            <li>フィンガープリンティング</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">
-            第7条 データの削除・アクセス権
-          </h2>
-          <p class="text-gray-700 mb-4">
-            ユーザーは以下の権利を有します：
-          </p>
-          <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>自身のデータへのアクセス権</li>
-            <li>データの修正・削除権</li>
-            <li>データのエクスポート権</li>
-            <li>サービス利用停止権</li>
-          </ul>
-
-          <h4 class="text-lg font-bold text-gray-900 mb-2">
-            ログインせずに利用する場合
-          </h4>
-          <p class="text-gray-700 mb-4">
-            データはブラウザ内にのみ存在するため、ブラウザの設定からいつでも削除可能です。運営者側ではデータの閲覧・削除は不可能です。
-          </p>
-
-          <h4 class="text-lg font-bold text-gray-900 mb-2">
-            ログインして利用する場合
-          </h4>
-          <p class="text-gray-700">
-            アカウント削除やデータ削除のご要望は、<a href="/contact" class="text-blue-600">お問い合わせページ</a>よりご連絡ください。速やかに対応いたします。
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">
-            第8条 プライバシーポリシーの変更
-          </h2>
-          <p class="text-gray-700 mb-4">
-            当方は、法令の変更やサービス改善のため、本プライバシーポリシーを変更することがあります。
-          </p>
-          <p class="text-gray-700">
-            重要な変更については、本ページにて事前にお知らせいたします。
-          </p>
-        </section>
-
-        <div class="bg-blue-50 p-6 rounded-lg mt-12">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            お問い合わせ
-          </h3>
-          <p class="text-gray-700">
-            本プライバシーポリシーについてご質問がございましたら、<a href="/contact" class="text-blue-600 hover:underline">お問い合わせページ</a>よりご連絡ください。
-          </p>
-        </div>
-      </div>
+    <div class="highlight-box blue">
+      <h3>お問い合わせ</h3>
+      <p>本プライバシーポリシーについてご質問がございましたら、<a href="/contact">お問い合わせページ</a>よりご連絡ください。</p>
     </div>
   </section>
 </PageLayout>
 
 <style>
-  .bg-gray-50 {
-    background-color: #f9fafb;
-  }
+  .content { max-width: 750px; margin: 0 auto; padding: 1rem 1.5rem 4rem; }
 
-  .bg-green-50 {
-    background-color: #f0fdf4;
-  }
-
-  .bg-blue-50 {
-    background-color: #eff6ff;
-  }
-
-  .text-gray-600 {
-    color: #4b5563;
-  }
-
-  .text-gray-700 {
-    color: #374151;
-  }
-
-  .text-gray-900 {
-    color: #111827;
-  }
-
-  .text-blue-600 {
-    color: #2563eb;
-  }
-
-  .prose {
-    color: #374151;
-    max-width: 65ch;
-  }
-
-  .prose h2 {
-    margin-top: 2em;
-    margin-bottom: 1em;
-  }
-
-  .prose h3 {
-    margin-top: 1.6em;
-    margin-bottom: 0.6em;
-  }
-
-  .prose p {
-    margin-top: 1.25em;
-    margin-bottom: 1.25em;
-  }
-
-  .prose ul {
-    margin-top: 1.25em;
-    margin-bottom: 1.25em;
-  }
-
-  .prose li {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-  }
-
-  .prose strong {
-    font-weight: 600;
-    color: #111827;
-  }
-
-  .prose a:hover {
-    text-decoration: underline;
-  }
-
-  .max-w-4xl {
-    max-width: 56rem;
-  }
-
-  .max-w-none {
-    max-width: none;
-  }
-
-  .mx-auto {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .py-16 {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-
-  .p-6 {
-    padding: 1.5rem;
-  }
-
-  .mb-3 {
-    margin-bottom: 0.75rem;
-  }
-
-  .mb-4 {
-    margin-bottom: 1rem;
-  }
-
-  .mb-8 {
+  .highlight-box {
+    padding: 2rem;
+    border-radius: 16px;
     margin-bottom: 2rem;
   }
+  .highlight-box.green { background: rgba(184,244,208,0.25); border: 1px solid rgba(5,172,71,0.1); }
+  .highlight-box.blue { background: rgba(208,231,255,0.25); border: 1px solid rgba(37,132,252,0.1); margin-top: 2rem; }
+  .highlight-box h2, .highlight-box h3 { font-size: 1.2rem; font-weight: 700; margin: 0 0 0.75rem; color: #1a1a1a; }
+  .highlight-box p { color: #555; line-height: 1.7; margin: 0; }
+  .highlight-box a { color: var(--blue); font-weight: 500; }
 
-  .mt-12 {
-    margin-top: 3rem;
-  }
-
-  .rounded-lg {
-    border-radius: 0.5rem;
-  }
-
-  .list-disc {
-    list-style-type: disc;
-  }
-
-  .list-inside {
-    list-style-position: inside;
-  }
-
-  .space-y-2 > * + * {
-    margin-top: 0.5rem;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  @media (min-width: 640px) {
-    .sm\:px-6 {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-
-    .sm\:py-24 {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .lg\:px-8 {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-  }
+  .section { margin-bottom: 2rem; }
+  .section h2 { font-size: 1.25rem; font-weight: 700; color: #1a1a1a; margin: 0 0 0.75rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.05); }
+  .section h3 { font-size: 1.05rem; font-weight: 600; color: #333; margin: 1rem 0 0.5rem; }
+  .section h4 { font-size: 0.95rem; font-weight: 600; color: #555; margin: 1rem 0 0.4rem; }
+  .section p { color: #555; line-height: 1.7; margin: 0 0 0.75rem; }
+  .section strong { color: #1a1a1a; }
+  .section ul { padding-left: 1.2rem; color: #555; margin: 0 0 0.75rem; }
+  .section li { margin-bottom: 0.3rem; line-height: 1.6; }
+  .section a { color: var(--blue); font-weight: 500; }
 </style>

@@ -1,11 +1,12 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
 
 const techStack = [
   {
     category: 'スマホアプリ開発',
     icon: '📱',
-    color: '#4A90E2',
+    color: 'var(--blue)',
     technologies: [
       { name: 'iOS', detail: 'Swift, Objective-C' },
       { name: 'Android', detail: 'Java, Kotlin' },
@@ -16,7 +17,7 @@ const techStack = [
   {
     category: 'Webバックエンド',
     icon: '⚙️',
-    color: '#50C878',
+    color: 'var(--green)',
     technologies: [
       { name: 'Deno', detail: 'TypeScript' },
       { name: 'FastAPI', detail: 'Python' },
@@ -26,7 +27,7 @@ const techStack = [
   {
     category: 'Webフロントエンド',
     icon: '🎨',
-    color: '#E94B3C',
+    color: 'var(--red)',
     technologies: [
       { name: 'Next.js', detail: '' },
       { name: 'React', detail: '' }
@@ -43,7 +44,7 @@ const techStack = [
   {
     category: 'データベース',
     icon: '🗄️',
-    color: '#F39C12',
+    color: 'var(--yellow)',
     technologies: [
       { name: 'MySQL', detail: '' },
       { name: 'PostgreSQL', detail: '' },
@@ -53,7 +54,7 @@ const techStack = [
   {
     category: 'クラウド',
     icon: '☁️',
-    color: '#3498DB',
+    color: 'var(--blue)',
     technologies: [
       { name: 'AWS', detail: 'EC2, S3' },
       { name: 'Google Cloud', detail: 'CloudRun, Firestore' },
@@ -71,72 +72,62 @@ const techStack = [
   {
     category: '趣味',
     icon: '💡',
-    color: '#E74C3C',
+    color: 'var(--red)',
     technologies: [
       { name: 'Rust', detail: '' },
       { name: 'Mojo', detail: '' }
     ]
   }
 ];
-
-const socialLinks = [
-  {
-    name: 'アカウント',
-    url: 'https://twitter.com/rbdog_v2',
-    icon: '𝕏',
-    color: '#000000'
-  }
-];
 ---
 
 <PageLayout title="個人プロフィール">
-  <div class="profile-container">
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="profile-card">
-        <div class="profile-image-wrapper">
-          <img src="/profile/rbdog.png" alt="ルビーDog" class="profile-image" />
-        </div>
-        <h1 class="profile-name">ルビーDog</h1>
-        <p class="profile-tagline">ソフトウェアエンジニア / クリエイター</p>
+  <PageHeader title="プロフィール" description="ルビーDog / ソフトウェアエンジニア" accentColor="yellow" />
 
-        <div class="social-links">
-          {socialLinks.map(link => (
-            <a
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="social-link"
-              style={`background: ${link.color}`}
-            >
-              <span class="social-icon">{link.icon}</span>
-              <span class="social-name">{link.name}</span>
-            </a>
-          ))}
+  <div class="profile-container">
+    <!-- Hero Card -->
+    <section class="hero-card" data-aos="fade-up">
+      <div class="card-orb card-orb-1"></div>
+      <div class="card-orb card-orb-2"></div>
+      <div class="card-inner">
+        <div class="avatar-wrap">
+          <div class="avatar-ring"></div>
+          <img src="/img/profile.png" alt="ルビーDog" class="avatar-img" />
+        </div>
+        <h2 class="hero-name">ルビーDog</h2>
+        <p class="hero-role">ソフトウェアエンジニア / クリエイター</p>
+        <div class="social-row">
+          <a href="https://x.com/rubydogjp" target="_blank" rel="noopener noreferrer" class="social-pill" data-magnetic>
+            <span class="social-icon">𝕏</span>
+            <span>@rubydogjp</span>
+          </a>
+          <a href="https://github.com/rubydogjp" target="_blank" rel="noopener noreferrer" class="social-pill github" data-magnetic>
+            <span>GitHub</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Tech Stack Section -->
-    <section class="tech-stack-section">
-      <h2 class="section-title">技術スタック</h2>
-
+    <!-- Tech Stack -->
+    <section class="tech-section">
+      <h2 class="section-title" data-aos="fade-up">技術スタック</h2>
       <div class="tech-grid">
-        {techStack.map(category => (
-          <div class="tech-category-card">
-            <div class="category-header" style={`border-left: 4px solid ${category.color}`}>
-              <span class="category-icon">{category.icon}</span>
-              <h3 class="category-title">{category.category}</h3>
-            </div>
-            <div class="technologies-list">
-              {category.technologies.map(tech => (
-                <div class="tech-item">
-                  <span class="tech-name">{tech.name}</span>
-                  {tech.detail && (
-                    <span class="tech-detail">{tech.detail}</span>
-                  )}
-                </div>
-              ))}
+        {techStack.map((cat, i) => (
+          <div class="tech-card" data-aos="fade-up" data-aos-delay={i * 60}>
+            <div class="tech-card-accent" style={`background: ${cat.color}`}></div>
+            <div class="tech-card-body">
+              <div class="tech-header">
+                <span class="tech-emoji">{cat.icon}</span>
+                <h3>{cat.category}</h3>
+              </div>
+              <div class="tech-items">
+                {cat.technologies.map(tech => (
+                  <div class="tech-chip">
+                    <span class="chip-name">{tech.name}</span>
+                    {tech.detail && <span class="chip-detail">{tech.detail}</span>}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ))}
@@ -147,271 +138,177 @@ const socialLinks = [
 
 <style>
   .profile-container {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 0 1.5rem 4rem;
   }
 
-  /* Hero Section */
-  .hero-section {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 4rem;
-  }
-
-  .profile-card {
-    background: linear-gradient(135deg, #FFBA00 0%, #FF9500 100%);
-    border-radius: 20px;
-    padding: 3rem 4rem;
+  /* Hero Card */
+  .hero-card {
+    position: relative;
+    background: linear-gradient(135deg, var(--yellow), var(--red));
+    border-radius: 24px;
+    padding: 3rem 2rem;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    position: relative;
     overflow: hidden;
-    max-width: 600px;
-    width: 100%;
+    margin-bottom: 3rem;
   }
 
-  .profile-card::before {
-    content: '';
+  .card-orb {
     position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    animation: pulse 15s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
-    }
-    50% {
-      transform: translate(-20px, -20px) scale(1.1);
-    }
-  }
-
-  .profile-image-wrapper {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    margin: 0 auto 1.5rem;
     border-radius: 50%;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    filter: blur(60px);
+    opacity: 0.2;
+    pointer-events: none;
+  }
+  .card-orb-1 { width: 300px; height: 300px; background: white; top: -80px; right: -60px; }
+  .card-orb-2 { width: 200px; height: 200px; background: var(--red); bottom: -40px; left: -40px; }
+
+  .card-inner { position: relative; z-index: 1; }
+
+  .avatar-wrap {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 1.5rem;
+    position: relative;
   }
 
-  .profile-image {
+  .avatar-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(var(--red), var(--yellow), var(--green), var(--blue), var(--red));
+    animation: ringRotate 6s linear infinite;
+  }
+  @keyframes ringRotate { to { transform: rotate(360deg); } }
+
+  .avatar-img {
+    position: relative;
     width: 100%;
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #fff;
-  }
-
-  .profile-name {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    position: relative;
+    border: 4px solid white;
     z-index: 1;
   }
 
-  .profile-tagline {
-    font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .social-links {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .social-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: #000;
+  .hero-name {
+    font-size: 2rem;
+    font-weight: 800;
     color: white;
-    text-decoration: none;
+    margin: 0 0 0.4rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .hero-role {
+    color: rgba(255,255,255,0.9);
+    font-size: 1rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .social-row {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .social-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.4rem;
+    background: rgba(0,0,0,0.8);
+    color: white;
     border-radius: 50px;
     font-weight: 600;
-    transition: all 0.3s;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-size: 0.9rem;
+    transition: all 0.25s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
+  .social-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  }
+  .social-pill.github { background: #24292e; }
+  .social-icon { font-size: 1.1rem; }
 
-  .social-link:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  }
-
-  .social-icon {
-    font-size: 1.25rem;
-  }
-
-  .social-name {
-    font-size: 0.95rem;
-  }
-
-  /* Tech Stack Section */
-  .tech-stack-section {
-    margin-top: 3rem;
-  }
+  /* Tech Stack */
+  .tech-section { margin-top: 1rem; }
 
   .section-title {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 1.6rem;
+    font-weight: 800;
     color: #1a1a1a;
-    margin-bottom: 2rem;
     text-align: center;
-    position: relative;
-    padding-bottom: 1rem;
-  }
-
-  .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #FFBA00 0%, #FF9500 100%);
-    border-radius: 2px;
+    margin: 0 0 2rem;
   }
 
   .tech-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
   }
 
-  .tech-category-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s;
-    border: 1px solid #e9ecef;
+  .tech-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: all 0.25s;
+  }
+  .tech-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   }
 
-  .tech-category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  .tech-card-accent {
+    height: 4px;
   }
 
-  .category-header {
+  .tech-card-body { padding: 1.25rem; }
+
+  .tech-header {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1.25rem;
-    padding-left: 0.75rem;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
   }
-
-  .category-icon {
-    font-size: 1.5rem;
-  }
-
-  .category-title {
-    font-size: 1.125rem;
-    font-weight: 600;
+  .tech-emoji { font-size: 1.3rem; }
+  .tech-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
     color: #1a1a1a;
     margin: 0;
   }
 
-  .technologies-list {
+  .tech-items {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
   }
 
-  .tech-item {
-    background: #f8f9fa;
+  .tech-chip {
+    background: rgba(0,0,0,0.03);
     border-radius: 8px;
-    padding: 0.75rem 1rem;
-    transition: all 0.2s;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.82rem;
+    transition: background 0.2s;
   }
+  .tech-chip:hover { background: rgba(0,0,0,0.06); }
 
-  .tech-item:hover {
-    background: #e9ecef;
-    transform: translateX(5px);
+  .chip-name { font-weight: 600; color: #333; }
+  .chip-detail {
+    color: #888;
+    margin-left: 0.3rem;
   }
+  .chip-detail::before { content: '· '; }
 
-  .tech-name {
-    font-weight: 600;
-    color: #333;
-    font-size: 0.95rem;
-  }
-
-  .tech-detail {
-    font-size: 0.85rem;
-    color: #666;
-    margin-left: 0.5rem;
-  }
-
-  .tech-detail::before {
-    content: '•';
-    margin-right: 0.5rem;
-    color: #999;
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .profile-container {
-      padding: 1rem;
-    }
-
-    .profile-card {
-      padding: 2rem 1.5rem;
-    }
-
-    .profile-name {
-      font-size: 2rem;
-    }
-
-    .profile-image-wrapper {
-      width: 120px;
-      height: 120px;
-    }
-
-    .social-links {
-      flex-direction: column;
-    }
-
-    .social-link {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .tech-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .section-title {
-      font-size: 1.75rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .profile-card {
-      padding: 1.5rem 1rem;
-      border-radius: 16px;
-    }
-
-    .profile-name {
-      font-size: 1.75rem;
-    }
-
-    .profile-tagline {
-      font-size: 1rem;
-    }
+  @media (max-width: 600px) {
+    .hero-card { padding: 2rem 1.5rem; }
+    .avatar-wrap { width: 110px; height: 110px; }
+    .hero-name { font-size: 1.6rem; }
+    .tech-grid { grid-template-columns: 1fr; }
   }
 </style>

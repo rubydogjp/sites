@@ -4,14 +4,18 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 <PageLayout title="Git Note" description="Git講座プロジェクト Git Note の紹介">
   <div class="redirect-container">
-    <div class="redirect-card">
-      <div class="redirect-icon">&#x1F36F;</div>
-      <h1 class="redirect-title">Git Note</h1>
-      <p class="redirect-description">
-        Git を使った共同開発チュートリアル「Git Note」の教材サイトです。<br />
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="card" data-aos="zoom-in">
+      <div class="icon-wrap">
+        <img src="/img/notes/gitnote/gitnote-icon-new.svg" alt="Git Note" />
+      </div>
+      <h1 class="rainbow-text">Git Note</h1>
+      <p>
+        Git を使った共同開発チュートリアル。<br />
         ハチの巣をみんなで作りながら、OSSの世界へ飛び込もう。
       </p>
-      <a href="https://gitnote.rubydog.jp" class="redirect-button">
+      <a href="https://gitnote.rubydog.jp" class="go-btn" data-magnetic>
         gitnote.rubydog.jp へ移動
       </a>
     </div>
@@ -20,51 +24,71 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 <style>
   .redirect-container {
-    min-height: 60vh;
+    min-height: 65vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4rem 1rem;
+    padding: 6rem 1.5rem 4rem;
+    position: relative;
+    overflow: hidden;
   }
 
-  .redirect-card {
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.1;
+    pointer-events: none;
+  }
+  .orb-1 { width: 350px; height: 350px; background: var(--green); top: 10%; left: 10%; }
+  .orb-2 { width: 250px; height: 250px; background: var(--blue); bottom: 10%; right: 15%; }
+
+  .card {
     text-align: center;
     max-width: 480px;
+    position: relative;
+    z-index: 1;
   }
 
-  .redirect-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+  .icon-wrap {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: var(--light-green);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
+  .icon-wrap img { width: 50px; height: 50px; object-fit: contain; }
 
-  .redirect-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1a1a1a;
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 800;
     margin: 0 0 1rem;
   }
 
-  .redirect-description {
-    font-size: 1.125rem;
+  p {
+    font-size: 1.05rem;
     line-height: 1.8;
-    color: #555;
-    margin-bottom: 2rem;
+    color: #666;
+    margin: 0 0 2rem;
   }
 
-  .redirect-button {
+  .go-btn {
     display: inline-block;
-    padding: 1rem 2.5rem;
-    background: #EA4036;
+    padding: 0.9rem 2.5rem;
+    border-radius: 14px;
+    background: var(--green);
     color: white;
-    border-radius: 50px;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1rem;
-    text-decoration: none;
-    transition: all 0.3s;
+    transition: all 0.25s;
+    box-shadow: 0 4px 16px rgba(5,172,71,0.2);
   }
-
-  .redirect-button:hover {
+  .go-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(234, 64, 54, 0.3);
+    box-shadow: 0 8px 28px rgba(5,172,71,0.3);
   }
 </style>

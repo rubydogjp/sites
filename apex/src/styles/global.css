@@ -1,30 +1,25 @@
-/* light */
+/* ===== COLOR TOKENS ===== */
 :root {
-  --home-header: #e4000f;
+  --red: #EA4036;
+  --yellow: #FFBA00;
+  --green: #05AC47;
+  --blue: #2584FC;
+  --light-red: #FFD6D3;
+  --light-yellow: #FFF0B8;
+  --light-green: #B8F4D0;
+  --light-blue: #D0E7FF;
+  --dark-red: #C5221F;
+  --dark-yellow: #F29900;
+  --dark-green: #02832E;
+  --dark-blue: #0066DB;
+
+  /* Legacy compat */
+  --home-header: #EA4036;
   --ifm-color-primary: #6b9cff;
-  --ifm-color-primary-dark: #6b9cff;
-  --ifm-color-primary-darker: #6b9cff;
-  --ifm-color-primary-darkest: #6b9cff;
-  --ifm-color-primary-light: #6b9cff;
-  --ifm-color-primary-lighter: #6b9cff;
-  --ifm-color-primary-lightest: #6b9cff;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
-/* dark */
-[data-theme="dark"] {
-  --home-header: #e4000f;
-  --ifm-color-primary: #6b9cff;
-  --ifm-color-primary-dark: #6b9cff;
-  --ifm-color-primary-darker: #6b9cff;
-  --ifm-color-primary-darkest: #6b9cff;
-  --ifm-color-primary-light: #6b9cff;
-  --ifm-color-primary-lighter: #6b9cff;
-  --ifm-color-primary-lightest: #6b9cff;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-}
-
+/* ===== RESET ===== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -36,19 +31,42 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #F5F5F7;
+  color: #1a1a1a;
+  overflow-x: hidden;
 }
 
-main {
-  min-height: calc(100vh - 60px);
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-/* リンク用ボタン */
+/* Lenis smooth scroll */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+
+/* ===== SHARED UTILITIES ===== */
+
+/* Rainbow text animation */
+.rainbow-text {
+  background: linear-gradient(90deg, var(--red), var(--yellow), var(--green), var(--blue), var(--red));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rainbowFlow 3s linear infinite;
+}
+
+@keyframes rainbowFlow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* リンク用ボタン (legacy) */
 a.linkbutton {
   display: inline-block;
   text-align: center;
@@ -56,19 +74,19 @@ a.linkbutton {
   width: fit-content;
   padding: 0.875rem 1.75rem;
   font-weight: 600;
-  border: 2px solid #27acd9;
-  border-radius: 8px;
+  border: 2px solid var(--blue);
+  border-radius: 12px;
   color: #ffffff;
-  background-color: #27acd9;
+  background-color: var(--blue);
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(39, 172, 217, 0.3);
+  box-shadow: 0 2px 8px rgba(37, 132, 252, 0.3);
   font-size: 1rem;
 }
 
 a.linkbutton:hover {
   color: #ffffff;
-  background-color: #1e8bb5;
-  border-color: #1e8bb5;
+  background-color: var(--dark-blue);
+  border-color: var(--dark-blue);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(39, 172, 217, 0.4);
+  box-shadow: 0 4px 12px rgba(37, 132, 252, 0.4);
 }

@@ -1,0 +1,93 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  icon?: string;
+  iconType?: 'icon' | 'profile';
+  accentColor?: 'red' | 'green' | 'blue' | 'yellow';
+}
+
+const { title, description, icon, iconType = 'icon', accentColor = 'red' } = Astro.props;
+const colorMap = {
+  red: { light: 'var(--light-red)', dark: 'var(--dark-red)', main: 'var(--red)' },
+  green: { light: 'var(--light-green)', dark: 'var(--dark-green)', main: 'var(--green)' },
+  blue: { light: 'var(--light-blue)', dark: 'var(--dark-blue)', main: 'var(--blue)' },
+  yellow: { light: 'var(--light-yellow)', dark: 'var(--dark-yellow)', main: 'var(--yellow)' },
+};
+const c = colorMap[accentColor];
+---
+
+<section class="page-header" data-aos="fade-up" data-aos-duration="600">
+  <div class="header-orb header-orb-1" style={`background: ${c.main}`}></div>
+  <div class="header-orb header-orb-2" style={`background: ${c.main}`}></div>
+  <div class="header-inner">
+    {icon && (
+      <div class:list={['header-icon-wrap', { 'icon-type': iconType === 'icon', 'profile-type': iconType === 'profile' }]} style={`background: ${c.light}`}>
+        <img src={icon} alt={title} />
+      </div>
+    )}
+    <h1>{title}</h1>
+    {description && <p class="header-desc">{description}</p>}
+    <div class="header-bar" style={`background: linear-gradient(90deg, ${c.main}, ${c.light})`}></div>
+  </div>
+</section>
+
+<style>
+  .page-header {
+    position: relative;
+    overflow: hidden;
+    padding: 7rem 1.5rem 3rem;
+    text-align: center;
+  }
+
+  .header-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.08;
+    pointer-events: none;
+  }
+  .header-orb-1 { width: 300px; height: 300px; top: -80px; left: -60px; }
+  .header-orb-2 { width: 250px; height: 250px; bottom: -60px; right: -40px; }
+
+  .header-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .header-icon-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+  .header-icon-wrap.icon-type img { width: 44px; height: 44px; object-fit: contain; }
+  .header-icon-wrap.profile-type img { width: 100%; height: 100%; object-fit: cover; }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem;
+  }
+
+  .header-desc {
+    color: #888;
+    font-size: 1rem;
+    margin: 0 0 1.5rem;
+    line-height: 1.6;
+  }
+
+  .header-bar {
+    width: 60px;
+    height: 4px;
+    border-radius: 4px;
+    margin: 0 auto;
+  }
+</style>

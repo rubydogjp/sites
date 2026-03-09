@@ -1,5 +1,6 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
 
 const apps = [
   {
@@ -7,7 +8,7 @@ const apps = [
     subtitle: '時間割',
     description: '社会人も学生みたいに時間割表が欲しい！生活リズムを整えるために使うシンプルな時間割表アプリです。',
     icon: '/products/apps/week-icon.png',
-    image: '/products/week/pr-main-image.png',
+    image: '/products/week/ss/ss01-desktop.png',
     url: 'https://week.rubydog.jp',
     detail: '/products/week',
     features: [
@@ -16,245 +17,161 @@ const apps = [
       '作成した時間割は画像として保存可能',
       '旅行やイベントの日程共有にも活用できる'
     ],
-    status: 'released'
+    status: 'released',
+    accent: 'red'
   },
   {
     name: 'Timecard',
     subtitle: 'タイムカード',
     description: '新しいアプリです。近日ニュースとしてアナウンス予定。',
-    icon: '/products/apps/timecard-icon.png',
-    status: 'coming'
+    icon: '/products/timecard/timecard-icon.png',
+    image: '/products/timecard/ss/ss01-desktop.png',
+    status: 'coming',
+    accent: 'yellow'
   },
   {
     name: 'Map',
     subtitle: 'マップ',
     description: '準備中',
     icon: '/products/apps/map-icon.png',
-    status: 'planned'
+    status: 'planned',
+    accent: 'green'
   },
   {
     name: 'Event',
     subtitle: 'イベント',
     description: '準備中',
     icon: '/products/apps/event-icon.png',
-    status: 'planned'
+    status: 'planned',
+    accent: 'blue'
   }
 ];
 ---
 
 <PageLayout title="アプリ" description="Rubydog JP が提供するアプリの一覧です">
-  <section class="header-section">
-    <div class="header-inner">
-      <div class="header-icon-frame"><img src="/products/apps/apps-icon.png" alt="アプリ" /></div>
-      <h1>アプリ</h1>
-      <p class="header-description">Rubydog JP が開発したWebアプリ</p>
-    </div>
-  </section>
+  <PageHeader
+    title="アプリ"
+    description="Rubydog JP が開発したWebアプリ"
+    icon="/products/apps/apps-icon.png"
+    accentColor="red"
+  />
 
-  <section class="content-section">
-    <div class="content-inner">
-      {apps.map(app => (
-        <div class:list={['app-card', { 'app-coming': app.status !== 'released' }]}>
-          <div class="app-header">
-            <div class="app-icon-frame"><img src={app.icon} alt={app.name} /></div>
-            <div>
-              <h2 class="app-name">{app.name} <span class="app-subtitle">{app.subtitle}</span></h2>
-              {app.status === 'coming' && <span class="status-badge coming">Coming Soon</span>}
-              {app.status === 'planned' && <span class="status-badge planned">準備中</span>}
-            </div>
+  <section class="content">
+    {apps.map((app, i) => (
+      <div
+        class:list={['app-card', 'tile', { 'app-dim': app.status !== 'released' }]}
+        data-aos="fade-up"
+        data-aos-delay={String(i * 100)}
+      >
+        <div class="app-top">
+          <div class={`app-icon-wrap accent-${app.accent}`}>
+            <img src={app.icon} alt={app.name} />
           </div>
-          <p class="app-description">{app.description}</p>
-          {app.features && (
-            <ul class="app-features">
-              {app.features.map(f => <li>{f}</li>)}
-            </ul>
-          )}
-          {app.image && (
-            <div class="app-image">
-              <img src={app.image} alt={app.name} />
-            </div>
-          )}
-          {app.status === 'released' && (
-            <div class="app-actions">
-              {app.url && <a href={app.url} target="_blank" rel="noopener noreferrer" class="app-button primary">アプリを開く</a>}
-              {app.detail && <a href={app.detail} class="app-button secondary">詳しく見る</a>}
-            </div>
-          )}
+          <div class="app-meta">
+            <h2>{app.name} <span class="app-subtitle">{app.subtitle}</span></h2>
+            {app.status === 'coming' && <span class="badge badge-yellow">Coming Soon</span>}
+            {app.status === 'planned' && <span class="badge badge-gray">準備中</span>}
+          </div>
         </div>
-      ))}
+        <p class="app-desc">{app.description}</p>
+        {app.features && (
+          <ul class="features">
+            {app.features.map(f => <li>{f}</li>)}
+          </ul>
+        )}
+        {app.image && (
+          <div class="app-screenshot" data-aos="zoom-in" data-aos-delay="200">
+            <img src={app.image} alt={app.name} />
+          </div>
+        )}
+        {app.status === 'released' && (
+          <div class="app-actions">
+            {app.url && <a href={app.url} target="_blank" rel="noopener noreferrer" class="btn-primary" data-magnetic>アプリを開く</a>}
+            {app.detail && <a href={app.detail} class="btn-secondary" data-magnetic>詳しく見る</a>}
+          </div>
+        )}
+      </div>
+    ))}
 
+    <div class="policy-card tile" data-aos="fade-up">
+      <div class="policy-bar"></div>
+      <h3>ご利用にあたって</h3>
+      <p>各アプリをご利用いただく際は、以下の規約・ポリシーが適用されます。</p>
       <div class="policy-links">
-        <h3>ご利用にあたって</h3>
-        <p>各アプリをご利用いただく際は、以下の規約・ポリシーが適用されます。</p>
-        <ul>
-          <li><a href="/apps/privacy">プライバシーポリシー</a></li>
-          <li><a href="/apps/terms">利用規約</a></li>
-        </ul>
+        <a href="/apps/privacy">プライバシーポリシー</a>
+        <a href="/apps/terms">利用規約</a>
       </div>
     </div>
   </section>
 </PageLayout>
 
 <style>
-  .header-section {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 4rem 1rem;
-    text-align: center;
-  }
+  .content { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
-  .header-inner { max-width: 56rem; margin: 0 auto; }
-
-  .header-icon-frame {
-    width: 80px;
-    height: 80px;
-    background: white;
+  .tile {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(12px);
     border-radius: 20px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    transition: all 0.3s;
   }
+  .tile:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
 
-  .header-icon-frame img {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
+  .app-card { padding: 2rem; margin-bottom: 1.5rem; }
+  .app-dim { opacity: 0.65; }
+
+  .app-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .app-icon-wrap {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
+  .app-icon-wrap img { width: 34px; height: 34px; object-fit: contain; }
+  .accent-red { background: var(--light-red); }
+  .accent-yellow { background: var(--light-yellow); }
+  .accent-green { background: var(--light-green); }
+  .accent-blue { background: var(--light-blue); }
 
-  .header-inner h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #111827;
-    margin: 0 0 0.5rem;
+  .app-meta h2 { font-size: 1.4rem; font-weight: 700; margin: 0; }
+  .app-subtitle { font-size: 0.8rem; color: #999; font-weight: 400; margin-left: 0.4rem; }
+
+  .badge { display: inline-block; padding: 0.2rem 0.7rem; border-radius: 8px; font-size: 0.7rem; font-weight: 600; margin-top: 0.25rem; }
+  .badge-yellow { background: var(--light-yellow); color: var(--dark-yellow); }
+  .badge-gray { background: #f0f0f0; color: #999; }
+
+  .app-desc { color: #555; line-height: 1.7; margin: 0 0 1rem; }
+
+  .features { padding-left: 1.2rem; color: #555; margin: 0 0 1.5rem; }
+  .features li { margin-bottom: 0.4rem; line-height: 1.6; }
+
+  .app-screenshot {
+    border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
   }
-
-  .header-description { color: #4b5563; font-size: 1.125rem; }
-
-  .content-section { padding: 3rem 1rem; }
-  .content-inner { max-width: 56rem; margin: 0 auto; }
-
-  .app-card {
-    background: white;
-    border: 1px solid #e9ecef;
-    border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-
-  .app-coming { opacity: 0.7; }
-
-  .app-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .app-icon-frame {
-    width: 56px;
-    height: 56px;
-    background: #f1f3f5;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  }
-
-  .app-icon-frame img {
-    width: 34px;
-    height: 34px;
-    object-fit: contain;
-  }
-
-  .app-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #111827;
-    margin: 0;
-  }
-
-  .app-subtitle {
-    font-size: 0.8rem;
-    color: #999;
-    font-weight: 400;
-    margin-left: 0.5rem;
-  }
-
-  .status-badge {
-    display: inline-block;
-    padding: 0.2rem 0.6rem;
-    border-radius: 10px;
-    font-size: 0.7rem;
-    font-weight: 500;
-    margin-top: 0.25rem;
-  }
-
-  .status-badge.coming { background: #fff3cd; color: #856404; }
-  .status-badge.planned { background: #e9ecef; color: #666; }
-
-  .app-description {
-    color: #374151;
-    line-height: 1.7;
-    margin: 0 0 1rem;
-  }
-
-  .app-features {
-    padding-left: 1.5rem;
-    color: #374151;
-    margin: 0 0 1.5rem;
-  }
-
-  .app-features li { margin-bottom: 0.5rem; line-height: 1.6; }
-
-  .app-image {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-    margin-bottom: 1.5rem;
-  }
-
-  .app-image img { width: 100%; height: auto; display: block; }
+  .app-screenshot img { width: 100%; height: auto; display: block; }
 
   .app-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-
-  .app-button {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: all 0.2s;
+  .btn-primary {
+    padding: 0.7rem 1.8rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+    background: var(--red); color: white; transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(234,64,54,0.15);
   }
-
-  .app-button.primary { background: #EA4036; color: #fff; }
-  .app-button.primary:hover { background: #d63630; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(234,64,54,0.3); }
-
-  .app-button.secondary { background: #e9ecef; color: #333; }
-  .app-button.secondary:hover { background: #dee2e6; transform: translateY(-2px); }
-
-  .policy-links {
-    background: #f9fafb;
-    border-radius: 8px;
-    padding: 2rem;
-    border-left: 4px solid #EA4036;
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(234,64,54,0.25); }
+  .btn-secondary {
+    padding: 0.7rem 1.8rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+    background: #f0f0f0; color: #555; transition: all 0.2s;
   }
+  .btn-secondary:hover { background: #e5e5e5; transform: translateY(-2px); }
 
-  .policy-links h3 { font-size: 1.25rem; font-weight: 600; color: #111827; margin: 0 0 0.75rem; }
-  .policy-links p { color: #374151; line-height: 1.7; margin: 0 0 1rem; }
-  .policy-links ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1.5rem; }
-  .policy-links a { color: #2563eb; text-decoration: none; font-weight: 500; }
-  .policy-links a:hover { text-decoration: underline; }
+  .policy-card { padding: 2rem; position: relative; overflow: hidden; }
+  .policy-bar { width: 4px; height: 100%; position: absolute; left: 0; top: 0; background: linear-gradient(180deg, var(--red), var(--yellow)); border-radius: 0 4px 4px 0; }
+  .policy-card h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.5rem; }
+  .policy-card p { color: #888; font-size: 0.9rem; margin: 0 0 1rem; }
+  .policy-links { display: flex; gap: 1rem; }
+  .policy-links a { color: var(--blue); font-weight: 600; font-size: 0.9rem; transition: color 0.2s; }
+  .policy-links a:hover { color: var(--dark-blue); }
 
   @media (max-width: 768px) {
-    .header-section { padding: 3rem 1rem; }
-    .header-inner h1 { font-size: 2rem; }
-    .app-card { padding: 1.5rem; }
-    .app-header { flex-direction: column; align-items: flex-start; }
-    .policy-links ul { flex-direction: column; gap: 0.75rem; }
+    .app-top { flex-direction: column; align-items: flex-start; }
   }
 </style>

@@ -7,419 +7,760 @@ const recentNews = allNews
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-const productGroups = [
-  {
-    title: 'アプリ',
-    description: 'シンプルで便利なWebアプリ',
-    href: '/apps',
-    icon: '/products/apps/apps-icon.png',
-    iconType: 'icon' as const
-  },
-  {
-    title: '講座',
-    description: 'プログラミングを学ぶ実践講座',
-    href: '/notes',
-    icon: '/products/notes/notes-profile.png',
-    iconType: 'profile' as const
-  },
-  {
-    title: 'ライブラリ',
-    description: '開発者向けパッケージ',
-    href: '/packages',
-    icon: '/img/icon.png',
-    iconType: 'icon' as const
-  }
-];
-
 const socialLinks = [
-  { name: 'GitHub', url: 'https://github.com/rubydogjp/' },
-  { name: 'Youtube', url: 'https://youtube.com/@rbdog/' },
-  { name: 'X', url: 'https://x.com/rubydog_jp/' }
+  { name: 'GitHub', handle: '@rubydogjp', url: 'https://github.com/rubydogjp/', style: 'tile-dark' },
+  { name: 'YouTube', handle: '@rbdog', url: 'https://youtube.com/@rbdog/', style: 'tile-social-red' },
+  { name: 'X', handle: '@rubydogjp', url: 'https://x.com/rubydogjp/', style: 'tile-dark' },
 ];
 ---
 
 <PageLayout title="Rubydog JP" description="ソフトウェア技術をもっと分かりやすく">
-  <div class="home-container">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1 class="hero-title">
-            <span class="title-line">ソフトウェア技術を</span>
-            <span class="title-line gradient-text">もっと分かりやすく</span>
+  <!-- Hero: Bento + Animated Color Blocks -->
+  <section class="hero">
+    <!-- Animated background blocks -->
+    <div class="bg-blocks">
+      <div class="bg-block bg-red"></div>
+      <div class="bg-block bg-yellow"></div>
+      <div class="bg-block bg-green"></div>
+      <div class="bg-block bg-blue"></div>
+      <div class="bg-block bg-red-2"></div>
+      <div class="bg-block bg-blue-2"></div>
+    </div>
+    <div class="hero-grain"></div>
+
+    <!-- Bento Hero Grid -->
+    <div class="hero-bento">
+      <!-- Main Title Tile -->
+      <div class="tile tile-hero" data-aos="fade-right" data-aos-duration="800">
+        <div class="tile-glow"></div>
+        <div class="tile-inner">
+          <div class="hero-badge">
+            <span class="pulse-ring"></span>
+            <span>Rubydog JP</span>
+          </div>
+          <h1>
+            ソフトウェア技術を<br/>
+            <span class="rainbow-text">もっと分かりやすく</span>
           </h1>
-          <p class="hero-description">
-            アプリ開発、プログラミング講座、開発者向けライブラリなど、<br />
+          <p class="hero-desc">
+            アプリ開発、プログラミング講座、開発者向けライブラリなど、<br class="hide-mobile" />
             ソフトウェア技術をより多くの人々に届けるために活動しています。
           </p>
           <div class="hero-actions">
-            <a href="/products" class="cta-button primary">製品を見る</a>
-            <a href="/notes" class="cta-button secondary">講座を見る</a>
+            <a href="/products" class="btn-hero" data-magnetic>製品を見る</a>
+            <a href="/notes" class="btn-hero-outline" data-magnetic>講座を見る</a>
           </div>
         </div>
-        <div class="hero-image">
+      </div>
+
+      <!-- Profile Tile -->
+      <div class="tile tile-profile" data-aos="zoom-in" data-aos-delay="200">
+        <div class="profile-ring">
+          <div class="ring-track"></div>
           <img src="/img/profile.png" alt="Rubydog JP" />
         </div>
+        <span class="profile-name">Rubydog JP</span>
+        <span class="profile-sub">Software Studio</span>
       </div>
-    </section>
 
-    <!-- Product Groups Section -->
-    <section class="products-section">
-      <h2 class="section-title">製品・サービス</h2>
-      <div class="products-grid">
-        {productGroups.map(group => (
-          <a href={group.href} class="product-group-card">
-            <div class="product-group-icon-wrap">
-              <img src={group.icon} alt={group.title} class:list={[group.iconType === 'icon' ? 'pg-icon' : 'pg-profile']} />
-            </div>
-            <h3 class="product-group-title">{group.title}</h3>
-            <p class="product-group-description">{group.description}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- Recent News Section -->
-    <section class="news-section">
-      <h2 class="section-title">新着ニュース</h2>
-      <div class="news-list">
-        {recentNews.map(news => (
-          <a href={`/news/${news.slug}`} class="news-card">
-            <time class="news-date" datetime={news.data.date.toISOString()}>
-              {news.data.date.toLocaleDateString('ja-JP', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </time>
-            <h3 class="news-title">{news.data.title}</h3>
-            {news.data.tags && (
-              <div class="news-tags">
-                {news.data.tags.map(tag => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-            )}
-          </a>
-        ))}
-      </div>
-      <div class="news-more">
-        <a href="/news" class="news-more-link">すべてのニュースを見る</a>
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section">
-      <h2 class="section-title">About</h2>
-      <div class="about-content">
-        <div class="about-info">
-          <div class="about-item"><span class="about-label">正式名</span><span class="about-value">Rubydog JP</span></div>
-          <div class="about-item"><span class="about-label">設立日</span><span class="about-value">2023年10月31日</span></div>
-          <div class="about-item"><span class="about-label">所在地</span><span class="about-value">オンラインのみの活動</span></div>
-          <div class="about-item"><span class="about-label">活動内容</span><span class="about-value">動画配信、ソフトウェア開発</span></div>
+      <!-- Product Tiles -->
+      <a href="/apps" class="tile tile-product tile-red" data-aos="fade-up" data-aos-delay="300" data-magnetic>
+        <div class="tile-icon-wrap">
+          <img src="/products/apps/apps-icon.png" alt="アプリ" class="tile-icon" />
         </div>
-        <div class="social-links">
-          {socialLinks.map(link => (
-            <a href={link.url} target="_blank" rel="noopener noreferrer" class="social-link">
-              {link.name}
-            </a>
-          ))}
+        <span class="tile-label">アプリ</span>
+        <span class="tile-count">4 apps</span>
+        <div class="tile-particle p1"></div>
+        <div class="tile-particle p2"></div>
+        <div class="tile-particle p3"></div>
+      </a>
+
+      <a href="/notes" class="tile tile-product tile-green" data-aos="fade-up" data-aos-delay="400" data-magnetic>
+        <div class="tile-icon-wrap">
+          <img src="/products/notes/notes-profile.png" alt="講座" class="tile-icon profile" />
         </div>
-      </div>
-    </section>
+        <span class="tile-label">講座</span>
+        <span class="tile-count">2 courses</span>
+        <div class="tile-particle p1"></div>
+        <div class="tile-particle p2"></div>
+        <div class="tile-particle p3"></div>
+      </a>
+
+      <a href="/packages" class="tile tile-product tile-blue" data-aos="fade-up" data-aos-delay="500" data-magnetic>
+        <div class="tile-icon-wrap">
+          <img src="/img/icon.png" alt="ライブラリ" class="tile-icon" />
+        </div>
+        <span class="tile-label">ライブラリ</span>
+        <span class="tile-count">coming soon</span>
+        <div class="tile-particle p1"></div>
+        <div class="tile-particle p2"></div>
+        <div class="tile-particle p3"></div>
+      </a>
+
+      <a href="/news" class="tile tile-product tile-yellow" data-aos="fade-up" data-aos-delay="600" data-magnetic>
+        <span class="tile-emoji">📰</span>
+        <span class="tile-label">ニュース</span>
+        <span class="tile-count">{allNews.length} articles</span>
+        <div class="tile-particle p1"></div>
+        <div class="tile-particle p2"></div>
+        <div class="tile-particle p3"></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Rainbow divider -->
+  <div class="rainbow-divider">
+    <div class="rainbow-bar"></div>
   </div>
+
+  <!-- App Showcase Bento -->
+  <section class="section">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag tag-red">Showcase</span>
+      <h2 class="section-title">つくっているもの</h2>
+    </div>
+    <div class="showcase-bento">
+      <div class="tile tile-showcase-main" data-aos="fade-right" data-aos-duration="800">
+        <div class="showcase-screenshot">
+          <img src="/products/week/ss/ss01-desktop.png" alt="Week アプリ スクリーンショット" class="ss-desktop" />
+          <img src="/products/week/ss/ss01-mobile.png" alt="Week アプリ モバイル" class="ss-mobile-overlay" />
+        </div>
+        <div class="showcase-info">
+          <div class="showcase-icon-row">
+            <img src="/products/week/week-icon.png" alt="Week" class="showcase-app-icon" />
+            <div>
+              <h3>Week</h3>
+              <p>シンプルな時間割管理アプリ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="/apps" class="tile tile-showcase-sub" data-aos="fade-left" data-aos-delay="200">
+        <div class="showcase-ss-small">
+          <img src="/products/timecard/ss/ss01-desktop.png" alt="Timecard" />
+        </div>
+        <div class="showcase-sub-row">
+          <img src="/products/timecard/timecard-icon.png" alt="" class="sub-icon" />
+          <h4>Timecard</h4>
+        </div>
+      </a>
+      <a href="/notes" class="tile tile-showcase-sub" data-aos="fade-left" data-aos-delay="300">
+        <div class="showcase-ss-small">
+          <img src="/products/notes/gitnote/gitnote-renewal-pr.png" alt="Git Note" />
+        </div>
+        <div class="showcase-sub-row">
+          <img src="/products/notes/gitnote/gitnote-icon-new.svg" alt="" class="sub-icon" />
+          <h4>Git Note</h4>
+        </div>
+      </a>
+      <a href="/notes" class="tile tile-showcase-sub" data-aos="fade-left" data-aos-delay="400">
+        <div class="showcase-ss-small">
+          <img src="/products/notes/flutternote/flutternote-profile.png" alt="Flutter Note" class="ss-profile" />
+        </div>
+        <div class="showcase-sub-row">
+          <img src="/products/notes/flutternote/flutternote-profile.png" alt="" class="sub-icon" />
+          <h4>Flutter Note</h4>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Scrolling marquee -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span class="m-item" style="color: var(--red)">Apps</span>
+        <span class="m-sep">◆</span>
+        <span class="m-item" style="color: var(--green)">Notes</span>
+        <span class="m-sep">◆</span>
+        <span class="m-item" style="color: var(--blue)">Packages</span>
+        <span class="m-sep">◆</span>
+        <span class="m-item" style="color: var(--yellow)">Community</span>
+        <span class="m-sep">◆</span>
+        <span class="m-item" style="color: var(--red)">Apps</span>
+        <span class="m-sep">◆</span>
+        <span class="m-item" style="color: var(--green)">Notes</span>
+        <span class="m-sep">◆</span>
+        <span class="m-item" style="color: var(--blue)">Packages</span>
+        <span class="m-sep">◆</span>
+        <span class="m-item" style="color: var(--yellow)">Community</span>
+        <span class="m-sep">◆</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- News Bento -->
+  <section class="section">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag tag-yellow">News</span>
+      <h2 class="section-title">新着ニュース</h2>
+    </div>
+    <div class="news-bento">
+      {recentNews.map((news, i) => (
+        <a href={`/news/${news.slug}`}
+           class={`tile tile-news ${i === 0 ? 'tile-news-featured' : ''}`}
+           data-aos="fade-up"
+           data-aos-delay={String(i * 150)}>
+          <div class={`news-color-bar ${i === 0 ? 'bar-red' : i === 1 ? 'bar-green' : 'bar-blue'}`}></div>
+          <time datetime={news.data.date.toISOString()}>
+            {news.data.date.toLocaleDateString('ja-JP', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </time>
+          <h3>{news.data.title}</h3>
+          {news.data.tags && (
+            <div class="news-tags">
+              {news.data.tags.map(tag => <span class="tag">{tag}</span>)}
+            </div>
+          )}
+          <span class="tile-arrow">→</span>
+        </a>
+      ))}
+    </div>
+    <div class="news-more" data-aos="fade-up">
+      <a href="/news" class="btn-more" data-magnetic>すべてのニュースを見る</a>
+    </div>
+  </section>
+
+  <!-- About Bento -->
+  <section class="section about-section">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag tag-blue">About</span>
+      <h2 class="section-title">Rubydog JP について</h2>
+    </div>
+    <div class="about-bento">
+      <div class="tile tile-about-info" data-aos="fade-right">
+        <div class="about-rows">
+          <div class="about-row">
+            <span class="about-label">正式名</span>
+            <strong>Rubydog JP</strong>
+          </div>
+          <div class="about-row">
+            <span class="about-label">設立日</span>
+            <strong>2023年10月31日</strong>
+          </div>
+          <div class="about-row">
+            <span class="about-label">所在地</span>
+            <strong>オンラインのみの活動</strong>
+          </div>
+          <div class="about-row">
+            <span class="about-label">活動内容</span>
+            <strong>動画配信、ソフトウェア開発</strong>
+          </div>
+        </div>
+      </div>
+      {socialLinks.map((link, i) => (
+        <a href={link.url} target="_blank" rel="noopener noreferrer"
+           class={`tile tile-social-big ${link.style}`}
+           data-aos="zoom-in"
+           data-aos-delay={String((i + 1) * 100)}
+           data-magnetic>
+          <div class="social-big-bg"></div>
+          <span class="social-big-label">{link.name}</span>
+          <span class="social-big-handle">{link.handle}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Parallax script for background blocks -->
+  <script is:inline>
+    const blocks = document.querySelectorAll('.bg-block');
+    if (blocks.length) {
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        blocks.forEach((block, i) => {
+          const speed = 0.05 + i * 0.02;
+          block.style.transform = 'translateY(' + (y * speed) + 'px)';
+        });
+      });
+    }
+  </script>
 </PageLayout>
 
 <style>
-  .home-container {
-    width: 100%;
-  }
-
-  /* Hero */
+  /* ===== HERO ===== */
   .hero {
-    background: linear-gradient(135deg, #EA4036 0%, #c93530 100%);
-    color: white;
-    padding: 4rem 1rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
-  }
-
-  .hero-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-text { display: flex; flex-direction: column; gap: 1.5rem; }
-
-  .hero-title { font-size: 3rem; font-weight: 800; line-height: 1.2; margin: 0; }
-  .title-line { display: block; }
-  .gradient-text {
-    background: linear-gradient(90deg, #ffffff 0%, #ffcccc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-description { font-size: 1.125rem; line-height: 1.8; opacity: 0.95; }
-
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-  .cta-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-    font-size: 1rem;
-  }
-
-  .cta-button.primary { background: white; color: #EA4036; }
-  .cta-button.primary:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
-
-  .cta-button.secondary { background: rgba(255,255,255,0.2); color: white; border: 2px solid white; }
-  .cta-button.secondary:hover { background: rgba(255,255,255,0.3); transform: translateY(-3px); }
-
-  .hero-image { display: flex; justify-content: center; align-items: center; }
-  .hero-image img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    padding: 2rem;
-    background: white;
-    box-sizing: border-box;
-  }
-
-  /* Products */
-  .products-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 1rem;
-  }
-
-  .section-title {
-    font-size: 2rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 2.5rem;
-    color: #1a1a1a;
-  }
-
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  .product-group-card {
-    background: white;
-    border-radius: 16px;
-    padding: 2.5rem 2rem;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    border: 1px solid #e9ecef;
-    transition: all 0.3s;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .product-group-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
-  }
-
-  /* カード内アイコン: 統一サイズの枠 */
-  .product-group-icon-wrap {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background: #f1f3f5;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1.5rem;
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 1.5rem 3rem;
+  }
+
+  /* Animated background blocks */
+  .bg-blocks { position: absolute; inset: 0; overflow: hidden; }
+  .bg-block {
+    position: absolute;
+    border-radius: 50px;
+    opacity: 0.08;
+    transition: transform 0.1s linear;
+  }
+  .bg-red { width: 55%; height: 60%; background: var(--red); top: -10%; left: -12%; animation: blockBreathe 18s ease-in-out infinite; }
+  .bg-yellow { width: 35%; height: 45%; background: var(--yellow); top: 15%; right: -8%; animation: blockBreathe 15s ease-in-out infinite reverse; }
+  .bg-green { width: 40%; height: 50%; background: var(--green); bottom: -12%; left: 25%; animation: blockBreathe 20s ease-in-out infinite; animation-delay: -6s; }
+  .bg-blue { width: 30%; height: 40%; background: var(--blue); bottom: 10%; right: 5%; animation: blockBreathe 16s ease-in-out infinite reverse; animation-delay: -3s; }
+  .bg-red-2 { width: 20%; height: 25%; background: var(--red); top: 50%; left: 60%; opacity: 0.05; animation: blockBreathe 12s ease-in-out infinite; animation-delay: -8s; }
+  .bg-blue-2 { width: 25%; height: 30%; background: var(--blue); top: 5%; left: 40%; opacity: 0.06; animation: blockBreathe 14s ease-in-out infinite; animation-delay: -4s; }
+  @keyframes blockBreathe {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    33% { transform: scale(1.1) rotate(3deg); }
+    66% { transform: scale(0.95) rotate(-2deg); }
+  }
+
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* ===== HERO BENTO GRID ===== */
+  .hero-bento {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.6fr 0.8fr 0.8fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .tile {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
   }
+  .tile:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
 
-  /* icon 系: 余白ありで中央配置 */
-  .pg-icon {
+  /* Hero tile */
+  .tile-hero {
+    grid-column: 1;
+    grid-row: span 2;
+    position: relative;
+    padding: 0;
+  }
+  .tile-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--light-red), var(--light-yellow));
+    filter: blur(80px);
+    opacity: 0.4;
+    top: -50px;
+    right: -50px;
+    animation: glowShift 10s ease-in-out infinite alternate;
+  }
+  @keyframes glowShift {
+    0% { transform: translate(0, 0); opacity: 0.3; }
+    100% { transform: translate(-30px, 30px); opacity: 0.5; }
+  }
+  .tile-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 9999px;
+    background: rgba(234,64,54,0.08);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+  }
+  .pulse-ring {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    position: relative;
+  }
+  .pulse-ring::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--red);
+    animation: pulseRing 2s ease-out infinite;
+  }
+  @keyframes pulseRing {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+  .tile-hero h1 {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  .hero-desc { color: #666; line-height: 1.7; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .btn-hero {
+    padding: 0.75rem 2rem;
+    border-radius: 12px;
+    background: var(--red);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(234,64,54,0.2);
+  }
+  .btn-hero:hover { box-shadow: 0 8px 28px rgba(234,64,54,0.35); transform: translateY(-2px); }
+  .btn-hero-outline {
+    padding: 0.75rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #555;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    transition: all 0.2s;
+  }
+  .btn-hero-outline:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); }
+
+  /* Profile tile */
+  .tile-profile {
+    grid-column: 2 / 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(255,214,211,0.5), rgba(255,240,184,0.5), rgba(184,244,208,0.5));
+    gap: 0.5rem;
+  }
+  .profile-ring {
+    position: relative;
+    width: 90px;
+    height: 90px;
+  }
+  .ring-track {
+    position: absolute;
+    inset: -4px;
+    border-radius: 24px;
+    border: 3px solid transparent;
+    background: linear-gradient(135deg, var(--red), var(--yellow), var(--green), var(--blue)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: ringRotate 4s linear infinite;
+  }
+  @keyframes ringRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  .profile-ring img { width: 90px; height: 90px; border-radius: 22px; display: block; }
+  .profile-name { font-weight: 700; font-size: 0.95rem; color: var(--dark-red); }
+  .profile-sub { font-size: 0.8rem; color: #888; }
+
+  /* Product tiles */
+  .tile-product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    color: white;
+    font-weight: 700;
+    padding: 1.5rem;
+    position: relative;
+    border: none;
+    cursor: pointer;
+  }
+  .tile-product:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,0.15); }
+  .tile-red { background: linear-gradient(135deg, var(--red), #ff6b5e); }
+  .tile-green { background: linear-gradient(135deg, var(--green), #2dd660); }
+  .tile-blue { background: linear-gradient(135deg, var(--blue), #5da3ff); }
+  .tile-yellow { background: linear-gradient(135deg, var(--yellow), #ffd04a); color: #1a1a1a; }
+
+  .tile-icon-wrap {
     width: 48px;
     height: 48px;
-    object-fit: contain;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+  }
+  .tile-icon { width: 30px; height: 30px; object-fit: contain; filter: brightness(0) invert(1); }
+  .tile-icon.profile { width: 100%; height: 100%; object-fit: cover; filter: none; border-radius: 14px; }
+  .tile-yellow .tile-icon { filter: none; }
+  .tile-emoji { font-size: 2rem; }
+  .tile-label { font-size: 0.9rem; }
+  .tile-count { font-size: 0.7rem; opacity: 0.7; font-weight: 500; }
+
+  /* Floating particles in product tiles */
+  .tile-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    animation: particleFloat 5s ease-in-out infinite;
+  }
+  .p1 { top: 15%; left: 20%; animation-delay: 0s; }
+  .p2 { top: 60%; right: 15%; animation-delay: -2s; }
+  .p3 { bottom: 15%; left: 40%; animation-delay: -4s; }
+  @keyframes particleFloat {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+    50% { transform: translateY(-10px) scale(1.4); opacity: 0.7; }
   }
 
-  /* profile 系: 枠いっぱいに表示 */
-  .pg-profile {
+  /* ===== RAINBOW DIVIDER ===== */
+  .rainbow-divider { padding: 0 1.5rem; }
+  .rainbow-bar {
+    height: 4px;
+    border-radius: 4px;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, var(--red), var(--yellow), var(--green), var(--blue), var(--red));
+    background-size: 200% auto;
+    animation: rainbowFlow 3s linear infinite;
+  }
+  @keyframes rainbowFlow { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+
+  /* ===== SECTIONS ===== */
+  .section { max-width: 1100px; margin: 0 auto; padding: 5rem 1.5rem; }
+  .section-header { text-align: center; margin-bottom: 3rem; }
+  .section-tag {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .tag-red { background: var(--light-red); color: var(--dark-red); }
+  .tag-yellow { background: var(--light-yellow); color: var(--dark-yellow); }
+  .tag-blue { background: var(--light-blue); color: var(--dark-blue); }
+  .section-title { font-size: 2rem; font-weight: 800; }
+
+  /* ===== SHOWCASE BENTO ===== */
+  .showcase-bento {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 1rem;
+  }
+  .tile-showcase-main { grid-row: span 3; padding: 1.5rem; }
+  .tile-showcase-sub { padding: 1rem; cursor: pointer; }
+  .tile-showcase-sub:hover { transform: translateY(-3px); }
+
+  /* Main showcase: desktop + mobile overlay */
+  .showcase-screenshot {
+    position: relative;
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background: #f0f0f0;
+  }
+  .ss-desktop {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .ss-mobile-overlay {
+    position: absolute;
+    bottom: -8px;
+    right: -4px;
+    width: 22%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    border: 2px solid white;
+  }
+  .showcase-icon-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .showcase-app-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #f5f5f5;
+    padding: 4px;
+  }
+  .showcase-info h3 { font-size: 1.3rem; font-weight: 700; }
+  .showcase-info p { color: #888; font-size: 0.9rem; margin-top: 0.1rem; }
+
+  /* Sub showcase tiles */
+  .showcase-ss-small {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0.6rem;
+    background: #f0f0f0;
+    aspect-ratio: 16/9;
+  }
+  .showcase-ss-small img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-
-  .product-group-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #1a1a1a;
-  }
-
-  .product-group-description {
-    color: #666;
-    line-height: 1.6;
-  }
-
-  /* News */
-  .news-section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 4rem 1rem;
-  }
-
-  .news-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .news-card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    border: 1px solid #e9ecef;
-    transition: all 0.2s;
-    text-decoration: none;
-    color: inherit;
     display: block;
   }
-
-  .news-card:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
-  }
-
-  .news-date {
-    display: inline-block;
-    font-size: 0.8rem;
-    color: #999;
-    margin-bottom: 0.25rem;
-  }
-
-  .news-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0 0 0.5rem;
-  }
-
-  .news-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .tag {
-    display: inline-block;
-    font-size: 0.7rem;
-    color: #EA4036;
-    background: rgba(234,64,54,0.1);
-    padding: 0.2rem 0.6rem;
-    border-radius: 10px;
-    font-weight: 500;
-  }
-
-  .news-more {
-    text-align: center;
-    margin-top: 1.5rem;
-  }
-
-  .news-more-link {
-    color: #EA4036;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .news-more-link:hover {
-    text-decoration: underline;
-  }
-
-  /* About */
-  .about-section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 4rem 1rem;
-  }
-
-  .about-content {
+  .showcase-ss-small .ss-profile {
+    object-fit: contain;
     background: white;
-    border-radius: 16px;
-    padding: 2.5rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 0.5rem;
   }
-
-  .about-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .about-item { display: flex; flex-direction: column; gap: 0.25rem; }
-  .about-label { font-size: 0.8rem; color: #999; font-weight: 500; }
-  .about-value { font-size: 1rem; color: #1a1a1a; font-weight: 600; }
-
-  .social-links {
+  .showcase-sub-row {
     display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding-top: 1.5rem;
-    border-top: 1px solid #e9ecef;
+    align-items: center;
+    gap: 0.5rem;
   }
-
-  .social-link {
-    display: inline-block;
-    padding: 0.5rem 1.5rem;
+  .sub-icon {
+    width: 24px;
+    height: 24px;
     border-radius: 6px;
-    background: #f1f3f5;
-    color: #333;
-    text-decoration: none;
+    object-fit: contain;
+  }
+  .tile-showcase-sub h4 { font-size: 0.85rem; font-weight: 600; }
+
+  /* ===== MARQUEE ===== */
+  .marquee-section { padding: 1.5rem 0; overflow: hidden; background: rgba(255,255,255,0.4); }
+  .marquee-track { overflow: hidden; }
+  .marquee-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    white-space: nowrap;
+    animation: marqueeScroll 18s linear infinite;
+    width: max-content;
+  }
+  .m-item { font-size: 2.5rem; font-weight: 800; opacity: 0.2; }
+  .m-sep { font-size: 0.6rem; color: #ccc; }
+  @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* ===== NEWS BENTO ===== */
+  .news-bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .tile-news {
+    padding: 1.5rem;
+    position: relative;
+    cursor: pointer;
+  }
+  .tile-news:hover { transform: translateY(-4px); }
+  .tile-news-featured { grid-column: span 2; }
+  .news-color-bar {
+    width: 40px;
+    height: 4px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  .bar-red { background: var(--red); }
+  .bar-green { background: var(--green); }
+  .bar-blue { background: var(--blue); }
+  .tile-news time { font-size: 0.78rem; color: #999; }
+  .tile-news h3 { font-size: 1rem; font-weight: 600; margin-top: 0.3rem; }
+  .tile-news-featured h3 { font-size: 1.2rem; }
+  .news-tags { display: flex; gap: 0.3rem; margin-top: 0.4rem; }
+  .tag {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    background: var(--light-red);
+    color: var(--dark-red);
     font-weight: 500;
+  }
+  .tile-arrow { position: absolute; bottom: 1.5rem; right: 1.5rem; color: #ccc; transition: all 0.3s; }
+  .tile-news:hover .tile-arrow { color: var(--red); transform: translateX(4px); }
+  .news-more { text-align: center; margin-top: 2rem; }
+  .btn-more {
+    display: inline-block;
+    padding: 0.6rem 2rem;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,0,0,0.06);
+    font-weight: 600;
     font-size: 0.9rem;
-    transition: all 0.2s;
+    transition: all 0.25s;
   }
+  .btn-more:hover { background: var(--red); color: white; border-color: transparent; transform: translateY(-2px); }
 
-  .social-link:hover { background: #e9ecef; transform: translateY(-2px); }
-
-  /* Responsive */
-  @media (max-width: 968px) {
-    .hero-content { grid-template-columns: 1fr; text-align: center; }
-    .hero-text { align-items: center; }
-    .hero-title { font-size: 2.5rem; }
-    .hero-actions { justify-content: center; }
-    .hero-image { order: -1; }
-    .hero-image img { max-width: 240px; }
-    .products-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  /* ===== ABOUT BENTO ===== */
+  .about-bento {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 1rem;
   }
+  .tile-about-info { padding: 2rem; }
+  .about-rows { display: flex; flex-direction: column; gap: 1.2rem; }
+  .about-row { display: flex; justify-content: space-between; align-items: center; }
+  .about-label { font-size: 0.8rem; color: #999; }
+  .about-row strong { font-size: 0.9rem; }
 
+  .tile-social-big {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 1.5rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border: none;
+  }
+  .tile-social-big:hover { transform: scale(1.04); }
+  .tile-dark { background: #1a1a1a; color: white; }
+  .tile-social-red { background: var(--red); color: white; }
+  .social-big-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .tile-social-big:hover .social-big-bg { opacity: 1; }
+  .social-big-label { font-size: 1.1rem; font-weight: 700; position: relative; }
+  .social-big-handle { font-size: 0.75rem; opacity: 0.6; position: relative; }
+
+  /* ===== UTILITIES ===== */
+  .hide-mobile { display: inline; }
+
+  /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
-    .hero { padding: 3rem 1rem; }
-    .hero-title { font-size: 2rem; }
-    .hero-description { font-size: 1rem; }
-    .section-title { font-size: 1.75rem; }
-    .products-section, .news-section, .about-section { padding: 3rem 1rem; }
-    .about-content { padding: 1.5rem; }
-    .about-info { grid-template-columns: 1fr; }
-    .cta-button { width: 100%; }
+    .hero { padding: 6rem 1rem 2rem; }
+    .hero-bento {
+      grid-template-columns: 1fr 1fr;
+    }
+    .tile-hero { grid-column: span 2; }
+    .tile-profile { grid-column: span 2; }
+    .tile-inner { padding: 1.5rem; }
+    .showcase-bento { grid-template-columns: 1fr; }
+    .tile-showcase-main { grid-row: span 1; }
+    .news-bento { grid-template-columns: 1fr; }
+    .tile-news-featured { grid-column: span 1; }
+    .about-bento { grid-template-columns: 1fr 1fr; }
+    .tile-about-info { grid-column: span 2; }
+    .hide-mobile { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-bento { grid-template-columns: 1fr; }
+    .tile-hero { grid-column: span 1; }
+    .tile-profile { grid-column: span 1; }
+    .about-bento { grid-template-columns: 1fr; }
+    .tile-about-info { grid-column: span 1; }
   }
 </style>

@@ -6,16 +6,8 @@ const recentNews = allNews
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-type FooterLink = {
-  label: string;
-  href: string;
-  external?: boolean;
-};
-
-type FooterSection = {
-  title: string;
-  items: FooterLink[];
-};
+type FooterLink = { label: string; href: string; external?: boolean; };
+type FooterSection = { title: string; items: FooterLink[]; };
 
 const footerLinks: FooterSection[] = [
   {
@@ -23,7 +15,7 @@ const footerLinks: FooterSection[] = [
     items: [
       { label: 'アプリ', href: '/apps' },
       { label: '講座', href: '/notes' },
-      { label: 'ライブラリ', href: '/packages' }
+      { label: 'ライブラリ', href: '/packages' },
     ]
   },
   {
@@ -31,64 +23,72 @@ const footerLinks: FooterSection[] = [
     items: [
       { label: 'お問い合わせ', href: '/contact' },
       { label: 'プライバシーポリシー', href: '/apps/privacy' },
-      { label: '利用規約', href: '/apps/terms' }
+      { label: '利用規約', href: '/apps/terms' },
     ]
   },
   {
     title: '外部リンク',
     items: [
       { label: 'GitHub', href: 'https://github.com/rubydogjp', external: true },
-      { label: 'Youtube', href: 'https://www.youtube.com/@rbdog', external: true },
-      { label: 'X', href: 'https://x.com/rubydog_jp', external: true }
+      { label: 'YouTube', href: 'https://www.youtube.com/@rbdog', external: true },
+      { label: 'X', href: 'https://x.com/rubydogjp', external: true },
     ]
   }
 ];
 ---
 
 <footer class="footer">
+  <div class="footer-rainbow"></div>
   <div class="footer-container">
-    <div class="footer-main">
-      <div class="footer-links">
-        {footerLinks.map(section => (
-          <div class="footer-section">
-            <h4 class="footer-title">{section.title}</h4>
-            <ul class="footer-list">
-              {section.items.map(item => (
-                <li>
-                  <a
-                    href={item.href}
-                    class="footer-link"
-                    target={item.external ? '_blank' : undefined}
-                    rel={item.external ? 'noopener noreferrer' : undefined}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+    <!-- Brand -->
+    <div class="footer-brand">
+      <a href="/" class="brand-link">
+        <img src="/img/profile.png" alt="Rubydog JP" class="footer-logo" />
+        <span>Rubydog JP</span>
+      </a>
+      <p class="brand-desc">ソフトウェア技術をもっと分かりやすく</p>
+    </div>
 
+    <!-- Links -->
+    <div class="footer-links">
+      {footerLinks.map(section => (
         <div class="footer-section">
-          <h4 class="footer-title">ニュース</h4>
-          <ul class="footer-list">
-            {recentNews.map(news => (
+          <h4>{section.title}</h4>
+          <ul>
+            {section.items.map(item => (
               <li>
-                <a href={`/news/${news.slug}`} class="footer-link">
-                  <span class="footer-news-date">
-                    {news.data.date.toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })}
-                  </span>
-                  {news.data.title}
+                <a
+                  href={item.href}
+                  target={item.external ? '_blank' : undefined}
+                  rel={item.external ? 'noopener noreferrer' : undefined}
+                >
+                  {item.label}
                 </a>
               </li>
             ))}
-            <li>
-              <a href="/news" class="footer-link footer-link-more">すべてのニュース</a>
-            </li>
           </ul>
         </div>
+      ))}
+
+      <div class="footer-section">
+        <h4>ニュース</h4>
+        <ul>
+          {recentNews.map(news => (
+            <li>
+              <a href={`/news/${news.slug}`}>
+                <span class="news-date">
+                  {news.data.date.toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })}
+                </span>
+                {news.data.title}
+              </a>
+            </li>
+          ))}
+          <li><a href="/news" class="more">すべてのニュース</a></li>
+        </ul>
       </div>
     </div>
+
+    <!-- Copyright -->
     <div class="footer-copyright">
       Copyright &copy; 2023 Rubydog JP
     </div>
@@ -97,77 +97,69 @@ const footerLinks: FooterSection[] = [
 
 <style>
   .footer {
-    background-color: #242526;
-    color: rgba(255, 255, 255, 0.6);
-    padding: 3rem 0 1.5rem;
+    background: #1a1a1a;
+    color: rgba(255,255,255,0.5);
+    position: relative;
+  }
+
+  .footer-rainbow {
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--yellow), var(--green), var(--blue));
   }
 
   .footer-container {
-    max-width: 1280px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 3rem 1.5rem 1.5rem;
   }
 
-  .footer-main {
+  /* Brand */
+  .footer-brand { margin-bottom: 2rem; }
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: white;
+  }
+  .footer-logo { width: 28px; height: 28px; border-radius: 8px; }
+  .brand-desc { font-size: 0.8rem; margin-top: 0.4rem; color: rgba(255,255,255,0.35); }
+
+  /* Links */
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
     margin-bottom: 2rem;
   }
 
-  .footer-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-  }
-
-  .footer-section {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .footer-title {
-    color: #fff;
-    font-size: 1rem;
+  .footer-section h4 {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.85rem;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin: 0 0 0.75rem;
   }
 
-  .footer-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+  .footer-section ul { list-style: none; padding: 0; margin: 0; }
+  .footer-section li { margin-bottom: 0.4rem; }
 
-  .footer-list li {
-    margin-bottom: 0.5rem;
-  }
-
-  .footer-link {
-    color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
+  .footer-section a {
+    color: rgba(255,255,255,0.45);
+    font-size: 0.82rem;
     transition: color 0.2s;
-    font-size: 0.9rem;
     line-height: 1.5;
   }
+  .footer-section a:hover { color: white; }
 
-  .footer-link:hover {
-    color: #fff;
-  }
+  .news-date { display: inline-block; font-size: 0.75rem; opacity: 0.6; margin-right: 0.3rem; }
+  .more { font-weight: 500; color: rgba(255,255,255,0.6) !important; }
 
-  .footer-news-date {
-    display: inline-block;
-    font-size: 0.8rem;
-    opacity: 0.7;
-    margin-right: 0.5rem;
-  }
-
-  .footer-link-more {
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
-  }
-
+  /* Copyright */
   .footer-copyright {
     text-align: center;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.9rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.8rem;
   }
 </style>

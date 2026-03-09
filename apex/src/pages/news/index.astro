@@ -1,106 +1,63 @@
 ---
 import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
 
 const newsEntries = await getCollection('news');
 const sortedNews = newsEntries.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('ja-JP', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(date);
-}
+const colors = ['bar-red', 'bar-green', 'bar-blue', 'bar-yellow'];
 ---
 
 <PageLayout title="ニュース">
-  <div class="news-container">
-    <h1>ニュース</h1>
+  <PageHeader title="ニュース" description="Rubydog JP からのお知らせ" accentColor="yellow" />
 
-    <div class="news-list">
-      {sortedNews.map((entry) => (
-        <article class="news-item">
-          <a href={`/news/${entry.slug}`} class="news-link">
-            <time class="news-date" datetime={entry.data.date.toISOString()}>
-              {formatDate(entry.data.date)}
-            </time>
-            <h2 class="news-title">{entry.data.title}</h2>
-            {entry.data.tags && (
-              <div class="news-tags">
-                {entry.data.tags.map((tag) => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-            )}
-          </a>
-        </article>
-      ))}
-    </div>
-  </div>
+  <section class="content">
+    {sortedNews.map((entry, i) => (
+      <a href={`/news/${entry.slug}`} class="news-card tile" data-aos="fade-up" data-aos-delay={String(Math.min(i * 80, 400))}>
+        <div class={`color-bar ${colors[i % 4]}`}></div>
+        <time datetime={entry.data.date.toISOString()}>
+          {entry.data.date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        <h2>{entry.data.title}</h2>
+        {entry.data.tags && (
+          <div class="tags">
+            {entry.data.tags.map(tag => <span class="tag">{tag}</span>)}
+          </div>
+        )}
+        <span class="arrow">→</span>
+      </a>
+    ))}
+  </section>
 </PageLayout>
 
 <style>
-  .news-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+  .content { max-width: 750px; margin: 0 auto; padding: 1rem 1.5rem 4rem; display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .tile {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    transition: all 0.3s;
   }
 
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: #333;
-  }
+  .news-card { display: block; padding: 1.5rem; position: relative; cursor: pointer; }
+  .news-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
 
-  .news-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
+  .color-bar { width: 40px; height: 4px; border-radius: 4px; margin-bottom: 0.75rem; }
+  .bar-red { background: var(--red); }
+  .bar-green { background: var(--green); }
+  .bar-blue { background: var(--blue); }
+  .bar-yellow { background: var(--yellow); }
 
-  .news-item {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    transition: box-shadow 0.3s, transform 0.2s;
-  }
+  time { font-size: 0.78rem; color: #999; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 0.25rem 0 0; }
 
-  .news-item:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-  }
+  .tags { display: flex; gap: 0.3rem; margin-top: 0.5rem; }
+  .tag { font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--light-red); color: var(--dark-red); font-weight: 500; }
 
-  .news-link {
-    display: block;
-    padding: 1.5rem;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .news-date {
-    display: block;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-  }
-
-  .news-title {
-    font-size: 1.5rem;
-    margin: 0 0 0.75rem 0;
-    color: #333;
-  }
-
-  .news-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .tag {
-    background-color: #e7f3ff;
-    color: #2196f3;
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.85rem;
-  }
+  .arrow { position: absolute; top: 1.5rem; right: 1.5rem; color: #ccc; transition: all 0.3s; }
+  .news-card:hover .arrow { color: var(--red); transform: translateX(4px); }
 </style>

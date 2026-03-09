@@ -1,493 +1,268 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
 
-const sections = [
-  { id: 'overview', title: '共同開発プロジェクト' },
-  { id: 'gitnote', title: 'Git講座' },
-  { id: 'comet', title: 'Comet' },
-  { id: 'appflowy', title: 'AppFlowy' },
-  { id: 'magnetarium', title: 'マグネタリウム' },
-  { id: 'recruitment', title: '採用情報' }
-];
-
-const recruitItems = [
+const projects = [
   {
-    icon: '/recruit/gitnote-icon.png',
     name: 'Git講座',
-    description: '共同開発のチュートリアル'
+    description: '共同開発のチュートリアル。まずはここから！',
+    tags: ['Git', 'GitHub'],
+    color: 'var(--green)',
+    lightColor: 'var(--light-green)',
+    url: 'https://gitnote.rubydog.jp/',
+    urlLabel: 'Git講座を体験してみる',
   },
   {
-    icon: '/recruit/comet-icon.png',
     name: 'Comet',
-    description: 'Flutterで作られた静的サイトジェネレーター'
+    subtitle: 'コメット',
+    description: '10 分で自分のサイトを公開できる！ Flutter で作られた静的サイトジェネレーター。',
+    tags: ['Flutter'],
+    color: 'var(--blue)',
+    lightColor: 'var(--light-blue)',
+    url: 'https://comet.rubydog.jp/',
+    urlLabel: 'Cometを使ってみる',
+    extra: { label: '共同開発スタッフの皆様へ', url: 'https://comet.rubydog.jp/docs-jp/oss-contributing/' }
   },
   {
-    icon: '/recruit/appflowy-icon.png',
-    name: 'AppFlowy(外部)',
-    description: 'オープンソース版のNotion'
+    name: 'AppFlowy',
+    subtitle: 'アップフロウィー',
+    description: 'オープンソース版の Notion として注目されています。推しの OSS として参加をサポート中。',
+    tags: ['Flutter', 'Rust', 'Tauri'],
+    color: '#9B59B6',
+    lightColor: 'rgba(155,89,182,0.1)',
+    url: 'https://appflowy.io/',
+    urlLabel: 'AppFlowy公式サイトへ',
   },
   {
-    icon: null,
     name: 'マグネタリウム',
-    description: '宇宙磁石とプラネタリウムのゲーム'
+    description: '宇宙磁石とプラネタリウムのゲーム。',
+    tags: [],
+    color: 'var(--yellow)',
+    lightColor: 'var(--light-yellow)',
+    url: null,
+    urlLabel: '準備中',
   }
 ];
 ---
 
-<PageLayout title="参加">
+<PageLayout title="参加" description="共同開発プロジェクトへの参加をお待ちしています">
+  <PageHeader title="コミュニティ参加" description="共同開発プロジェクトへの参加をお待ちしています" accentColor="red" />
+
   <div class="recruit-container">
-    <!-- Table of Contents -->
-    <aside class="toc">
-      <nav class="toc-nav">
-        <h3 class="toc-title">目次</h3>
-        <ul class="toc-list">
-          {sections.map(section => (
-            <li>
-              <a href={`#${section.id}`} class="toc-link">{section.title}</a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </aside>
+    <!-- Intro -->
+    <div class="intro-card" data-aos="fade-up">
+      <p>
+        どなたでも気軽に参加できます。気になったプロジェクトがあれば是非ご検討ください。<br />
+        どれもゆるいライセンスですので、やがては自分のものとして派生プロジェクトを作り直すことも自由です。
+      </p>
+    </div>
 
-    <!-- Main Content -->
-    <main class="content">
-      <header class="page-header">
-        <h1>コミュニティ参加</h1>
-        <p class="page-description">共同開発プロジェクトへの参加をお待ちしています</p>
-      </header>
-
-      <!-- Overview Section -->
-      <section id="overview" class="project-section">
-        <div class="section-header">
-          <h2>共同開発プロジェクト</h2>
-        </div>
-        <div class="section-content">
-          <div class="media-container">
-            <img src="/recruit/developers.png" alt="Developers" />
-          </div>
-          <p>
-            どなたでも気軽に参加できますので、気になったプロジェクトがあれば是非 <strong>共同開発への参加</strong> をご検討ください。<br />
-            どれもゆるいライセンスですので、<br />
-            やがては自分のものとして派生プロジェクトを作り直したり名前を変えることも自由です。
-          </p>
-
-          <div class="projects-grid">
-            {recruitItems.map(item => (
-              <div class="project-card">
-                <div class="project-icon">
-                  {item.icon ? (
-                    <img src={item.icon} alt={item.name} />
-                  ) : (
-                    <div class="icon-placeholder">?</div>
-                  )}
-                </div>
-                <h3 class="project-name">{item.name}</h3>
-                <p class="project-description">{item.description}</p>
+    <!-- Projects -->
+    <div class="projects-list">
+      {projects.map((p, i) => (
+        <article class="project-card" data-aos="fade-up" data-aos-delay={i * 80}>
+          <div class="project-accent" style={`background: ${p.color}`}></div>
+          <div class="project-body">
+            <h2>
+              {p.name}
+              {p.subtitle && <span class="project-sub">{p.subtitle}</span>}
+            </h2>
+            <p class="project-desc">{p.description}</p>
+            {p.tags.length > 0 && (
+              <div class="tag-row">
+                {p.tags.map(tag => (
+                  <span class="tag" style={`background: ${p.lightColor}; color: ${p.color}`}>{tag}</span>
+                ))}
               </div>
-            ))}
+            )}
+            <div class="project-actions">
+              {p.url ? (
+                <a href={p.url} target="_blank" rel="noopener noreferrer" class="action-btn" style={`background: ${p.color}`} data-magnetic>
+                  {p.urlLabel}
+                </a>
+              ) : (
+                <span class="action-btn disabled">{p.urlLabel}</span>
+              )}
+              {p.extra && (
+                <a href={p.extra.url} target="_blank" rel="noopener noreferrer" class="action-btn secondary" data-magnetic>
+                  {p.extra.label}
+                </a>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </article>
+      ))}
+    </div>
 
-      <!-- Git Note Section -->
-      <section id="gitnote" class="project-section">
-        <div class="section-header">
-          <h2>Git講座</h2>
-        </div>
-        <div class="section-content">
-          <p>
-            まずはここから！ 初めて共同開発へ参加する方に向けた Git を使った共同開発のチュートリアルです。<br />
-          </p>
-          <div class="tech-tags">
-            <span class="tech-tag">Git</span>
-            <span class="tech-tag">GitHub</span>
-          </div>
-          <a href="https://gitnote.rubydog.jp/" target="_blank" rel="noopener noreferrer" class="link-button">
-            Git講座を体験してみる
-          </a>
-        </div>
-      </section>
-
-      <!-- Comet Section -->
-      <section id="comet" class="project-section">
-        <div class="section-header">
-          <h2>Comet <span class="subtitle">コメット</span></h2>
-        </div>
-        <div class="section-content">
-          <p>
-            10 分で自分のサイトを公開できる！準備が必要なものは <strong>Flutter</strong>, <strong>Git</strong>, <strong>GitHub</strong> のみ。<br />
-            アプリを Flutter で作ったら、公式サイトもついでに作っちゃおう！
-          </p>
-          <div class="tech-tags">
-            <span class="tech-tag">Flutter</span>
-          </div>
-          <a href="https://comet.rubydog.jp/" target="_blank" rel="noopener noreferrer" class="link-button">
-            Cometを使ってみる
-          </a>
-          <div class="additional-info">
-            <p>Cometの共同開発へ参加されるは、以下のページをお読みください</p>
-            <a href="https://comet.rubydog.jp/docs-jp/oss-contributing/" target="_blank" rel="noopener noreferrer" class="link-button secondary">
-              共同開発スタッフの皆様へ
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- AppFlowy Section -->
-      <section id="appflowy" class="project-section">
-        <div class="section-header">
-          <h2>AppFlowy <span class="subtitle">アップフロウィー</span></h2>
-        </div>
-        <div class="section-content">
-          <p>
-            オープンソース版の Notion として注目が集まっています。<br />
-            ルビードッグが開発元ではありませんが、推しの OSS として皆様の参加をサポートしています。
-          </p>
-          <div class="tech-tags">
-            <span class="tech-tag">Flutter</span>
-            <span class="tech-tag">Rust</span>
-            <span class="tech-tag">Tauri</span>
-          </div>
-          <a href="https://appflowy.io/" target="_blank" rel="noopener noreferrer" class="link-button">
-            AppFlowy公式サイトへ
-          </a>
-        </div>
-      </section>
-
-      <!-- Magnetarium Section -->
-      <section id="magnetarium" class="project-section">
-        <div class="section-header">
-          <h2>マグネタリウム</h2>
-        </div>
-        <div class="section-content">
-          <p>準備中です</p>
-        </div>
-      </section>
-
-      <!-- Recruitment Section -->
-      <section id="recruitment" class="project-section recruitment-section">
-        <div class="section-header">
-          <h2>採用情報</h2>
-        </div>
-        <div class="section-content">
-          <div class="notice-box">
-            <p>
-              弊コミュニティにご関心いただき、誠にありがとうございます。<br />
-              大変申し訳ございませんが、現在有給でのスタッフの求人募集は行っておりません。<br />
-              募集の際は当ページにてご案内いたします。
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
+    <!-- Recruitment Notice -->
+    <div class="notice-card" data-aos="fade-up">
+      <div class="notice-bar"></div>
+      <div class="notice-body">
+        <h3>採用情報</h3>
+        <p>
+          弊コミュニティにご関心いただき、誠にありがとうございます。<br />
+          現在、有給でのスタッフの求人募集は行っておりません。募集の際は当ページにてご案内いたします。
+        </p>
+      </div>
+    </div>
   </div>
 </PageLayout>
 
 <style>
   .recruit-container {
-    max-width: 1280px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 2rem 1rem;
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    gap: 3rem;
+    padding: 0 1.5rem 4rem;
   }
 
-  /* Table of Contents */
-  .toc {
-    position: sticky;
-    top: 80px;
-    align-self: start;
-    max-height: calc(100vh - 100px);
-    overflow-y: auto;
+  .intro-card {
+    background: rgba(0,0,0,0.02);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
   }
-
-  .toc-nav {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 1.5rem;
-  }
-
-  .toc-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #1a1a1a;
-  }
-
-  .toc-list {
-    list-style: none;
-    padding: 0;
+  .intro-card p {
+    color: #555;
+    line-height: 1.8;
     margin: 0;
-  }
-
-  .toc-list > li {
-    margin-bottom: 0.5rem;
-  }
-
-  .toc-link {
-    display: block;
-    color: #666;
-    text-decoration: none;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: all 0.2s;
     font-size: 0.95rem;
   }
 
-  .toc-link:hover {
-    background: #e9ecef;
-    color: #EA4036;
-  }
-
-  /* Main Content */
-  .content {
-    min-width: 0;
-  }
-
-  .page-header {
-    margin-bottom: 3rem;
-  }
-
-  .page-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: #1a1a1a;
-  }
-
-  .page-description {
-    font-size: 1.125rem;
-    color: #666;
-  }
-
-  /* Project Sections */
-  .project-section {
-    background: #fff;
-    border-radius: 12px;
-    padding: 2.5rem;
+  /* Project Cards */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
     margin-bottom: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e9ecef;
-    transition: box-shadow 0.3s;
   }
 
-  .project-section:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  .project-card {
+    display: flex;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: all 0.25s;
+  }
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.1);
   }
 
-  .section-header {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #EA4036;
+  .project-accent {
+    width: 5px;
+    flex-shrink: 0;
   }
 
-  .section-header h2 {
-    font-size: 1.875rem;
+  .project-body {
+    padding: 1.5rem 2rem;
+    flex: 1;
+  }
+
+  .project-body h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
     color: #1a1a1a;
-    margin: 0;
+    margin: 0 0 0.5rem;
   }
 
-  .subtitle {
-    font-size: 0.875rem;
+  .project-sub {
+    font-size: 0.85rem;
     color: #999;
     font-weight: 400;
     margin-left: 0.5rem;
   }
 
-  .section-content p {
-    font-size: 1rem;
+  .project-desc {
+    color: #555;
     line-height: 1.7;
-    color: #333;
-    margin-bottom: 1.5rem;
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
   }
 
-  .media-container {
-    margin: 0 0 2rem 0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .media-container img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* Projects Grid */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .project-card {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 1.5rem;
-    text-align: center;
-    transition: all 0.3s;
-    border: 1px solid #e9ecef;
-  }
-
-  .project-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .project-icon {
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 120px;
-  }
-
-  .project-icon img {
-    width: 120px;
-    height: auto;
-  }
-
-  .icon-placeholder {
-    width: 80px;
-    height: 80px;
-    background: #e9ecef;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    color: #adb5bd;
-    font-weight: bold;
-  }
-
-  .project-name {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin-bottom: 0.5rem;
-  }
-
-  .project-description {
-    font-size: 0.875rem;
-    color: #666;
-    margin: 0;
-  }
-
-  /* Tech Tags */
-  .tech-tags {
-    margin: 1.5rem 0;
+  .tag-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
   }
 
-  .tech-tag {
-    display: inline-block;
-    background: #e9ecef;
-    color: #495057;
-    padding: 0.375rem 0.875rem;
-    border-radius: 20px;
-    font-size: 0.875rem;
-    font-weight: 500;
+  .tag {
+    padding: 0.25rem 0.7rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
     font-family: 'Courier New', monospace;
   }
 
-  /* Link Button */
-  .link-button {
+  .project-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .action-btn {
     display: inline-block;
-    background-color: #EA4036;
+    padding: 0.6rem 1.4rem;
     color: white;
-    padding: 0.875rem 2rem;
-    border-radius: 6px;
-    text-decoration: none;
+    border-radius: 12px;
     font-weight: 600;
+    font-size: 0.9rem;
     transition: all 0.2s;
-    margin-top: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
-
-  .link-button:hover {
-    background-color: #d63630;
+  .action-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(234, 64, 54, 0.3);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .action-btn.secondary {
+    background: #555;
+  }
+  .action-btn.disabled {
+    background: #ccc;
+    cursor: default;
+    box-shadow: none;
+  }
+  .action-btn.disabled:hover {
+    transform: none;
+    box-shadow: none;
   }
 
-  .link-button.secondary {
-    background-color: #6c757d;
+  /* Notice */
+  .notice-card {
+    display: flex;
+    background: rgba(0,0,0,0.02);
+    border-radius: 16px;
+    overflow: hidden;
   }
 
-  .link-button.secondary:hover {
-    background-color: #5a6268;
-    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+  .notice-bar {
+    width: 5px;
+    background: linear-gradient(180deg, var(--red), var(--yellow));
+    flex-shrink: 0;
   }
 
-  /* Additional Info */
-  .additional-info {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e9ecef;
+  .notice-body {
+    padding: 1.5rem 2rem;
   }
 
-  .additional-info p {
-    margin-bottom: 1rem;
+  .notice-body h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem;
   }
 
-  /* Recruitment Section */
-  .recruitment-section {
-    background: #f8f9fa;
-  }
-
-  .notice-box {
-    background: #fff;
-    border-radius: 6px;
-    padding: 1.5rem;
-    border-left: 4px solid #EA4036;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-
-  .notice-box p {
-    margin: 0;
+  .notice-body p {
+    color: #666;
     line-height: 1.8;
+    margin: 0;
+    font-size: 0.92rem;
   }
 
-  /* Responsive Design */
-  @media (max-width: 968px) {
-    .recruit-container {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .toc {
-      position: static;
-      max-height: none;
-    }
-
-    .toc-nav {
-      margin-bottom: 2rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .recruit-container {
-      padding: 1rem;
-    }
-
-    .page-header h1 {
-      font-size: 2rem;
-    }
-
-    .project-section {
-      padding: 1.5rem;
-    }
-
-    .section-header h2 {
-      font-size: 1.5rem;
-    }
-
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
+  @media (max-width: 600px) {
+    .project-body { padding: 1.25rem 1.25rem; }
+    .project-body h2 { font-size: 1.1rem; }
   }
 </style>
