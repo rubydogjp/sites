@@ -201,7 +201,7 @@ export default function SlideViewer({
         {/* Next step button — always visible, disabled until all actions done */}
         {subSteps?.nextStep && (
           <div className="mt-8 flex justify-center">
-            {allActionsDone ? (
+            {hasReachedEnd ? (
               <Link
                 to={subSteps.nextStep.path}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-action-500 hover:bg-action-600 text-white font-bold text-sm shadow-md transition-colors"
