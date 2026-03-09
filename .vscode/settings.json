@@ -47,5 +47,5 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["hunny", "rbdog", "Rubydog", "rubydogjp"]
+  "cSpell.words": ["gitnote", "rbdog", "Rubydog", "rubydogjp"]
 }

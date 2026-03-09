@@ -8,8 +8,14 @@
         "apex": [
           "rubydog-sites"
         ],
-        "hunny": [
-          "rubydogjp-hunny"
+        "gitnote": [
+          "rubydogjp-gitnote"
+        ],
+        "flutternote": [
+          "rubydogjp-flutternote"
+        ],
+        "notes-redirect": [
+          "rubydogjp-notes"
         ]
       }
     }

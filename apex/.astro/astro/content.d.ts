@@ -155,9 +155,9 @@ declare module 'astro:content' {
   collection: "news";
   data: InferEntrySchema<"news">
 } & { render(): Render[".md"] };
-"20231118_hunny-1_1.md": {
-	id: "20231118_hunny-1_1.md";
-  slug: "20231118_hunny-1_1";
+"20231118_gitnote-1_1.md": {
+	id: "20231118_gitnote-1_1.md";
+  slug: "20231118_gitnote-1_1";
   body: string;
   collection: "news";
   data: InferEntrySchema<"news">

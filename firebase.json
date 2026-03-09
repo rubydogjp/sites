@@ -7,10 +7,19 @@
       "cleanUrls": true
     },
     {
-      "target": "hunny",
-      "public": "hunny/dist",
+      "target": "gitnote",
+      "public": "gitnote/dist",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [{ "source": "**", "destination": "/index.html" }]
+    },
+    {
+      "target": "notes-redirect",
+      "public": "notes-redirect",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "redirects": [
+        { "source": "/", "destination": "https://flutternote.rubydog.jp", "type": 301 },
+        { "source": "/:path*", "destination": "https://flutternote.rubydog.jp/:path", "type": 301 }
+      ]
     }
   ]
 }

@@ -14,7 +14,7 @@ Rubydog JP (rubydogjp)
     - map: coming soon
     - event: coming soon
   - Notes ...講座
-    - flutternote ...Flutter講座 flutter-note
-    - gitnote (旧 hunny) ...今後ニュースとしてアナウンス予定
+    - flutternote ...Flutter講座 flutternote
+    - gitnote ...Git講座 gitnote
   - Packages ...開発者用のライブラリやパッケージ
     - coming soon
