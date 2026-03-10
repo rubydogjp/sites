@@ -1,5 +1,8 @@
 .DS_Store
 .firebase/
+.secrets/
+.env
+.env.*
 
 # Apex build artifacts
 apex/dist/

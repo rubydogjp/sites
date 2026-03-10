@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "rubydog-sites"
+    "default": "rubydogcloud"
   },
   "targets": {
-    "rubydog-sites": {
+    "rubydogcloud": {
       "hosting": {
         "apex": [
-          "rubydog-sites"
+          "rubydogcloud"
         ]
       }
     }
