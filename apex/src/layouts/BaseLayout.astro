@@ -47,14 +47,18 @@ const { title, description = 'ホームページへようこそ！' } = Astro.pr
     <script is:inline>
       window.addEventListener('load', function() {
         var loader = document.getElementById('page-loader');
+        var content = document.getElementById('page-content');
         if (loader) {
           loader.classList.add('loaded');
-          setTimeout(function() { loader.remove(); }, 500);
         }
+        if (content) {
+          content.classList.add('visible');
+        }
+        setTimeout(function() { if (loader) loader.remove(); }, 600);
       });
     </script>
 
-    <slot />
+    <div id="page-content"><slot /></div>
   </body>
 </html>
 
@@ -65,6 +69,15 @@ const { title, description = 'ホームページへようこそ！' } = Astro.pr
   }
 
   /* Page loader */
+  /* Content fade-in */
+  #page-content {
+    opacity: 0;
+    transition: opacity 0.5s ease 0.1s;
+  }
+  #page-content.visible {
+    opacity: 1;
+  }
+
   #page-loader {
     position: fixed;
     inset: 0;
@@ -73,11 +86,11 @@ const { title, description = 'ホームページへようこそ！' } = Astro.pr
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    transition: opacity 0.5s ease;
   }
   #page-loader.loaded {
     opacity: 0;
-    visibility: hidden;
+    pointer-events: none;
   }
   .loader-inner {
     display: flex;
