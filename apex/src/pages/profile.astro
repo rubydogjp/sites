@@ -7,6 +7,7 @@ const techStack = [
     category: 'スマホアプリ開発',
     icon: '📱',
     color: 'var(--blue)',
+    gradient: 'linear-gradient(135deg, var(--blue), #5da3ff)',
     technologies: [
       { name: 'iOS', detail: 'Swift, Objective-C' },
       { name: 'Android', detail: 'Java, Kotlin' },
@@ -18,6 +19,7 @@ const techStack = [
     category: 'Webバックエンド',
     icon: '⚙️',
     color: 'var(--green)',
+    gradient: 'linear-gradient(135deg, var(--green), #2dd660)',
     technologies: [
       { name: 'Deno', detail: 'TypeScript' },
       { name: 'FastAPI', detail: 'Python' },
@@ -28,6 +30,7 @@ const techStack = [
     category: 'Webフロントエンド',
     icon: '🎨',
     color: 'var(--red)',
+    gradient: 'linear-gradient(135deg, var(--red), #ff6b5e)',
     technologies: [
       { name: 'Next.js', detail: '' },
       { name: 'React', detail: '' }
@@ -37,6 +40,7 @@ const techStack = [
     category: 'ゲーム開発',
     icon: '🎮',
     color: '#9B59B6',
+    gradient: 'linear-gradient(135deg, #9B59B6, #c084fc)',
     technologies: [
       { name: 'Unity', detail: 'C#' }
     ]
@@ -45,6 +49,7 @@ const techStack = [
     category: 'データベース',
     icon: '🗄️',
     color: 'var(--yellow)',
+    gradient: 'linear-gradient(135deg, var(--yellow), #ffd04a)',
     technologies: [
       { name: 'MySQL', detail: '' },
       { name: 'PostgreSQL', detail: '' },
@@ -55,6 +60,7 @@ const techStack = [
     category: 'クラウド',
     icon: '☁️',
     color: 'var(--blue)',
+    gradient: 'linear-gradient(135deg, var(--blue), #5da3ff)',
     technologies: [
       { name: 'AWS', detail: 'EC2, S3' },
       { name: 'Google Cloud', detail: 'CloudRun, Firestore' },
@@ -65,6 +71,7 @@ const techStack = [
     category: 'コンテナ',
     icon: '🐳',
     color: '#2496ED',
+    gradient: 'linear-gradient(135deg, #2496ED, #60b4ff)',
     technologies: [
       { name: 'Docker', detail: '' }
     ]
@@ -73,6 +80,7 @@ const techStack = [
     category: '趣味',
     icon: '💡',
     color: 'var(--red)',
+    gradient: 'linear-gradient(135deg, var(--red), #ff6b5e)',
     technologies: [
       { name: 'Rust', detail: '' },
       { name: 'Mojo', detail: '' }
@@ -87,8 +95,12 @@ const techStack = [
   <div class="profile-container">
     <!-- Hero Card -->
     <section class="hero-card" data-aos="fade-up">
-      <div class="card-orb card-orb-1"></div>
-      <div class="card-orb card-orb-2"></div>
+      <div class="card-bg">
+        <div class="card-block card-block-1"></div>
+        <div class="card-block card-block-2"></div>
+        <div class="card-block card-block-3"></div>
+      </div>
+      <div class="card-grain"></div>
       <div class="card-inner">
         <div class="avatar-wrap">
           <div class="avatar-ring"></div>
@@ -110,13 +122,19 @@ const techStack = [
 
     <!-- Tech Stack -->
     <section class="tech-section">
-      <h2 class="section-title" data-aos="fade-up">技術スタック</h2>
+      <div class="tech-header" data-aos="fade-up">
+        <span class="section-tag">Tech Stack</span>
+        <h2 class="section-title">技術スタック</h2>
+      </div>
       <div class="tech-grid">
         {techStack.map((cat, i) => (
-          <div class="tech-card" data-aos="fade-up" data-aos-delay={i * 60}>
-            <div class="tech-card-accent" style={`background: ${cat.color}`}></div>
+          <div class="tech-card" data-aos="fade-up" data-aos-delay={String(i * 60)}>
+            <div class="tech-card-accent" style={`background: ${cat.gradient}`}>
+              <div class="accent-particle p1"></div>
+              <div class="accent-particle p2"></div>
+            </div>
             <div class="tech-card-body">
-              <div class="tech-header">
+              <div class="tech-head">
                 <span class="tech-emoji">{cat.icon}</span>
                 <h3>{cat.category}</h3>
               </div>
@@ -146,23 +164,42 @@ const techStack = [
   /* Hero Card */
   .hero-card {
     position: relative;
-    background: linear-gradient(135deg, var(--yellow), var(--red));
     border-radius: 24px;
     padding: 3rem 2rem;
     text-align: center;
     overflow: hidden;
     margin-bottom: 3rem;
+    background: linear-gradient(135deg, var(--yellow), var(--red));
   }
 
-  .card-orb {
+  .card-bg {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.2;
+    inset: 0;
+    overflow: hidden;
     pointer-events: none;
   }
-  .card-orb-1 { width: 300px; height: 300px; background: white; top: -80px; right: -60px; }
-  .card-orb-2 { width: 200px; height: 200px; background: var(--red); bottom: -40px; left: -40px; }
+  .card-block {
+    position: absolute;
+    border-radius: 40px;
+    opacity: 0.1;
+    animation: cardFloat 14s ease-in-out infinite;
+  }
+  .card-block-1 { width: 50%; height: 60%; background: white; top: -20%; right: -10%; animation-duration: 16s; }
+  .card-block-2 { width: 35%; height: 45%; background: var(--red); bottom: -15%; left: -8%; animation-delay: -4s; animation-direction: reverse; }
+  .card-block-3 { width: 25%; height: 30%; background: var(--yellow); top: 20%; left: 30%; opacity: 0.06; animation-delay: -8s; animation-duration: 20s; }
+  @keyframes cardFloat {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    33% { transform: scale(1.05) translate(6px, -4px); }
+    66% { transform: scale(0.97) translate(-4px, 6px); }
+  }
+
+  .card-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.3;
+    pointer-events: none;
+  }
 
   .card-inner { position: relative; z-index: 1; }
 
@@ -235,13 +272,24 @@ const techStack = [
 
   /* Tech Stack */
   .tech-section { margin-top: 1rem; }
-
+  .tech-header { text-align: center; margin-bottom: 2rem; }
+  .section-tag {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--light-yellow);
+    color: var(--dark-yellow);
+    margin-bottom: 0.5rem;
+  }
   .section-title {
     font-size: 1.6rem;
     font-weight: 800;
     color: #1a1a1a;
-    text-align: center;
-    margin: 0 0 2rem;
+    margin: 0.3rem 0 0;
   }
 
   .tech-grid {
@@ -251,32 +299,50 @@ const techStack = [
   }
 
   .tech-card {
-    background: white;
-    border-radius: 16px;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    border: 1px solid rgba(0,0,0,0.04);
-    transition: all 0.25s;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .tech-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
   }
 
   .tech-card-accent {
+    height: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+  .accent-particle {
+    position: absolute;
+    width: 4px;
     height: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    animation: particleDrift 5s ease-in-out infinite;
+  }
+  .p1 { top: 0; left: 25%; }
+  .p2 { top: 0; right: 20%; animation-delay: -2.5s; }
+  @keyframes particleDrift {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+    50% { transform: translateY(-4px) scale(1.5); opacity: 0.7; }
   }
 
   .tech-card-body { padding: 1.25rem; }
 
-  .tech-header {
+  .tech-head {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 1rem;
   }
   .tech-emoji { font-size: 1.3rem; }
-  .tech-header h3 {
+  .tech-head h3 {
     font-size: 1rem;
     font-weight: 700;
     color: #1a1a1a;
@@ -294,9 +360,9 @@ const techStack = [
     border-radius: 8px;
     padding: 0.35rem 0.7rem;
     font-size: 0.82rem;
-    transition: background 0.2s;
+    transition: all 0.2s;
   }
-  .tech-chip:hover { background: rgba(0,0,0,0.06); }
+  .tech-chip:hover { background: rgba(0,0,0,0.06); transform: translateY(-1px); }
 
   .chip-name { font-weight: 600; color: #333; }
   .chip-detail {

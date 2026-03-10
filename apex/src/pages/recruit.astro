@@ -7,8 +7,8 @@ const projects = [
     name: 'Git講座',
     description: '共同開発のチュートリアル。まずはここから！',
     tags: ['Git', 'GitHub'],
-    color: 'var(--green)',
-    lightColor: 'var(--light-green)',
+    color: 'green',
+    gradient: 'linear-gradient(135deg, var(--green), #2dd660)',
     url: 'https://gitnote.rubydog.jp/',
     urlLabel: 'Git講座を体験してみる',
   },
@@ -17,8 +17,8 @@ const projects = [
     subtitle: 'コメット',
     description: '10 分で自分のサイトを公開できる！ Flutter で作られた静的サイトジェネレーター。',
     tags: ['Flutter'],
-    color: 'var(--blue)',
-    lightColor: 'var(--light-blue)',
+    color: 'blue',
+    gradient: 'linear-gradient(135deg, var(--blue), #5da3ff)',
     url: 'https://comet.rubydog.jp/',
     urlLabel: 'Cometを使ってみる',
     extra: { label: '共同開発スタッフの皆様へ', url: 'https://comet.rubydog.jp/docs-jp/oss-contributing/' }
@@ -28,8 +28,8 @@ const projects = [
     subtitle: 'アップフロウィー',
     description: 'オープンソース版の Notion として注目されています。推しの OSS として参加をサポート中。',
     tags: ['Flutter', 'Rust', 'Tauri'],
-    color: '#9B59B6',
-    lightColor: 'rgba(155,89,182,0.1)',
+    color: 'purple',
+    gradient: 'linear-gradient(135deg, #9B59B6, #c084fc)',
     url: 'https://appflowy.io/',
     urlLabel: 'AppFlowy公式サイトへ',
   },
@@ -37,12 +37,28 @@ const projects = [
     name: 'マグネタリウム',
     description: '宇宙磁石とプラネタリウムのゲーム。',
     tags: [],
-    color: 'var(--yellow)',
-    lightColor: 'var(--light-yellow)',
+    color: 'yellow',
+    gradient: 'linear-gradient(135deg, var(--yellow), #ffd04a)',
     url: null,
     urlLabel: '準備中',
   }
 ];
+
+const lightColors: Record<string, string> = {
+  green: 'var(--light-green)',
+  blue: 'var(--light-blue)',
+  purple: 'rgba(155,89,182,0.1)',
+  yellow: 'var(--light-yellow)',
+  red: 'var(--light-red)',
+};
+
+const darkColors: Record<string, string> = {
+  green: 'var(--dark-green)',
+  blue: 'var(--dark-blue)',
+  purple: '#7B2D8E',
+  yellow: 'var(--dark-yellow)',
+  red: 'var(--dark-red)',
+};
 ---
 
 <PageLayout title="参加" description="共同開発プロジェクトへの参加をお待ちしています">
@@ -51,6 +67,7 @@ const projects = [
   <div class="recruit-container">
     <!-- Intro -->
     <div class="intro-card" data-aos="fade-up">
+      <div class="intro-glow"></div>
       <p>
         どなたでも気軽に参加できます。気になったプロジェクトがあれば是非ご検討ください。<br />
         どれもゆるいライセンスですので、やがては自分のものとして派生プロジェクトを作り直すことも自由です。
@@ -58,10 +75,13 @@ const projects = [
     </div>
 
     <!-- Projects -->
-    <div class="projects-list">
+    <div class="projects-grid">
       {projects.map((p, i) => (
-        <article class="project-card" data-aos="fade-up" data-aos-delay={i * 80}>
-          <div class="project-accent" style={`background: ${p.color}`}></div>
+        <article class="project-card" data-aos="fade-up" data-aos-delay={String(i * 80)}>
+          <div class="project-accent" style={`background: ${p.gradient}`}>
+            <div class="accent-particle p1"></div>
+            <div class="accent-particle p2"></div>
+          </div>
           <div class="project-body">
             <h2>
               {p.name}
@@ -71,13 +91,13 @@ const projects = [
             {p.tags.length > 0 && (
               <div class="tag-row">
                 {p.tags.map(tag => (
-                  <span class="tag" style={`background: ${p.lightColor}; color: ${p.color}`}>{tag}</span>
+                  <span class="tag" style={`background: ${lightColors[p.color]}; color: ${darkColors[p.color]}`}>{tag}</span>
                 ))}
               </div>
             )}
             <div class="project-actions">
               {p.url ? (
-                <a href={p.url} target="_blank" rel="noopener noreferrer" class="action-btn" style={`background: ${p.color}`} data-magnetic>
+                <a href={p.url} target="_blank" rel="noopener noreferrer" class="action-btn" style={`background: ${p.gradient}`} data-magnetic>
                   {p.urlLabel}
                 </a>
               ) : (
@@ -96,7 +116,7 @@ const projects = [
 
     <!-- Recruitment Notice -->
     <div class="notice-card" data-aos="fade-up">
-      <div class="notice-bar"></div>
+      <div class="notice-rainbow"></div>
       <div class="notice-body">
         <h3>採用情報</h3>
         <p>
@@ -115,70 +135,105 @@ const projects = [
     padding: 0 1.5rem 4rem;
   }
 
+  /* Intro */
   .intro-card {
-    background: rgba(0,0,0,0.02);
-    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
     padding: 1.5rem 2rem;
     margin-bottom: 2rem;
+  }
+  .intro-glow {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: var(--light-red);
+    filter: blur(60px);
+    opacity: 0.3;
+    top: -40px;
+    right: -40px;
   }
   .intro-card p {
     color: #555;
     line-height: 1.8;
     margin: 0;
     font-size: 0.95rem;
+    position: relative;
+    z-index: 1;
   }
 
-  /* Project Cards */
-  .projects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+  /* Projects */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
     margin-bottom: 2rem;
   }
 
   .project-card {
-    display: flex;
-    background: white;
-    border-radius: 16px;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    border: 1px solid rgba(0,0,0,0.04);
-    transition: all 0.25s;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .project-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
   }
 
   .project-accent {
-    width: 5px;
-    flex-shrink: 0;
+    height: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+  .accent-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    animation: particleDrift 5s ease-in-out infinite;
+  }
+  .p1 { top: 0; left: 30%; }
+  .p2 { top: 0; right: 20%; animation-delay: -2.5s; }
+  @keyframes particleDrift {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+    50% { transform: translateY(-4px) scale(1.5); opacity: 0.7; }
   }
 
   .project-body {
-    padding: 1.5rem 2rem;
-    flex: 1;
+    padding: 1.5rem;
   }
 
   .project-body h2 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: #1a1a1a;
     margin: 0 0 0.5rem;
   }
 
   .project-sub {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #999;
     font-weight: 400;
-    margin-left: 0.5rem;
+    margin-left: 0.4rem;
   }
 
   .project-desc {
     color: #555;
     line-height: 1.7;
-    margin: 0 0 1rem;
-    font-size: 0.95rem;
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
   }
 
   .tag-row {
@@ -189,27 +244,27 @@ const projects = [
   }
 
   .tag {
-    padding: 0.25rem 0.7rem;
-    border-radius: 8px;
-    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
     font-weight: 600;
     font-family: 'Courier New', monospace;
   }
 
   .project-actions {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.5rem;
     flex-wrap: wrap;
   }
 
   .action-btn {
     display: inline-block;
-    padding: 0.6rem 1.4rem;
+    padding: 0.55rem 1.2rem;
     color: white;
-    border-radius: 12px;
+    border-radius: 10px;
     font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.2s;
+    font-size: 0.82rem;
+    transition: all 0.25s;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
   .action-btn:hover {
@@ -217,10 +272,11 @@ const projects = [
     box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   }
   .action-btn.secondary {
-    background: #555;
+    background: #555 !important;
+    font-size: 0.78rem;
   }
   .action-btn.disabled {
-    background: #ccc;
+    background: #ccc !important;
     cursor: default;
     box-shadow: none;
   }
@@ -231,16 +287,24 @@ const projects = [
 
   /* Notice */
   .notice-card {
-    display: flex;
-    background: rgba(0,0,0,0.02);
-    border-radius: 16px;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
     overflow: hidden;
   }
 
-  .notice-bar {
-    width: 5px;
-    background: linear-gradient(180deg, var(--red), var(--yellow));
-    flex-shrink: 0;
+  .notice-rainbow {
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--yellow), var(--green), var(--blue));
+    background-size: 200% auto;
+    animation: rainbowFlow 3s linear infinite;
+  }
+  @keyframes rainbowFlow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
   }
 
   .notice-body {
@@ -262,7 +326,8 @@ const projects = [
   }
 
   @media (max-width: 600px) {
-    .project-body { padding: 1.25rem 1.25rem; }
-    .project-body h2 { font-size: 1.1rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-body { padding: 1.25rem; }
+    .project-body h2 { font-size: 1.05rem; }
   }
 </style>

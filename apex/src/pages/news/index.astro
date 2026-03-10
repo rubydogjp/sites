@@ -7,44 +7,156 @@ const newsEntries = await getCollection('news');
 const sortedNews = newsEntries.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const colors = ['bar-red', 'bar-green', 'bar-blue', 'bar-yellow'];
+const glowColors = ['glow-red', 'glow-green', 'glow-blue', 'glow-yellow'];
 ---
 
 <PageLayout title="ニュース">
   <PageHeader title="ニュース" description="Rubydog JP からのお知らせ" accentColor="yellow" />
 
   <section class="content">
-    {sortedNews.map((entry, i) => (
-      <a href={`/news/${entry.slug}`} class="news-card tile" data-aos="fade-up" data-aos-delay={String(Math.min(i * 80, 400))}>
-        <div class={`color-bar ${colors[i % 4]}`}></div>
-        <time datetime={entry.data.date.toISOString()}>
-          {entry.data.date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
-        </time>
-        <h2>{entry.data.title}</h2>
-        {entry.data.tags && (
-          <div class="tags">
-            {entry.data.tags.map(tag => <span class="tag">{tag}</span>)}
-          </div>
-        )}
-        <span class="arrow">→</span>
+    {sortedNews.length > 0 && (
+      <a href={`/news/${sortedNews[0].slug}`} class="featured-card" data-aos="fade-up">
+        <div class="featured-glow"></div>
+        <div class="featured-inner">
+          <span class="featured-tag">Latest</span>
+          <time datetime={sortedNews[0].data.date.toISOString()}>
+            {sortedNews[0].data.date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+          <h2>{sortedNews[0].data.title}</h2>
+          {sortedNews[0].data.tags && (
+            <div class="tags">
+              {sortedNews[0].data.tags.map(tag => <span class="tag">{tag}</span>)}
+            </div>
+          )}
+          <span class="featured-arrow">→</span>
+        </div>
       </a>
-    ))}
+    )}
+
+    <div class="news-grid">
+      {sortedNews.slice(1).map((entry, i) => (
+        <a href={`/news/${entry.slug}`} class={`news-card ${glowColors[(i + 1) % 4]}`} data-aos="fade-up" data-aos-delay={String(Math.min(i * 80, 400))}>
+          <div class={`color-bar ${colors[(i + 1) % 4]}`}></div>
+          <time datetime={entry.data.date.toISOString()}>
+            {entry.data.date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+          <h3>{entry.data.title}</h3>
+          {entry.data.tags && (
+            <div class="tags">
+              {entry.data.tags.map(tag => <span class="tag">{tag}</span>)}
+            </div>
+          )}
+          <span class="arrow">→</span>
+        </a>
+      ))}
+    </div>
   </section>
 </PageLayout>
 
 <style>
-  .content { max-width: 750px; margin: 0 auto; padding: 1rem 1.5rem 4rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .content { max-width: 800px; margin: 0 auto; padding: 1rem 1.5rem 4rem; }
 
-  .tile {
+  /* Featured (latest) card */
+  .featured-card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    padding: 2.5rem;
+    margin-bottom: 1.5rem;
     background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(12px);
-    border-radius: 18px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255,255,255,0.8);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .featured-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+
+  .featured-glow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--light-yellow), var(--light-red));
+    filter: blur(60px);
+    opacity: 0.3;
+    top: -40px;
+    right: -40px;
+    transition: opacity 0.3s;
+  }
+  .featured-card:hover .featured-glow { opacity: 0.5; }
+
+  .featured-inner { position: relative; z-index: 1; }
+
+  .featured-tag {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--light-yellow);
+    color: var(--dark-yellow);
+    margin-bottom: 0.75rem;
   }
 
-  .news-card { display: block; padding: 1.5rem; position: relative; cursor: pointer; }
-  .news-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
+  .featured-card time { font-size: 0.82rem; color: #999; display: block; }
+  .featured-card h2 { font-size: 1.4rem; font-weight: 700; margin: 0.3rem 0 0; }
+
+  .featured-arrow {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    font-size: 1.2rem;
+    color: #ccc;
+    transition: all 0.3s;
+  }
+  .featured-card:hover .featured-arrow { color: var(--red); transform: translateX(4px); }
+
+  /* News grid */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .news-card {
+    display: block;
+    padding: 1.5rem;
+    position: relative;
+    cursor: pointer;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+  .news-card:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,0.08); }
+
+  /* Color-specific hover glow */
+  .news-card::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0;
+    top: -30px;
+    right: -30px;
+    transition: opacity 0.3s;
+  }
+  .news-card:hover::before { opacity: 0.15; }
+  .glow-red::before { background: var(--red); }
+  .glow-green::before { background: var(--green); }
+  .glow-blue::before { background: var(--blue); }
+  .glow-yellow::before { background: var(--yellow); }
 
   .color-bar { width: 40px; height: 4px; border-radius: 4px; margin-bottom: 0.75rem; }
   .bar-red { background: var(--red); }
@@ -52,12 +164,18 @@ const colors = ['bar-red', 'bar-green', 'bar-blue', 'bar-yellow'];
   .bar-blue { background: var(--blue); }
   .bar-yellow { background: var(--yellow); }
 
-  time { font-size: 0.78rem; color: #999; }
-  h2 { font-size: 1.15rem; font-weight: 600; margin: 0.25rem 0 0; }
+  .news-card time { font-size: 0.78rem; color: #999; }
+  .news-card h3 { font-size: 1rem; font-weight: 600; margin: 0.25rem 0 0; position: relative; z-index: 1; }
 
-  .tags { display: flex; gap: 0.3rem; margin-top: 0.5rem; }
+  .tags { display: flex; gap: 0.3rem; margin-top: 0.5rem; position: relative; z-index: 1; }
   .tag { font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--light-red); color: var(--dark-red); font-weight: 500; }
 
-  .arrow { position: absolute; top: 1.5rem; right: 1.5rem; color: #ccc; transition: all 0.3s; }
+  .arrow { position: absolute; top: 1.5rem; right: 1.5rem; color: #ccc; transition: all 0.3s; z-index: 1; }
   .news-card:hover .arrow { color: var(--red); transform: translateX(4px); }
+
+  @media (max-width: 600px) {
+    .news-grid { grid-template-columns: 1fr; }
+    .featured-card { padding: 1.5rem; }
+    .featured-arrow { top: 1.5rem; right: 1.5rem; }
+  }
 </style>

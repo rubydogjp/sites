@@ -15,20 +15,42 @@ const colorMap = {
   yellow: { light: 'var(--light-yellow)', dark: 'var(--dark-yellow)', main: 'var(--yellow)' },
 };
 const c = colorMap[accentColor];
+
+const secondaryColors = {
+  red: 'var(--blue)',
+  green: 'var(--yellow)',
+  blue: 'var(--green)',
+  yellow: 'var(--red)',
+};
+const secondary = secondaryColors[accentColor];
 ---
 
 <section class="page-header" data-aos="fade-up" data-aos-duration="600">
-  <div class="header-orb header-orb-1" style={`background: ${c.main}`}></div>
-  <div class="header-orb header-orb-2" style={`background: ${c.main}`}></div>
+  <!-- Soft animated background -->
+  <div class="header-bg">
+    <div class="header-block header-block-1" style={`background: ${c.main}`}></div>
+    <div class="header-block header-block-2" style={`background: ${secondary}`}></div>
+    <div class="header-block header-block-3" style={`background: ${c.main}`}></div>
+  </div>
+  <div class="header-grain"></div>
+
   <div class="header-inner">
     {icon && (
-      <div class:list={['header-icon-wrap', { 'icon-type': iconType === 'icon', 'profile-type': iconType === 'profile' }]} style={`background: ${c.light}`}>
+      <div
+        class:list={['header-icon-wrap', { 'icon-type': iconType === 'icon', 'profile-type': iconType === 'profile' }]}
+        style={`background: ${c.light}`}
+      >
         <img src={icon} alt={title} />
+        <div class="icon-glow" style={`background: ${c.main}`}></div>
       </div>
     )}
     <h1>{title}</h1>
     {description && <p class="header-desc">{description}</p>}
-    <div class="header-bar" style={`background: linear-gradient(90deg, ${c.main}, ${c.light})`}></div>
+  </div>
+
+  <!-- Rainbow bar -->
+  <div class="header-rainbow">
+    <div class="header-rainbow-bar"></div>
   </div>
 </section>
 
@@ -36,19 +58,61 @@ const c = colorMap[accentColor];
   .page-header {
     position: relative;
     overflow: hidden;
-    padding: 7rem 1.5rem 3rem;
+    padding: 7rem 1.5rem 2.5rem;
     text-align: center;
   }
 
-  .header-orb {
+  /* Animated background blocks */
+  .header-bg {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.08;
+    inset: 0;
+    overflow: hidden;
     pointer-events: none;
   }
-  .header-orb-1 { width: 300px; height: 300px; top: -80px; left: -60px; }
-  .header-orb-2 { width: 250px; height: 250px; bottom: -60px; right: -40px; }
+  .header-block {
+    position: absolute;
+    border-radius: 40px;
+    opacity: 0.06;
+    animation: headerFloat 16s ease-in-out infinite;
+  }
+  .header-block-1 {
+    width: 45%;
+    height: 70%;
+    top: -20%;
+    left: -10%;
+    animation-duration: 18s;
+  }
+  .header-block-2 {
+    width: 35%;
+    height: 55%;
+    bottom: -15%;
+    right: -8%;
+    animation-duration: 14s;
+    animation-delay: -5s;
+    animation-direction: reverse;
+  }
+  .header-block-3 {
+    width: 20%;
+    height: 35%;
+    top: 10%;
+    right: 20%;
+    opacity: 0.04;
+    animation-duration: 20s;
+    animation-delay: -8s;
+  }
+  @keyframes headerFloat {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    33% { transform: scale(1.06) translate(8px, -5px); }
+    66% { transform: scale(0.97) translate(-5px, 8px); }
+  }
+
+  .header-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
 
   .header-inner {
     position: relative;
@@ -58,17 +122,35 @@ const c = colorMap[accentColor];
   }
 
   .header-icon-wrap {
-    width: 72px;
-    height: 72px;
-    border-radius: 20px;
+    width: 76px;
+    height: 76px;
+    border-radius: 22px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
   }
-  .header-icon-wrap.icon-type img { width: 44px; height: 44px; object-fit: contain; }
-  .header-icon-wrap.profile-type img { width: 100%; height: 100%; object-fit: cover; }
+  .header-icon-wrap:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+  }
+  .header-icon-wrap.icon-type img { width: 46px; height: 46px; object-fit: contain; position: relative; z-index: 1; }
+  .header-icon-wrap.profile-type img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
+
+  .icon-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 22px;
+    filter: blur(20px);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .header-icon-wrap:hover .icon-glow { opacity: 0.2; }
 
   h1 {
     font-size: clamp(2rem, 4vw, 2.5rem);
@@ -80,14 +162,28 @@ const c = colorMap[accentColor];
   .header-desc {
     color: #888;
     font-size: 1rem;
-    margin: 0 0 1.5rem;
+    margin: 0;
     line-height: 1.6;
   }
 
-  .header-bar {
-    width: 60px;
-    height: 4px;
-    border-radius: 4px;
+  /* Rainbow bar */
+  .header-rainbow {
+    position: relative;
+    z-index: 1;
+    padding: 0 1.5rem;
+    margin-top: 2rem;
+  }
+  .header-rainbow-bar {
+    height: 3px;
+    border-radius: 3px;
+    max-width: 700px;
     margin: 0 auto;
+    background: linear-gradient(90deg, var(--red), var(--yellow), var(--green), var(--blue), var(--red));
+    background-size: 200% auto;
+    animation: rainbowFlow 3s linear infinite;
+  }
+  @keyframes rainbowFlow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
   }
 </style>

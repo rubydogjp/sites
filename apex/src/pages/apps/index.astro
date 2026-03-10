@@ -18,7 +18,8 @@ const apps = [
       '旅行やイベントの日程共有にも活用できる'
     ],
     status: 'released',
-    accent: 'red'
+    accent: 'red',
+    gradient: 'linear-gradient(135deg, var(--red), #ff6b5e)',
   },
   {
     name: 'Timecard',
@@ -27,7 +28,8 @@ const apps = [
     icon: '/products/timecard/timecard-icon.png',
     image: '/products/timecard/ss/ss01-desktop.png',
     status: 'coming',
-    accent: 'yellow'
+    accent: 'yellow',
+    gradient: 'linear-gradient(135deg, var(--yellow), #ffd04a)',
   },
   {
     name: 'Map',
@@ -35,7 +37,8 @@ const apps = [
     description: '準備中',
     icon: '/products/apps/map-icon.png',
     status: 'planned',
-    accent: 'green'
+    accent: 'green',
+    gradient: 'linear-gradient(135deg, var(--green), #2dd660)',
   },
   {
     name: 'Event',
@@ -43,7 +46,8 @@ const apps = [
     description: '準備中',
     icon: '/products/apps/event-icon.png',
     status: 'planned',
-    accent: 'blue'
+    accent: 'blue',
+    gradient: 'linear-gradient(135deg, var(--blue), #5da3ff)',
   }
 ];
 ---
@@ -59,47 +63,63 @@ const apps = [
   <section class="content">
     {apps.map((app, i) => (
       <div
-        class:list={['app-card', 'tile', { 'app-dim': app.status !== 'released' }]}
+        class:list={['app-card', { 'app-dim': app.status !== 'released' }]}
         data-aos="fade-up"
         data-aos-delay={String(i * 100)}
       >
-        <div class="app-top">
-          <div class={`app-icon-wrap accent-${app.accent}`}>
-            <img src={app.icon} alt={app.name} />
-          </div>
-          <div class="app-meta">
-            <h2>{app.name} <span class="app-subtitle">{app.subtitle}</span></h2>
-            {app.status === 'coming' && <span class="badge badge-yellow">Coming Soon</span>}
-            {app.status === 'planned' && <span class="badge badge-gray">準備中</span>}
+        <!-- Gradient accent header -->
+        <div class="card-header" style={`background: ${app.gradient}`}>
+          <div class="header-particle p1"></div>
+          <div class="header-particle p2"></div>
+          <div class="header-particle p3"></div>
+          <div class="header-content">
+            <div class="app-icon-wrap">
+              <img src={app.icon} alt={app.name} />
+            </div>
+            <div class="header-text">
+              <h2>{app.name} <span class="app-subtitle">{app.subtitle}</span></h2>
+              {app.status === 'coming' && <span class="badge badge-light">Coming Soon</span>}
+              {app.status === 'planned' && <span class="badge badge-light-dim">準備中</span>}
+            </div>
           </div>
         </div>
-        <p class="app-desc">{app.description}</p>
-        {app.features && (
-          <ul class="features">
-            {app.features.map(f => <li>{f}</li>)}
-          </ul>
-        )}
-        {app.image && (
-          <div class="app-screenshot" data-aos="zoom-in" data-aos-delay="200">
-            <img src={app.image} alt={app.name} />
-          </div>
-        )}
-        {app.status === 'released' && (
-          <div class="app-actions">
-            {app.url && <a href={app.url} target="_blank" rel="noopener noreferrer" class="btn-primary" data-magnetic>アプリを開く</a>}
-            {app.detail && <a href={app.detail} class="btn-secondary" data-magnetic>詳しく見る</a>}
-          </div>
-        )}
+
+        <div class="card-body">
+          <p class="app-desc">{app.description}</p>
+          {app.features && (
+            <ul class="features">
+              {app.features.map(f => (
+                <li>
+                  <span class="feature-dot" style={`background: var(--${app.accent})`}></span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          )}
+          {app.image && (
+            <div class="app-screenshot" data-aos="zoom-in" data-aos-delay="200">
+              <img src={app.image} alt={app.name} />
+            </div>
+          )}
+          {app.status === 'released' && (
+            <div class="app-actions">
+              {app.url && <a href={app.url} target="_blank" rel="noopener noreferrer" class="btn-primary" data-magnetic>アプリを開く</a>}
+              {app.detail && <a href={app.detail} class="btn-secondary" data-magnetic>詳しく見る</a>}
+            </div>
+          )}
+        </div>
       </div>
     ))}
 
-    <div class="policy-card tile" data-aos="fade-up">
-      <div class="policy-bar"></div>
-      <h3>ご利用にあたって</h3>
-      <p>各アプリをご利用いただく際は、以下の規約・ポリシーが適用されます。</p>
-      <div class="policy-links">
-        <a href="/apps/privacy">プライバシーポリシー</a>
-        <a href="/apps/terms">利用規約</a>
+    <div class="policy-card" data-aos="fade-up">
+      <div class="policy-rainbow"></div>
+      <div class="policy-body">
+        <h3>ご利用にあたって</h3>
+        <p>各アプリをご利用いただく際は、以下の規約・ポリシーが適用されます。</p>
+        <div class="policy-links">
+          <a href="/apps/privacy" data-magnetic>プライバシーポリシー</a>
+          <a href="/apps/terms" data-magnetic>利用規約</a>
+        </div>
       </div>
     </div>
   </section>
@@ -108,70 +128,129 @@ const apps = [
 <style>
   .content { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
-  .tile {
+  .app-card {
     background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 22px;
     border: 1px solid rgba(255,255,255,0.8);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .tile:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+  .app-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .app-dim { opacity: 0.6; }
 
-  .app-card { padding: 2rem; margin-bottom: 1.5rem; }
-  .app-dim { opacity: 0.65; }
+  /* Gradient header */
+  .card-header {
+    padding: 1.5rem 2rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    animation: pFloat 6s ease-in-out infinite;
+  }
+  .p1 { top: 20%; right: 12%; animation-delay: 0s; }
+  .p2 { top: 55%; right: 25%; animation-delay: -2s; }
+  .p3 { bottom: 15%; right: 45%; animation-delay: -4s; }
+  @keyframes pFloat {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
+    50% { transform: translateY(-8px) scale(1.3); opacity: 0.5; }
+  }
 
-  .app-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
   .app-icon-wrap {
-    width: 56px; height: 56px; border-radius: 16px;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 52px; height: 52px; border-radius: 14px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
   }
-  .app-icon-wrap img { width: 34px; height: 34px; object-fit: contain; }
-  .accent-red { background: var(--light-red); }
-  .accent-yellow { background: var(--light-yellow); }
-  .accent-green { background: var(--light-green); }
-  .accent-blue { background: var(--light-blue); }
+  .app-icon-wrap img { width: 32px; height: 32px; object-fit: contain; }
 
-  .app-meta h2 { font-size: 1.4rem; font-weight: 700; margin: 0; }
-  .app-subtitle { font-size: 0.8rem; color: #999; font-weight: 400; margin-left: 0.4rem; }
+  .header-text h2 { font-size: 1.4rem; font-weight: 700; margin: 0; }
+  .app-subtitle { font-size: 0.8rem; opacity: 0.8; font-weight: 400; margin-left: 0.4rem; }
 
   .badge { display: inline-block; padding: 0.2rem 0.7rem; border-radius: 8px; font-size: 0.7rem; font-weight: 600; margin-top: 0.25rem; }
-  .badge-yellow { background: var(--light-yellow); color: var(--dark-yellow); }
-  .badge-gray { background: #f0f0f0; color: #999; }
+  .badge-light { background: rgba(255,255,255,0.25); color: white; }
+  .badge-light-dim { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); }
 
+  .card-body { padding: 1.5rem 2rem 2rem; }
   .app-desc { color: #555; line-height: 1.7; margin: 0 0 1rem; }
 
-  .features { padding-left: 1.2rem; color: #555; margin: 0 0 1.5rem; }
-  .features li { margin-bottom: 0.4rem; line-height: 1.6; }
+  .features { list-style: none; padding: 0; color: #555; margin: 0 0 1.5rem; }
+  .features li {
+    display: flex; align-items: center; gap: 0.6rem;
+    margin-bottom: 0.5rem; line-height: 1.6;
+  }
+  .feature-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
   .app-screenshot {
     border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem;
     box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    transition: box-shadow 0.3s;
   }
+  .app-screenshot:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
   .app-screenshot img { width: 100%; height: auto; display: block; }
 
   .app-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
   .btn-primary {
-    padding: 0.7rem 1.8rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
-    background: var(--red); color: white; transition: all 0.2s;
-    box-shadow: 0 4px 12px rgba(234,64,54,0.15);
+    padding: 0.75rem 1.8rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+    background: var(--red); color: white; transition: all 0.25s;
+    box-shadow: 0 4px 16px rgba(234,64,54,0.15);
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(234,64,54,0.25); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(234,64,54,0.25); }
   .btn-secondary {
-    padding: 0.7rem 1.8rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
-    background: #f0f0f0; color: #555; transition: all 0.2s;
+    padding: 0.75rem 1.8rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+    background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.06);
+    color: #555; transition: all 0.25s;
   }
-  .btn-secondary:hover { background: #e5e5e5; transform: translateY(-2px); }
+  .btn-secondary:hover { background: #f0f0f0; transform: translateY(-2px); }
 
-  .policy-card { padding: 2rem; position: relative; overflow: hidden; }
-  .policy-bar { width: 4px; height: 100%; position: absolute; left: 0; top: 0; background: linear-gradient(180deg, var(--red), var(--yellow)); border-radius: 0 4px 4px 0; }
-  .policy-card h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.5rem; }
-  .policy-card p { color: #888; font-size: 0.9rem; margin: 0 0 1rem; }
+  /* Policy card */
+  .policy-card {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    overflow: hidden;
+  }
+  .policy-rainbow {
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--yellow), var(--green), var(--blue));
+    background-size: 200% auto;
+    animation: rainbowFlow 3s linear infinite;
+  }
+  @keyframes rainbowFlow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+  .policy-body { padding: 1.5rem 2rem; }
+  .policy-body h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.5rem; }
+  .policy-body p { color: #888; font-size: 0.9rem; margin: 0 0 1rem; }
   .policy-links { display: flex; gap: 1rem; }
-  .policy-links a { color: var(--blue); font-weight: 600; font-size: 0.9rem; transition: color 0.2s; }
-  .policy-links a:hover { color: var(--dark-blue); }
+  .policy-links a { color: var(--blue); font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+  .policy-links a:hover { color: var(--dark-blue); transform: translateX(2px); }
 
   @media (max-width: 768px) {
-    .app-top { flex-direction: column; align-items: flex-start; }
+    .header-content { flex-direction: column; align-items: flex-start; }
+    .card-header { padding: 1.2rem 1.5rem; }
+    .card-body { padding: 1.2rem 1.5rem 1.5rem; }
   }
 </style>

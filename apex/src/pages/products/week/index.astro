@@ -25,24 +25,28 @@ const features = [
     desc: 'ログイン不要ですぐに使えます。データを保存したい場合は、Googleアカウントでログインすることも可能です。思い立ったその瞬間から、あなたの時間割作成を始められます。',
     img: '/products/week/pr-sub1.png',
     alt: 'ログイン不要ですぐに使えるWeekの画面',
+    color: 'red',
   },
   {
     title: '生活リズムを整える！',
     desc: '特に睡眠時間の習慣化は重要です。その他習慣化したいスケジュールだけ入力しておくのもおすすめです。規則正しい生活で、より良い毎日を送りましょう。',
     img: '/products/week/pr-sub2.png',
     alt: '生活リズムを整えるための時間割設定画面',
+    color: 'yellow',
   },
   {
     title: '便利に！',
     desc: '作成した時間割は画像として保存できます。目的を問わず利用可能です。スマホの壁紙にしたり、SNSでシェアしたり、自由に活用できます。',
     img: '/products/week/pr-sub3.png',
     alt: '時間割を画像として保存する機能',
+    color: 'green',
   },
   {
     title: '自由に！',
     desc: '旅行やイベントの日程共有にも使えます。好きなように使ってください。アイデア次第で、時間割表の可能性は無限大です。',
     img: '/products/week/pr-sub4.png',
     alt: '旅行やイベントにも使える柔軟な時間割',
+    color: 'blue',
   }
 ];
 ---
@@ -66,8 +70,12 @@ const features = [
   <div class="week-page">
     <!-- Hero -->
     <section class="hero">
-      <div class="hero-bg-1"></div>
-      <div class="hero-bg-2"></div>
+      <div class="hero-bg">
+        <div class="hero-block hero-block-1"></div>
+        <div class="hero-block hero-block-2"></div>
+        <div class="hero-block hero-block-3"></div>
+      </div>
+      <div class="hero-grain"></div>
       <div class="hero-content">
         <div class="hero-text" data-aos="fade-right" data-aos-duration="800">
           <div class="hero-title-row">
@@ -94,16 +102,26 @@ const features = [
       </div>
     </section>
 
+    <!-- Rainbow divider -->
+    <div class="rainbow-divider">
+      <div class="rainbow-bar"></div>
+    </div>
+
     <!-- Features -->
-    <section class="features">
-      <h2 class="features-title" data-aos="fade-up">主な機能</h2>
+    <section class="features-section">
+      <div class="features-header" data-aos="fade-up">
+        <span class="section-tag">Features</span>
+        <h2>主な機能</h2>
+      </div>
       {features.map((f, i) => (
-        <article class:list={['feature-row', { reverse: i % 2 === 1 }]} data-aos="fade-up" data-aos-delay={i * 80}>
+        <article class:list={['feature-row', { reverse: i % 2 === 1 }]} data-aos="fade-up" data-aos-delay={String(i * 80)}>
           <div class="feature-text">
+            <div class={`feature-bar bar-${f.color}`}></div>
             <h3>{f.title}</h3>
             <p>{f.desc}</p>
           </div>
-          <div class="feature-img">
+          <div class="feature-img-wrap">
+            <div class={`feature-glow glow-${f.color}`}></div>
             <img src={f.img} alt={f.alt} loading="lazy" width="1920" height="1080" />
           </div>
         </article>
@@ -112,6 +130,11 @@ const features = [
 
     <!-- CTA -->
     <section class="cta-section">
+      <div class="cta-bg">
+        <div class="cta-block cta-block-1"></div>
+        <div class="cta-block cta-block-2"></div>
+      </div>
+      <div class="cta-grain"></div>
       <div class="cta-inner" data-aos="fade-up">
         <h2>今すぐ始めましょう</h2>
         <p>登録不要で使える、完全無料のアプリ。データを保存したい場合はログインも可能です。</p>
@@ -142,15 +165,34 @@ const features = [
     padding: 6rem 1.5rem 4rem;
   }
 
-  .hero-bg-1, .hero-bg-2 {
+  .hero-bg {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.12;
+    inset: 0;
+    overflow: hidden;
     pointer-events: none;
   }
-  .hero-bg-1 { width: 500px; height: 500px; background: var(--red); top: -100px; right: -100px; }
-  .hero-bg-2 { width: 400px; height: 400px; background: var(--yellow); bottom: -80px; left: -80px; }
+  .hero-block {
+    position: absolute;
+    border-radius: 40px;
+    opacity: 0.07;
+    animation: blockFloat 16s ease-in-out infinite;
+  }
+  .hero-block-1 { width: 50%; height: 60%; background: var(--red); top: -15%; right: -10%; animation-duration: 18s; }
+  .hero-block-2 { width: 40%; height: 50%; background: var(--yellow); bottom: -12%; left: -8%; animation-delay: -5s; animation-direction: reverse; }
+  .hero-block-3 { width: 25%; height: 35%; background: var(--blue); top: 20%; left: 30%; opacity: 0.04; animation-delay: -8s; animation-duration: 20s; }
+  @keyframes blockFloat {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    33% { transform: scale(1.06) translate(8px, -5px); }
+    66% { transform: scale(0.97) translate(-5px, 8px); }
+  }
+
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
 
   .hero-content {
     max-width: 1100px;
@@ -246,19 +288,46 @@ const features = [
   .warning-bubble p strong { font-weight: 700; }
   .cta-warning { margin: 0 auto 1.5rem; }
 
+  /* Rainbow divider */
+  .rainbow-divider { padding: 0 1.5rem; }
+  .rainbow-bar {
+    height: 3px;
+    border-radius: 3px;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, var(--red), var(--yellow), var(--green), var(--blue), var(--red));
+    background-size: 200% auto;
+    animation: rainbowFlow 3s linear infinite;
+  }
+  @keyframes rainbowFlow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
   /* Features */
-  .features {
+  .features-section {
     max-width: 1100px;
     margin: 0 auto;
     padding: 3rem 1.5rem 2rem;
   }
 
-  .features-title {
+  .features-header { text-align: center; margin-bottom: 3rem; }
+  .section-tag {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--light-red);
+    color: var(--dark-red);
+    margin-bottom: 0.5rem;
+  }
+  .features-header h2 {
     font-size: 2rem;
     font-weight: 800;
-    text-align: center;
-    color: #1a1a1a;
-    margin: 0 0 3rem;
+    margin: 0.3rem 0 0;
   }
 
   .feature-row {
@@ -271,10 +340,21 @@ const features = [
   .feature-row.reverse { direction: rtl; }
   .feature-row.reverse > * { direction: ltr; }
 
+  .feature-bar {
+    width: 40px;
+    height: 4px;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+  }
+  .bar-red { background: var(--red); }
+  .bar-yellow { background: var(--yellow); }
+  .bar-green { background: var(--green); }
+  .bar-blue { background: var(--blue); }
+
   .feature-text h3 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--red);
+    color: #1a1a1a;
     margin: 0 0 0.75rem;
   }
 
@@ -285,26 +365,70 @@ const features = [
     margin: 0;
   }
 
-  .feature-img {
+  .feature-img-wrap {
+    position: relative;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+    transition: all 0.3s;
   }
-  .feature-img img {
+  .feature-img-wrap:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.12); transform: translateY(-2px); }
+  .feature-img-wrap img {
     width: 100%;
     height: auto;
     display: block;
   }
+  .feature-glow {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0;
+    top: -30px;
+    right: -30px;
+    transition: opacity 0.3s;
+  }
+  .feature-img-wrap:hover .feature-glow { opacity: 0.15; }
+  .glow-red { background: var(--red); }
+  .glow-yellow { background: var(--yellow); }
+  .glow-green { background: var(--green); }
+  .glow-blue { background: var(--blue); }
 
   /* CTA Section */
   .cta-section {
+    position: relative;
+    overflow: hidden;
     background: linear-gradient(135deg, var(--red), var(--dark-red));
     color: white;
     padding: 4rem 1.5rem;
     text-align: center;
   }
 
-  .cta-inner { max-width: 700px; margin: 0 auto; }
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .cta-block {
+    position: absolute;
+    border-radius: 40px;
+    opacity: 0.08;
+    animation: blockFloat 16s ease-in-out infinite;
+  }
+  .cta-block-1 { width: 40%; height: 60%; background: white; top: -20%; right: -10%; animation-duration: 14s; }
+  .cta-block-2 { width: 30%; height: 45%; background: var(--yellow); bottom: -15%; left: -8%; animation-delay: -4s; animation-direction: reverse; }
+
+  .cta-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .cta-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
   .cta-inner h2 {
     font-size: 2rem;
     font-weight: 800;
@@ -363,7 +487,7 @@ const features = [
     .hero-cta { align-self: center; }
     .warning-bubble { margin-left: auto; margin-right: auto; }
     .feature-row, .feature-row.reverse { grid-template-columns: 1fr; direction: ltr; }
-    .features-title { font-size: 1.6rem; }
+    .features-header h2 { font-size: 1.6rem; }
     .feature-text h3 { font-size: 1.3rem; }
     .cta-inner h2 { font-size: 1.6rem; }
   }

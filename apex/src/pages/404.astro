@@ -4,8 +4,12 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 <PageLayout title="ページが見つかりません" description="お探しのページは存在しません">
   <div class="not-found">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
+    <div class="bg-blocks">
+      <div class="bg-block bg-1"></div>
+      <div class="bg-block bg-2"></div>
+      <div class="bg-block bg-3"></div>
+    </div>
+    <div class="grain"></div>
     <div class="card" data-aos="zoom-in">
       <div class="code rainbow-text">404</div>
       <h1>ページが見つかりません</h1>
@@ -26,15 +30,34 @@ import PageLayout from '../layouts/PageLayout.astro';
     overflow: hidden;
   }
 
-  .orb {
+  .bg-blocks {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.1;
+    inset: 0;
+    overflow: hidden;
     pointer-events: none;
   }
-  .orb-1 { width: 400px; height: 400px; background: var(--red); top: 10%; left: 10%; }
-  .orb-2 { width: 300px; height: 300px; background: var(--blue); bottom: 10%; right: 15%; }
+  .bg-block {
+    position: absolute;
+    border-radius: 40px;
+    opacity: 0.07;
+    animation: blockFloat 16s ease-in-out infinite;
+  }
+  .bg-1 { width: 45%; height: 55%; background: var(--red); top: -10%; left: -10%; animation-duration: 18s; }
+  .bg-2 { width: 35%; height: 45%; background: var(--blue); bottom: -10%; right: -8%; animation-delay: -5s; animation-direction: reverse; }
+  .bg-3 { width: 20%; height: 30%; background: var(--yellow); top: 30%; right: 25%; opacity: 0.04; animation-delay: -8s; animation-duration: 20s; }
+  @keyframes blockFloat {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    33% { transform: scale(1.06) translate(8px, -5px); }
+    66% { transform: scale(0.97) translate(-5px, 8px); }
+  }
+
+  .grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
 
   .card { text-align: center; max-width: 480px; position: relative; z-index: 1; }
 

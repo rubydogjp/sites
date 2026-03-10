@@ -12,17 +12,31 @@ import PageHeader from '../components/PageHeader.astro';
   />
 
   <section class="content">
-    <div class="coming-tile tile" data-aos="fade-up">
-      <div class="coming-icon">📦</div>
-      <h2>準備中</h2>
-      <p>今後ライブラリやパッケージを公開予定です。</p>
+    <div class="coming-card" data-aos="fade-up">
+      <div class="coming-glow"></div>
+      <div class="coming-inner">
+        <div class="coming-icon-wrap">
+          <span class="coming-emoji">📦</span>
+          <div class="icon-ring"></div>
+        </div>
+        <h2>準備中</h2>
+        <p>今後ライブラリやパッケージを公開予定です。</p>
+        <div class="coming-dots">
+          <span class="dot dot-1"></span>
+          <span class="dot dot-2"></span>
+          <span class="dot dot-3"></span>
+        </div>
+      </div>
     </div>
 
-    <div class="legacy-tile tile" data-aos="fade-up" data-aos-delay="150">
-      <p>過去に公開した Flutter パッケージのデモサイト</p>
-      <a href="https://rubydogjp-packages.web.app" target="_blank" rel="noopener noreferrer" class="btn" data-magnetic>
-        デモサイトへ移動 →
-      </a>
+    <div class="legacy-card" data-aos="fade-up" data-aos-delay="150">
+      <div class="legacy-bar"></div>
+      <div class="legacy-body">
+        <p>過去に公開した Flutter パッケージのデモサイト</p>
+        <a href="https://rubydogjp-packages.web.app" target="_blank" rel="noopener noreferrer" class="btn" data-magnetic>
+          デモサイトへ移動 →
+        </a>
+      </div>
     </div>
   </section>
 </PageLayout>
@@ -30,30 +44,112 @@ import PageHeader from '../components/PageHeader.astro';
 <style>
   .content { max-width: 600px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
-  .tile {
+  /* Coming soon card */
+  .coming-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    padding: 4rem 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
     background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255,255,255,0.8);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: all 0.35s;
+  }
+  .coming-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+
+  .coming-glow {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--light-blue), var(--light-green));
+    filter: blur(80px);
+    opacity: 0.3;
+    top: -60px;
+    right: -60px;
+    animation: glowPulse 8s ease-in-out infinite alternate;
+  }
+  @keyframes glowPulse {
+    0% { opacity: 0.2; transform: translate(0, 0); }
+    100% { opacity: 0.4; transform: translate(-20px, 20px); }
   }
 
-  .coming-tile {
-    text-align: center; padding: 4rem 2rem; margin-bottom: 1.5rem;
-    border: 2px dashed rgba(0,0,0,0.08);
-    background: linear-gradient(135deg, rgba(208,231,255,0.3), rgba(184,244,208,0.3));
-  }
-  .coming-icon { font-size: 3rem; margin-bottom: 1rem; }
-  .coming-tile h2 { font-size: 1.5rem; font-weight: 700; margin: 0 0 0.5rem; }
-  .coming-tile p { color: #888; }
+  .coming-inner { position: relative; z-index: 1; }
 
-  .legacy-tile { padding: 2rem; text-align: center; }
-  .legacy-tile p { color: #888; margin: 0 0 1rem; font-size: 0.9rem; }
+  .coming-icon-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .coming-emoji { font-size: 3.5rem; position: relative; z-index: 1; }
+  .icon-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, var(--blue), var(--green)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: ringSpin 8s linear infinite;
+  }
+  @keyframes ringSpin { to { transform: rotate(360deg); } }
+
+  .coming-card h2 { font-size: 1.5rem; font-weight: 800; margin: 0 0 0.5rem; }
+  .coming-card p { color: #888; margin: 0; }
+
+  .coming-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    opacity: 0.3;
+    animation: dotBounce 1.4s ease-in-out infinite;
+  }
+  .dot-2 { animation-delay: 0.15s; }
+  .dot-3 { animation-delay: 0.3s; }
+  @keyframes dotBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.3; }
+    50% { transform: translateY(-6px); opacity: 0.7; }
+  }
+
+  /* Legacy card */
+  .legacy-card {
+    display: flex;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: all 0.35s;
+  }
+  .legacy-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+
+  .legacy-bar {
+    width: 5px;
+    background: linear-gradient(180deg, var(--blue), var(--green));
+    flex-shrink: 0;
+  }
+
+  .legacy-body { padding: 1.5rem 2rem; }
+  .legacy-body p { color: #888; margin: 0 0 1rem; font-size: 0.9rem; }
+
   .btn {
     display: inline-block; padding: 0.7rem 2rem; border-radius: 12px;
     background: var(--blue); color: white; font-weight: 600; font-size: 0.9rem;
-    transition: all 0.2s; box-shadow: 0 4px 12px rgba(37,132,252,0.15);
+    transition: all 0.25s; box-shadow: 0 4px 16px rgba(37,132,252,0.15);
   }
-  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,132,252,0.25); }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,132,252,0.25); }
 </style>

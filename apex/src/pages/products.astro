@@ -3,40 +3,70 @@ import PageLayout from '../layouts/PageLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 
 const apps = [
-  { name: 'Week', subtitle: '時間割', icon: '/products/apps/week-icon.png', url: 'https://week.rubydog.jp', detail: '/products/week', status: 'released' },
-  { name: 'Timecard', subtitle: 'タイムカード', icon: '/products/timecard/timecard-icon.png', status: 'coming' },
-  { name: 'Map', subtitle: 'マップ', icon: '/products/apps/map-icon.png', status: 'planned' },
-  { name: 'Event', subtitle: 'イベント', icon: '/products/apps/event-icon.png', status: 'planned' },
+  { name: 'Week', subtitle: '時間割', icon: '/products/apps/week-icon.png', url: 'https://week.rubydog.jp', detail: '/products/week', status: 'released', color: 'red' },
+  { name: 'Timecard', subtitle: 'タイムカード', icon: '/products/timecard/timecard-icon.png', status: 'coming', color: 'yellow' },
+  { name: 'Map', subtitle: 'マップ', icon: '/products/apps/map-icon.png', status: 'planned', color: 'green' },
+  { name: 'Event', subtitle: 'イベント', icon: '/products/apps/event-icon.png', status: 'planned', color: 'blue' },
 ];
 
 const notes = [
   { name: 'Git Note', subtitle: 'Git講座', icon: '/products/notes/gitnote/gitnote-icon.svg', iconType: 'icon', url: 'https://gitnote.rubydog.jp' },
   { name: 'Flutter Note', subtitle: 'Flutter講座', icon: '/products/notes/flutternote/flutternote-profile.png', iconType: 'profile', url: 'https://flutternote.rubydog.jp' },
 ];
+
+const gradients: Record<string, string> = {
+  red: 'linear-gradient(135deg, var(--red), #ff6b5e)',
+  yellow: 'linear-gradient(135deg, var(--yellow), #ffd04a)',
+  green: 'linear-gradient(135deg, var(--green), #2dd660)',
+  blue: 'linear-gradient(135deg, var(--blue), #5da3ff)',
+};
 ---
 
 <PageLayout title="製品一覧" description="Rubydog JP の製品・サービス一覧">
   <PageHeader title="製品一覧" description="Rubydog JP のすべての製品・サービス" accentColor="red" />
 
   <section class="content">
-    <!-- TOC -->
-    <nav class="toc tile" data-aos="fade-up">
-      <a href="#apps" class="toc-pill toc-red">アプリ</a>
-      <a href="#notes" class="toc-pill toc-green">講座</a>
-      <a href="#packages" class="toc-pill toc-blue">ライブラリ</a>
+    <!-- TOC Bento -->
+    <nav class="toc" data-aos="fade-up">
+      <a href="#apps" class="toc-tile toc-red" data-magnetic>
+        <span class="toc-emoji">📱</span>
+        <span class="toc-label">アプリ</span>
+        <span class="toc-count">{apps.length}</span>
+      </a>
+      <a href="#notes" class="toc-tile toc-green" data-magnetic>
+        <span class="toc-emoji">📖</span>
+        <span class="toc-label">講座</span>
+        <span class="toc-count">{notes.length}</span>
+      </a>
+      <a href="#packages" class="toc-tile toc-blue" data-magnetic>
+        <span class="toc-emoji">📦</span>
+        <span class="toc-label">ライブラリ</span>
+        <span class="toc-count">—</span>
+      </a>
     </nav>
 
     <!-- Apps -->
-    <section id="apps" class="group" data-aos="fade-up">
-      <div class="group-head">
-        <div class="group-icon accent-red"><img src="/products/apps/apps-icon.png" alt="アプリ" /></div>
-        <div><h2>アプリ</h2><p>Rubydog JP が開発したWebアプリ</p></div>
+    <section id="apps" class="group">
+      <div class="group-head" data-aos="fade-up">
+        <span class="section-tag tag-red">Apps</span>
+        <h2>アプリ</h2>
+        <p>Rubydog JP が開発したWebアプリ</p>
       </div>
-      <div class="items">
-        {apps.map(app => (
-          <div class:list={['item tile', { dim: app.status !== 'released' }]}>
-            <div class="item-icon accent-red"><img src={app.icon} alt={app.name} /></div>
-            <div class="item-body">
+      <div class="product-grid">
+        {apps.map((app, i) => (
+          <div
+            class:list={['product-tile', { dim: app.status !== 'released' }]}
+            data-aos="fade-up"
+            data-aos-delay={String(i * 80)}
+          >
+            <div class="tile-color-top" style={`background: ${gradients[app.color]}`}>
+              <div class="tile-particle p1"></div>
+              <div class="tile-particle p2"></div>
+            </div>
+            <div class="tile-body">
+              <div class={`product-icon accent-${app.color}`}>
+                <img src={app.icon} alt={app.name} />
+              </div>
               <h3>{app.name} <span class="sub">{app.subtitle}</span></h3>
               {app.status === 'released' && app.url && <a href={app.url} target="_blank" rel="noopener noreferrer" class="item-link">開く →</a>}
               {app.status === 'coming' && <span class="badge badge-yellow">Coming Soon</span>}
@@ -45,96 +75,203 @@ const notes = [
           </div>
         ))}
       </div>
-      <a href="/apps" class="more-link">アプリの詳細ページへ →</a>
+      <a href="/apps" class="more-link" data-magnetic>アプリの詳細ページへ →</a>
     </section>
 
     <!-- Notes -->
-    <section id="notes" class="group" data-aos="fade-up">
-      <div class="group-head">
-        <img src="/products/notes/notes-profile.png" alt="講座" class="group-profile" />
-        <div><h2>講座</h2><p>プログラミングを実践しながら学べるWeb講座</p></div>
+    <section id="notes" class="group">
+      <div class="group-head" data-aos="fade-up">
+        <span class="section-tag tag-green">Notes</span>
+        <h2>講座</h2>
+        <p>プログラミングを実践しながら学べるWeb講座</p>
       </div>
-      <div class="items">
-        {notes.map(note => (
-          <div class="item tile">
-            <div class:list={['item-icon', `accent-green`, { 'is-profile': note.iconType === 'profile' }]}>
-              <img src={note.icon} alt={note.name} />
+      <div class="product-grid grid-2">
+        {notes.map((note, i) => (
+          <a
+            href={note.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="product-tile clickable"
+            data-aos="fade-up"
+            data-aos-delay={String(i * 80)}
+          >
+            <div class="tile-color-top" style="background: linear-gradient(135deg, var(--green), #2dd660)">
+              <div class="tile-particle p1"></div>
+              <div class="tile-particle p2"></div>
             </div>
-            <div class="item-body">
+            <div class="tile-body">
+              <div class:list={['product-icon', 'accent-green', { 'is-profile': note.iconType === 'profile' }]}>
+                <img src={note.icon} alt={note.name} />
+              </div>
               <h3>{note.name} <span class="sub">{note.subtitle}</span></h3>
-              <a href={note.url} target="_blank" rel="noopener noreferrer" class="item-link">開く →</a>
+              <span class="item-link">開く →</span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
-      <a href="/notes" class="more-link">講座の詳細ページへ →</a>
+      <a href="/notes" class="more-link" data-magnetic>講座の詳細ページへ →</a>
     </section>
 
     <!-- Packages -->
-    <section id="packages" class="group" data-aos="fade-up">
-      <div class="group-head">
-        <div class="group-icon accent-blue"><img src="/img/icon.png" alt="ライブラリ" /></div>
-        <div><h2>ライブラリ</h2><p>開発者向けのパッケージやライブラリ</p></div>
+    <section id="packages" class="group">
+      <div class="group-head" data-aos="fade-up">
+        <span class="section-tag tag-blue">Packages</span>
+        <h2>ライブラリ</h2>
+        <p>開発者向けのパッケージやライブラリ</p>
       </div>
-      <div class="coming-box tile">準備中です。今後ライブラリやパッケージを公開予定です。</div>
-      <a href="/packages" class="more-link">ライブラリの詳細ページへ →</a>
+      <div class="coming-tile" data-aos="fade-up">
+        <span class="coming-emoji">📦</span>
+        <p>準備中です。今後ライブラリやパッケージを公開予定です。</p>
+      </div>
+      <a href="/packages" class="more-link" data-magnetic>ライブラリの詳細ページへ →</a>
     </section>
   </section>
 </PageLayout>
 
 <style>
-  .content { max-width: 800px; margin: 0 auto; padding: 1rem 1.5rem 4rem; }
+  .content { max-width: 900px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
 
-  .tile {
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(12px);
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.8);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-    transition: all 0.3s;
+  /* TOC Bento */
+  .toc {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 3rem;
   }
-
-  /* TOC */
-  .toc { display: flex; gap: 0.5rem; justify-content: center; padding: 0.8rem; margin-bottom: 2.5rem; border-radius: 14px; }
-  .toc-pill { padding: 0.5rem 1.5rem; border-radius: 10px; font-weight: 600; font-size: 0.85rem; color: white; transition: all 0.2s; }
-  .toc-pill:hover { transform: scale(1.05); }
-  .toc-red { background: var(--red); }
-  .toc-green { background: var(--green); }
-  .toc-blue { background: var(--blue); }
+  .toc-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 1.2rem 1rem;
+    border-radius: 18px;
+    color: white;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .toc-tile:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+  .toc-red { background: linear-gradient(135deg, var(--red), #ff6b5e); }
+  .toc-green { background: linear-gradient(135deg, var(--green), #2dd660); }
+  .toc-blue { background: linear-gradient(135deg, var(--blue), #5da3ff); }
+  .toc-emoji { font-size: 1.5rem; }
+  .toc-label { font-size: 0.85rem; }
+  .toc-count { font-size: 0.7rem; opacity: 0.7; font-weight: 500; }
 
   /* Groups */
   .group { margin-bottom: 3rem; }
-  .group-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-  .group-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .group-icon img { width: 32px; height: 32px; object-fit: contain; }
-  .group-profile { width: 52px; height: 52px; border-radius: 14px; object-fit: cover; flex-shrink: 0; }
+  .group-head { text-align: center; margin-bottom: 1.5rem; }
+
+  .section-tag {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .tag-red { background: var(--light-red); color: var(--dark-red); }
+  .tag-green { background: var(--light-green); color: var(--dark-green); }
+  .tag-blue { background: var(--light-blue); color: var(--dark-blue); }
+
+  .group-head h2 { font-size: 1.6rem; font-weight: 800; margin: 0.3rem 0 0.2rem; }
+  .group-head p { color: #888; font-size: 0.9rem; margin: 0; }
+
+  /* Product grid */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+  .product-tile {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .product-tile:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
+  .product-tile.clickable { cursor: pointer; }
+  .product-tile.dim { opacity: 0.55; }
+
+  .tile-color-top {
+    height: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tile-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    animation: particleDrift 5s ease-in-out infinite;
+  }
+  .p1 { top: 0; left: 30%; animation-delay: 0s; }
+  .p2 { top: 0; right: 20%; animation-delay: -2.5s; }
+  @keyframes particleDrift {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+    50% { transform: translateY(-4px) scale(1.5); opacity: 0.7; }
+  }
+
+  .tile-body {
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .product-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; overflow: hidden;
+  }
+  .product-icon img { width: 28px; height: 28px; object-fit: contain; }
+  .product-icon.is-profile img { width: 100%; height: 100%; object-fit: cover; }
   .accent-red { background: var(--light-red); }
+  .accent-yellow { background: var(--light-yellow); }
   .accent-green { background: var(--light-green); }
   .accent-blue { background: var(--light-blue); }
-  .group-head h2 { font-size: 1.4rem; font-weight: 700; margin: 0; }
-  .group-head p { color: #888; font-size: 0.85rem; margin: 0.15rem 0 0; }
 
-  /* Items */
-  .items { display: flex; flex-direction: column; gap: 0.75rem; }
-  .item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; }
-  .item:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
-  .dim { opacity: 0.6; }
-  .item-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
-  .item-icon img { width: 28px; height: 28px; object-fit: contain; }
-  .item-icon.is-profile img { width: 100%; height: 100%; object-fit: cover; }
-  .item-body { flex: 1; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-  .item-body h3 { font-size: 1rem; font-weight: 600; margin: 0; }
+  .tile-body h3 { font-size: 1rem; font-weight: 600; margin: 0; flex: 1; }
   .sub { font-size: 0.75rem; color: #999; font-weight: 400; margin-left: 0.3rem; }
-  .item-link { color: var(--red); font-weight: 600; font-size: 0.8rem; margin-left: auto; }
-  .badge { padding: 0.15rem 0.6rem; border-radius: 6px; font-size: 0.65rem; font-weight: 600; margin-left: auto; }
+
+  .item-link { color: var(--red); font-weight: 600; font-size: 0.8rem; transition: transform 0.2s; }
+  .item-link:hover { transform: translateX(3px); }
+
+  .badge { padding: 0.15rem 0.6rem; border-radius: 6px; font-size: 0.65rem; font-weight: 600; }
   .badge-yellow { background: var(--light-yellow); color: var(--dark-yellow); }
   .badge-gray { background: #f0f0f0; color: #999; }
 
-  .coming-box { text-align: center; padding: 2rem; color: #999; border: 2px dashed rgba(0,0,0,0.06); }
-  .more-link { display: block; text-align: right; margin-top: 0.75rem; color: var(--red); font-weight: 600; font-size: 0.85rem; }
+  /* Coming soon */
+  .coming-tile {
+    text-align: center;
+    padding: 3rem 2rem;
+    border: 2px dashed rgba(0,0,0,0.06);
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(208,231,255,0.15), rgba(184,244,208,0.15));
+  }
+  .coming-emoji { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
+  .coming-tile p { color: #999; margin: 0; }
+
+  .more-link {
+    display: block; text-align: right; margin-top: 0.75rem;
+    color: var(--red); font-weight: 600; font-size: 0.85rem;
+    transition: transform 0.2s;
+  }
+  .more-link:hover { transform: translateX(4px); }
 
   @media (max-width: 768px) {
-    .toc { flex-direction: column; align-items: center; }
-    .group-head { flex-direction: column; text-align: center; }
+    .toc { grid-template-columns: 1fr; }
+    .product-grid { grid-template-columns: 1fr; }
   }
 </style>
