@@ -5,6 +5,14 @@
       "public": "apex/dist",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "cleanUrls": true
+    },
+    {
+      "target": "virtualphone",
+      "public": "virtualphone/build/web",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        { "source": "**", "destination": "/index.html" }
+      ]
     }
   ]
 }

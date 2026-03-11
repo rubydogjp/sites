@@ -1,0 +1,45 @@
+name: Deploy VirtualPhone
+
+on:
+  push:
+    branches: [virtualphone]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: "hosting-virtualphone"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        working-directory: ./virtualphone
+        run: flutter pub get
+
+      - name: Build web
+        working-directory: ./virtualphone
+        run: flutter build web --release --base-href=/
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/56802541923/locations/global/workloadIdentityPools/github-actions/providers/github
+          service_account: github-actions@rubydogcloud.iam.gserviceaccount.com
+
+      - name: Deploy to Firebase Hosting
+        run: |
+          export FIREBASE_TOKEN=$(gcloud auth print-access-token)
+          npx firebase-tools deploy --only hosting:virtualphone --project=rubydogcloud --non-interactive

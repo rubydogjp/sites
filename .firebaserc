@@ -7,6 +7,9 @@
       "hosting": {
         "apex": [
           "rubydogcloud"
+        ],
+        "virtualphone": [
+          "rubydogjp-virtualphone"
         ]
       }
     }
